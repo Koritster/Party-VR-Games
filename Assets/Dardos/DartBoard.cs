@@ -9,7 +9,6 @@ public class DartBoard : MonoBehaviour
     public int CalculateScore(Vector3 hitPoint)
     {
         // Lógica para calcular el puntaje basado en la posición del impacto
-        // Esto es un ejemplo simplificado
         float distanceFromCenter = Vector3.Distance(hitPoint, transform.position);
 
         if (distanceFromCenter < 0.05f) return 50; // Centro

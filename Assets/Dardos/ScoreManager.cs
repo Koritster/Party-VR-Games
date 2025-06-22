@@ -4,7 +4,8 @@ using UnityEngine;
 using Unity.Netcode;
 using TMPro;
 
-public class ScoreManager : MonoBehaviour
+// Cambia MonoBehaviour por NetworkBehaviour
+public class ScoreManager : NetworkBehaviour
 {
     public static ScoreManager Instance;
 
