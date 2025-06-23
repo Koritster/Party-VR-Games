@@ -8,24 +8,30 @@ using UnityEngine.SceneManagement;
 // Cambia MonoBehaviour por NetworkBehaviour
 public class DartController : NetworkBehaviour
 {
-    public float throwForce = 10f;// Fuerza con la que se lanza el dardo
-    private Rigidbody rb; // Componente de físicas del dardo
-    private bool hasBeenThrown = false; // Flag para controlar si el dardo fue lanzado
+    public float throwForce = 10f;
+    private Rigidbody rb;
+    private bool hasBeenThrown = false;
+    public Collider tipCollider; // Asigna el collider de la punta en el Inspector
+    public Collider bodyCollider; // Asigna el collider principal del dardo
 
     void Start()
     {
-        // Obtenemos el componente Rigidbody al inicio
         rb = GetComponent<Rigidbody>();
+
+        // Desactivamos la detección de colisión entre los colliders del dardo
+        if (tipCollider != null && bodyCollider != null)
+        {
+            Physics.IgnoreCollision(tipCollider, bodyCollider);
+        }
     }
 
-    // Método para lanzar el dardo
     public void ThrowDart(Vector3 force)
     {
-        // Solo si el dardo no ha sido lanzado aún
         if (!hasBeenThrown)
         {
             rb.isKinematic = false;
             rb.AddForce(force * throwForce, ForceMode.Impulse);
+            rb.AddTorque(transform.right * 5f, ForceMode.Impulse); // Rotación
             hasBeenThrown = true;
 
             if (IsServer)
@@ -35,41 +41,74 @@ public class DartController : NetworkBehaviour
         }
     }
 
-    // Método RPC para sincronizar el lanzamiento en clientes
     [ClientRpc]
     private void ThrowDartClientRpc(Vector3 force)
     {
-        // Detección de colisión
         if (!IsOwner && !hasBeenThrown)
         {
             rb.isKinematic = false;
             rb.AddForce(force * throwForce, ForceMode.Impulse);
+            rb.AddTorque(transform.right * 5f, ForceMode.Impulse);
             hasBeenThrown = true;
         }
     }
 
-    // Detección de colisión
-    private void OnCollisionEnter(Collision collision)
+    //Solo detectar colisiones con la punta
+    private void OnTriggerEnter(Collider other)
     {
-        if (hasBeenThrown)
+        if (!hasBeenThrown || !tipCollider.enabled) return;
+
+        // Verificamos que no sea el tablero u otra superficie clavadle
+        if (other.gameObject.CompareTag("DartBoard") || other.gameObject.CompareTag("Wall"))
         {
-            rb.isKinematic = true; // Se queda clavado
-            ScoreDart(collision);
+            StickDart(other.transform);
+            ScoreDart(other);
         }
     }
 
-    // Método para calcular el puntaje
-    private void ScoreDart(Collision collision)
+    private void StickDart(Transform surface)
     {
-        DartBoard dartBoard = collision.gameObject.GetComponent<DartBoard>();
+        // Desactivamos físicas y colliders
+        rb.isKinematic = true;
+        tipCollider.enabled = false;
+        bodyCollider.enabled = false;
+
+        // Orientamos el dardo según la superficie
+        Vector3 forward = -transform.forward;
+        Vector3 normal = surface.forward; // Asume superficie plana, ajusta según necesidad
+
+        // Alineamos el dardo con la normal de la superficie
+        transform.rotation = Quaternion.LookRotation(forward, normal);
+
+        // Movemos ligeramente el dardo hacia atrás para que no se hunda
+        transform.position -= transform.forward * 0.02f;
+
+        // Replicamos en red
+        if (IsServer)
+        {
+            StickDartClientRpc();
+        }
+    }
+
+    [ClientRpc]
+    private void StickDartClientRpc()
+    {
+        if (!IsOwner)
+        {
+            rb.isKinematic = true;
+            tipCollider.enabled = false;
+            bodyCollider.enabled = false;
+        }
+    }
+
+    private void ScoreDart(Collider other)
+    {
+        DartBoard dartBoard = other.GetComponent<DartBoard>();
         if (dartBoard != null)
         {
-            // Obtenemos el punto de impacto
-            Vector3 hitPoint = collision.contacts[0].point;
-            // Calculamos el puntaje
+            Vector3 hitPoint = tipCollider.transform.position;
             int score = dartBoard.CalculateScore(hitPoint);
 
-            // Si somos el servidor, actualizamos el puntaje en todos los clientes
             if (IsServer)
             {
                 UpdateScoreClientRpc(score, OwnerClientId);
@@ -77,12 +116,9 @@ public class DartController : NetworkBehaviour
         }
     }
 
-    // Método RPC para actualizar el puntaje en todos los clientes
     [ClientRpc]
     private void UpdateScoreClientRpc(int score, ulong clientId)
     {
-
-        // Llamamos al ScoreManager para actualizar el marcador
         ScoreManager.Instance.UpdateScore(clientId, score);
     }
 }

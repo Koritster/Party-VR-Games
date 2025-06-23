@@ -38,11 +38,5 @@ public class ScoreManager : NetworkBehaviour
 
     private void Update()
     {
-        // Actualizar UI (esto se sincroniza automáticamente con NetworkVariables)
-        if (playerScoreTexts.Length > 0)
-            playerScoreTexts[0].text = "Jugador 1: " + player1Score.Value;
-
-        if (playerScoreTexts.Length > 1)
-            playerScoreTexts[1].text = "Jugador 2: " + player2Score.Value;
     }
 }
