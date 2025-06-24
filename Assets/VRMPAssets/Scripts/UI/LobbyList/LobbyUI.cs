@@ -106,7 +106,7 @@ namespace XRMultiplayer
                 m_RoomNameText.text = $"{XRINetworkGameManager.LocalPlayerName.Value}'s Room";
             }
             XRINetworkGameManager.Instance.CreateNewLobby(m_RoomNameText.text, m_Private, m_PlayerCount);
-            m_ConnectionSuccessText.text = $"Joining {m_RoomNameText.text}";
+            m_ConnectionSuccessText.text = $"KKKKKJoining {m_RoomNameText.text}";
         }
 
         public void UpdatePlayerCount(int count)
@@ -150,7 +150,7 @@ namespace XRMultiplayer
             ToggleConnectionSubPanel(2);
             XRINetworkGameManager.Connected.Subscribe(OnConnected);
             XRINetworkGameManager.Instance.JoinLobbySpecific(lobby);
-            m_ConnectionSuccessText.text = $"Joining {lobby.Name}";
+            m_ConnectionSuccessText.text = $"KKKKKJoining {lobby.Name}";
         }
 
         public void QuickJoinLobby()
