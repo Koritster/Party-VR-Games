@@ -106,7 +106,8 @@ namespace XRMultiplayer
                 m_RoomNameText.text = $"{XRINetworkGameManager.LocalPlayerName.Value}'s Room";
             }
             XRINetworkGameManager.Instance.CreateNewLobby(m_RoomNameText.text, m_Private, m_PlayerCount);
-            m_ConnectionSuccessText.text = $"KKKKKJoining {m_RoomNameText.text}";
+            m_ConnectionSuccessText.text = $"Joining {m_RoomNameText.text}";
+            Debug.Log("Creando KoriLobby");
         }
 
         public void UpdatePlayerCount(int count)
@@ -150,7 +151,8 @@ namespace XRMultiplayer
             ToggleConnectionSubPanel(2);
             XRINetworkGameManager.Connected.Subscribe(OnConnected);
             XRINetworkGameManager.Instance.JoinLobbySpecific(lobby);
-            m_ConnectionSuccessText.text = $"KKKKKJoining {lobby.Name}";
+            m_ConnectionSuccessText.text = $"Joining {lobby.Name}";
+            Debug.Log($"Uniendote a la Korisala {lobby.Name}");
         }
 
         public void QuickJoinLobby()
@@ -158,6 +160,7 @@ namespace XRMultiplayer
             XRINetworkGameManager.Connected.Subscribe(OnConnected);
             XRINetworkGameManager.Instance.QuickJoinLobby();
             m_ConnectionSuccessText.text = "Joining Random";
+            Debug.Log("Uniendote con pendejos al azar");
         }
 
         public void SetVoiceChatAudidibleDistance(int audibleDistance)
