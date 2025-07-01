@@ -74,6 +74,7 @@ namespace XRMultiplayer.MiniGames
         [Header("Transform References")]
         [SerializeField] Transform m_ScoreboardTransform;
         [SerializeField] Transform m_ScoreboardInGameTransform;
+        //Lugar a donde se teletransportan los jugadores
         [SerializeField] Transform m_JoinTeleportTransform;
         [SerializeField] Transform m_LeaveTeleportTransform;
         [SerializeField] Transform m_FinishTeleportTransform;
@@ -646,19 +647,24 @@ namespace XRMultiplayer.MiniGames
         [ClientRpc]
         void AddPlayerClientRpc(ulong clientId)
         {
+            //Verifica que no haya más de 2 jugadores
             if (currentPlayerDictionary.Count < maxAllowedPlayers)
             {
+                //Comprueba si el juego no ha iniciado
                 if (networkedGameState.Value != GameState.PostGame)
                 {
                     AddPlayerToList(clientId);
                 }
 
+                //Verifica que la id del cliente sea la del jugador local, no confundir con el jugador host
                 if (clientId == XRINetworkPlayer.LocalPlayer.OwnerClientId)
                 {
                     m_LocalPlayerInGame = true;
-                    m_TeleportZonesObject.SetActive(true);
+                    //Activa los teleport Anchor
+                    //m_TeleportZonesObject.SetActive(true);
                     m_DynamicButton.UpdateButton(RemoveLocalPlayer, "Leave");
 
+                    //Define el punto de teletransporte
                     TeleportRequest teleportRequest = new()
                     {
                         destinationPosition = m_JoinTeleportTransform.position,

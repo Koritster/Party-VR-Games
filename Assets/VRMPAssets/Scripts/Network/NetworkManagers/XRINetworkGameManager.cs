@@ -7,6 +7,7 @@ using Unity.XR.CoreUtils.Bindings.Variables;
 using UnityEngine;
 using Unity.Services.Lobbies;
 using UnityEditor;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 
 namespace XRMultiplayer
 {
@@ -49,7 +50,7 @@ namespace XRMultiplayer
         /// <summary>
         /// Max amount of players allowed when creating a new room.
         /// </summary>
-        public const int maxPlayers = 20;
+        public const int maxPlayers = 2;
 
         /// <summary>
         /// Singleton Reference for access to this manager.
@@ -166,6 +167,10 @@ namespace XRMultiplayer
         bool m_IsShuttingDown = false;
 
         const string k_DebugPrepend = "<color=#FAC00C>[Network Game Manager]</color> ";
+
+        [SerializeField] private GameObject localPlayer;
+        [SerializeField] private Transform hostTeleportPoint;
+        [SerializeField] private Transform clientTeleportPoint;
 
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
@@ -514,13 +519,32 @@ namespace XRMultiplayer
                 ConnectedRoomCode = m_LobbyManager.connectedLobby.LobbyCode;
                 ConnectedRoomName.Value = m_LobbyManager.connectedLobby.Name;
 
+                TeleportationProvider m_TeleportationProvider = localPlayer.GetComponentInChildren<TeleportationProvider>();
+                Vector3 destination;
+                Quaternion rotation;
+
                 if (m_LobbyManager.connectedLobby.HostId == AuthenicationId)
                 {
                     connected = NetworkManager.Singleton.StartHost();
+                    destination = hostTeleportPoint.position;
+                    rotation = hostTeleportPoint.rotation;
                 }
                 else
                 {
                     connected = NetworkManager.Singleton.StartClient();
+                    destination = clientTeleportPoint.position;
+                    rotation = hostTeleportPoint.rotation;
+                }
+
+                TeleportRequest teleportRequest = new()
+                {
+                    destinationPosition = destination,
+                    destinationRotation = rotation
+                };
+
+                if (!m_TeleportationProvider.QueueTeleportRequest(teleportRequest))
+                {
+                    Utils.LogWarning("Failed to queue teleport request");
                 }
             }
             else

@@ -152,7 +152,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
                 m_RayInteractor.uiHoverExited.AddListener(OnUIHoverExited);
             }
 
-            var teleportModeAction = GetInputAction(m_TeleportMode);
+            /*var teleportModeAction = GetInputAction(m_TeleportMode);
             if (teleportModeAction != null)
             {
                 teleportModeAction.performed += OnStartTeleport;
@@ -186,7 +186,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
             {
                 snapTurnAction.started += OnStartLocomotion;
                 snapTurnAction.canceled += OnStopLocomotion;
-            }
+            }*/
         }
 
         void TeardownInteractorEvents()
@@ -207,7 +207,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
                 m_RayInteractor.uiHoverExited.RemoveListener(OnUIHoverExited);
             }
 
-            var teleportModeAction = GetInputAction(m_TeleportMode);
+            /*var teleportModeAction = GetInputAction(m_TeleportMode);
             if (teleportModeAction != null)
             {
                 teleportModeAction.performed -= OnStartTeleport;
@@ -241,10 +241,10 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
             {
                 snapTurnAction.started -= OnStartLocomotion;
                 snapTurnAction.canceled -= OnStopLocomotion;
-            }
+            }*/
         }
 
-        void OnStartTeleport(InputAction.CallbackContext context)
+        /*void OnStartTeleport(InputAction.CallbackContext context)
         {
             m_PostponedDeactivateTeleport = false;
 
@@ -275,7 +275,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
                 m_NearFarInteractor.gameObject.SetActive(true);
 
             m_RayInteractorChanged?.Invoke(m_RayInteractor);
-        }
+        }*/
         
         void OnNearFarSelectionRegionChanged(NearFarInteractor.Region selectionRegion)
         {
@@ -286,7 +286,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
                 UpdateLocomotionActions();
         }
 
-        void OnStartLocomotion(InputAction.CallbackContext context)
+        /*void OnStartLocomotion(InputAction.CallbackContext context)
         {
             m_LocomotionUsers.Add(context.action);
         }
@@ -300,7 +300,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
                 DisableAllLocomotionActions();
                 UpdateUIActions();
             }
-        }
+        }*/
 
         void OnRaySelectEntered(SelectEnterEventArgs args)
         {
