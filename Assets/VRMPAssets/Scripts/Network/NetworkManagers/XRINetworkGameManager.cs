@@ -7,7 +7,6 @@ using Unity.XR.CoreUtils.Bindings.Variables;
 using UnityEngine;
 using Unity.Services.Lobbies;
 using UnityEditor;
-using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 
 namespace XRMultiplayer
 {
@@ -519,33 +518,27 @@ namespace XRMultiplayer
                 ConnectedRoomCode = m_LobbyManager.connectedLobby.LobbyCode;
                 ConnectedRoomName.Value = m_LobbyManager.connectedLobby.Name;
 
-                TeleportationProvider m_TeleportationProvider = localPlayer.GetComponentInChildren<TeleportationProvider>();
-                Vector3 destination;
-                Quaternion rotation;
+                PlayerLocalInfo playerInfo = localPlayer.GetComponent<PlayerLocalInfo>();
 
                 if (m_LobbyManager.connectedLobby.HostId == AuthenicationId)
                 {
                     connected = NetworkManager.Singleton.StartHost();
-                    destination = hostTeleportPoint.position;
-                    rotation = hostTeleportPoint.rotation;
+                    
+                    playerInfo.isHost = true;
+                    playerInfo.hubSpot = hostTeleportPoint;
+
+                    playerInfo.TeleportPlayer();
                 }
                 else
                 {
                     connected = NetworkManager.Singleton.StartClient();
-                    destination = clientTeleportPoint.position;
-                    rotation = hostTeleportPoint.rotation;
+
+                    playerInfo.hubSpot = clientTeleportPoint;
+
+                    playerInfo.TeleportPlayer();
                 }
 
-                TeleportRequest teleportRequest = new()
-                {
-                    destinationPosition = destination,
-                    destinationRotation = rotation
-                };
-
-                if (!m_TeleportationProvider.QueueTeleportRequest(teleportRequest))
-                {
-                    Utils.LogWarning("Failed to queue teleport request");
-                }
+                playerInfo.isConnected = true;
             }
             else
             {

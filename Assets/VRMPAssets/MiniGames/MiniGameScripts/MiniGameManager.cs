@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.Netcode;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
@@ -96,6 +97,7 @@ namespace XRMultiplayer.MiniGames
         NetworkList<ulong> m_QueuedUpPlayers;
         readonly NetworkVariable<float> m_BestAllScore = new(0.0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
         TeleportationProvider m_LocalPlayerTeleportProvider;
+        PlayerLocalInfo localPlayer;
 
         float m_CurrentTimer = 0.0f;
         Pose m_ScoreboardStartPose;
@@ -111,6 +113,7 @@ namespace XRMultiplayer.MiniGames
             }
 
             m_LocalPlayerTeleportProvider = FindFirstObjectByType<TeleportationProvider>();
+            localPlayer = FindFirstObjectByType<PlayerLocalInfo>();
 
             m_TeleportZonesObject.SetActive(false);
             m_BestAllText.text = "<b>Current Record</b>: No Record Set";
@@ -340,7 +343,9 @@ namespace XRMultiplayer.MiniGames
             if (LocalPlayerInGame)
             {
                 ToggleShrink(false);
-                TeleportToArea(m_LeaveTeleportTransform);
+                //TeleportToArea(m_LeaveTeleportTransform);
+                localPlayer.TeleportPlayer();
+                
                 m_BarrierRend.gameObject.SetActive(true);
                 m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
             }
@@ -605,6 +610,7 @@ namespace XRMultiplayer.MiniGames
         /// </summary>
         public void AddLocalPlayer()
         {
+            Debug.Log("Jugador agregado al lobby del minijuego");
             m_DynamicButton.button.interactable = false;
             AddPlayerServerRpc(XRINetworkPlayer.LocalPlayer.OwnerClientId);
         }
@@ -644,6 +650,7 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
+        //Añadir jugador a la partida
         [ClientRpc]
         void AddPlayerClientRpc(ulong clientId)
         {
@@ -723,7 +730,8 @@ namespace XRMultiplayer.MiniGames
                 ToggleShrink(false);
                 currentMiniGame.RemoveInteractables();
                 PlayerHudNotification.Instance.ShowText($"Left {currentMiniGame.gameName}");
-                TeleportToArea(m_LeaveTeleportTransform);
+                //TeleportToArea(m_LeaveTeleportTransform);
+                localPlayer.TeleportPlayer();
                 m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
                 m_BarrierRend.gameObject.SetActive(true);
             }
