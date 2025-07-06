@@ -159,6 +159,7 @@ namespace XRMultiplayer
         /// See <see cref="GetPlayerByID"/>
         /// </summary>
         readonly List<ulong> m_CurrentPlayerIDs = new();
+        public List<ulong> CurrentPlayerIDs;
 
         /// <summary>
         /// Flagged whenever the application is in the process of shutting down.
@@ -361,6 +362,7 @@ namespace XRMultiplayer
             if (!m_CurrentPlayerIDs.Contains(playerID))
             {
                 m_CurrentPlayerIDs.Add(playerID);
+                CurrentPlayerIDs.Add(playerID);
                 playerStateChanged?.Invoke(playerID, true);
             }
             else

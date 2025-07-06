@@ -294,7 +294,8 @@ namespace XRMultiplayer.MiniGames
 
             m_GameStateText.text = "Pre Game";
 
-            m_DynamicButton.UpdateButton(AddLocalPlayer, "Join");
+            //m_DynamicButton.UpdateButton(AddLocalPlayer, "Join");
+            m_DynamicButton.UpdateButton(AddAllPlayers, "Join");
             StartCoroutine(ResetReadyZones());
         }
 
@@ -613,6 +614,19 @@ namespace XRMultiplayer.MiniGames
             Debug.Log("Jugador agregado al lobby del minijuego");
             m_DynamicButton.button.interactable = false;
             AddPlayerServerRpc(XRINetworkPlayer.LocalPlayer.OwnerClientId);
+        }
+
+        public void AddAllPlayers()
+        {
+            List<ulong> playersID = XRINetworkGameManager.Instance.CurrentPlayerIDs;
+
+            m_DynamicButton.button.interactable = false;
+            Debug.Log("Agregando a todos los jugadores");
+
+            foreach(ulong id in playersID)
+            {
+                AddPlayerServerRpc(id);
+            }
         }
 
         /// <summary>

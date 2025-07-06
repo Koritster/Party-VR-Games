@@ -551,7 +551,7 @@ PrefabInstance:
     - target: {fileID: 3992934537725953122, guid: 208c2548f5e1da646af2d1b9e3cf4cf9,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4719646798650747941, guid: 208c2548f5e1da646af2d1b9e3cf4cf9,
         type: 3}
@@ -562,6 +562,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mini Game - Whack A Pig (Variant)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023105390028254722, guid: 208c2548f5e1da646af2d1b9e3cf4cf9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7105102053770281759, guid: 208c2548f5e1da646af2d1b9e3cf4cf9,
         type: 3}
@@ -7626,7 +7631,7 @@ PrefabInstance:
     - target: {fileID: 950452678824256546, guid: 03490eaf7fd83564291a84ec3e4015ad,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 996697081011487312, guid: 03490eaf7fd83564291a84ec3e4015ad,
         type: 3}
@@ -8530,6 +8535,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mini Game - Slingshot (Variant)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570323351429697090, guid: 03490eaf7fd83564291a84ec3e4015ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6776775484966725014, guid: 03490eaf7fd83564291a84ec3e4015ad,
         type: 3}
