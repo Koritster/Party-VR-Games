@@ -114,7 +114,7 @@ namespace XRMultiplayer.MiniGames
             m_CurrentTimer -= deltaTime;
             if (m_GameType == GameType.Score)
             {
-                m_MiniGameManager.m_GameStateText.text = $"Time: {m_CurrentTimer:F0}";
+                //m_MiniGameManager.m_GameStateText.text = $"Time: {m_CurrentTimer:F0}";
             }
             CheckForGameEnd();
         }
