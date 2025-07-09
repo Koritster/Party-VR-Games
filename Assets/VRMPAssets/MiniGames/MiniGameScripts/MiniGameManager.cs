@@ -51,7 +51,7 @@ namespace XRMultiplayer.MiniGames
 
         [Header("UI")]
         //public TMP_Text m_GameStateText;
-        //[SerializeField] TMP_Text m_BestAllText;
+        [SerializeField] TMP_Text m_BestAllText;
         [SerializeField] TMP_Text m_GameNameText;
         [SerializeField, Tooltip("Prefab used for scoreboard ui slots")] GameObject m_PlayerScoreboardSlotPrefab;
         [SerializeField, Tooltip("Prefab used for scoreboard ui slots")] Transform m_ContentListParent;
@@ -116,7 +116,7 @@ namespace XRMultiplayer.MiniGames
             localPlayer = FindFirstObjectByType<PlayerLocalInfo>();
 
             m_TeleportZonesObject.SetActive(false);
-            //m_BestAllText.text = "<b>Current Record</b>: No Record Set";
+            m_BestAllText.text = "<b>Current Record</b>: No Record Set";
             m_ScoreboardStartPose = new Pose(m_ScoreboardTransform.position, m_ScoreboardTransform.rotation);
             m_GameNameText.text = currentMiniGame.gameName;
 
@@ -180,7 +180,7 @@ namespace XRMultiplayer.MiniGames
             networkedGameState.OnValueChanged += GameStateValueChanged;
             m_BestAllScore.OnValueChanged += BestAllScoreChanged;
             m_CurrentPlayers.OnListChanged += UpdatePlayerList;
-            //UpdateBestScore(m_BestAllScore.Value, m_BestAllText);
+            UpdateBestScore(m_BestAllScore.Value, m_BestAllText);
 
             if (IsServer)
             {
@@ -237,18 +237,18 @@ namespace XRMultiplayer.MiniGames
         {
             if (m_BestAllScore.Value <= 0.0f)
             {
-                //m_BestAllText.text = $"<b>Current Record</b>: No Record Set";
+                m_BestAllText.text = $"<b>Current Record</b>: No Record Set";
             }
             else
             {
                 if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
                 {
                     TimeSpan time = TimeSpan.FromSeconds(current);
-                    //m_BestAllText.text = $"<b>Current Record</b>: {time.ToString(TIME_FORMAT)}";
+                    m_BestAllText.text = $"<b>Current Record</b>: {time.ToString(TIME_FORMAT)}";
                 }
                 else
                 {
-                    //m_BestAllText.text = $"<b>Current Record</b>: {current:N0}";
+                    m_BestAllText.text = $"<b>Current Record</b>: {current:N0}";
                 }
             }
         }

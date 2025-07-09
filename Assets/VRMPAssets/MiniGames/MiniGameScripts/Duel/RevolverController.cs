@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasketBallController : MonoBehaviour
+public class RevolverController : MonoBehaviour
 {
     private Vector3 originPosition;
     private Rigidbody rb;
@@ -15,10 +15,10 @@ public class BasketBallController : MonoBehaviour
 
     public void DelayMove()
     {
-        Invoke(nameof(MoveBall), 4f);
+        Invoke(nameof(MoveRevolver), 4f);
     }
 
-    public void MoveBall()
+    public void MoveRevolver()
     {
         rb.isKinematic = true;
         this.transform.position = originPosition;
