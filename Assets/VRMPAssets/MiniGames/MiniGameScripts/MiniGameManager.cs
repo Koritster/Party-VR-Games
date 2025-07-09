@@ -623,10 +623,23 @@ namespace XRMultiplayer.MiniGames
             m_DynamicButton.button.interactable = false;
             Debug.Log("Agregando a todos los jugadores");
 
-            foreach(ulong id in playersID)
+            foreach (ulong id in playersID)
             {
                 AddPlayerServerRpc(id);
             }
+
+            foreach (var clientId in m_QueuedUpPlayers)
+            {
+                if (XRINetworkGameManager.Instance.GetPlayerByID(clientId, out var player))
+                {
+                    if (currentPlayerDictionary.ContainsKey(player))
+                    {
+                        currentPlayerDictionary[player].isReady = true;
+                    }
+                }
+            }
+
+            CheckPlayersReady();
         }
 
         /// <summary>
