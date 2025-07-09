@@ -53,8 +53,8 @@ namespace XRMultiplayer.MiniGames
         //public TMP_Text m_GameStateText;
         //[SerializeField] TMP_Text m_BestAllText;
         [SerializeField] TMP_Text m_GameNameText;
-        //[SerializeField, Tooltip("Prefab used for scoreboard ui slots")] GameObject m_PlayerScoreboardSlotPrefab;
-        //[SerializeField, Tooltip("Prefab used for scoreboard ui slots")] Transform m_ContentListParent;
+        [SerializeField, Tooltip("Prefab used for scoreboard ui slots")] GameObject m_PlayerScoreboardSlotPrefab;
+        [SerializeField, Tooltip("Prefab used for scoreboard ui slots")] Transform m_ContentListParent;
         [SerializeField] TextButton m_DynamicButton;
 
         /*[Header("Video Player")]
@@ -144,7 +144,7 @@ namespace XRMultiplayer.MiniGames
                 }
             }
 
-            //SetupPlayerSlots();
+            SetupPlayerSlots();
         }
 
         /// <inheritdoc/>
@@ -664,11 +664,11 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        //Añadir jugador a la partida
+        //Aï¿½adir jugador a la partida
         [ClientRpc]
         void AddPlayerClientRpc(ulong clientId)
         {
-            //Verifica que no haya más de 2 jugadores
+            //Verifica que no haya mï¿½s de 2 jugadores
             if (currentPlayerDictionary.Count < maxAllowedPlayers)
             {
                 //Comprueba si el juego no ha iniciado
@@ -984,7 +984,7 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        /*void SetupPlayerSlots()
+        void SetupPlayerSlots()
         {
             for (int i = 0; i < maxAllowedPlayers; i++)
             {
@@ -992,6 +992,6 @@ namespace XRMultiplayer.MiniGames
                 m_ScoreboardSlots.Add(slot);
                 slot.SetSlotOpen();
             }
-        }*/
+        }
     }
 }

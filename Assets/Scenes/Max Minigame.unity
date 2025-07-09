@@ -344,6 +344,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 1021248675
       objectReference: {fileID: 0}
+    - target: {fileID: 3327419401358733279, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1136357151
+      objectReference: {fileID: 0}
     - target: {fileID: 3463703598496649971, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -399,6 +404,21 @@ PrefabInstance:
       propertyPath: currentMiniGame
       value: 
       objectReference: {fileID: 23108239}
+    - target: {fileID: 4762794068929530125, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926013892795742171, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705584677841132462, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_text
+      value: Basketball
+      objectReference: {fileID: 0}
     - target: {fileID: 6836931626568962808, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -408,6 +428,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8889579382192094213, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_StartHidden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8889579382192094213, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_DisableCanvasGroupObject
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9013392365747826283, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
@@ -5497,6 +5527,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2653726216
+      objectReference: {fileID: 0}
+    - target: {fileID: 3327419401358733279, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1136357151
       objectReference: {fileID: 0}
     - target: {fileID: 3463703598496649971, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
