@@ -15,7 +15,7 @@ public class RevolverController : MonoBehaviour
 
     public void DelayMove()
     {
-        Invoke(nameof(MoveRevolver), 4f);
+        Invoke(nameof(MoveRevolver), 8f);
     }
 
     public void MoveRevolver()

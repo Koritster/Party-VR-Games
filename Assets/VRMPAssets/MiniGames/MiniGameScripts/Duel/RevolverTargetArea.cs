@@ -1,17 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using XRMultiplayer;
 
 public class RevolverTargetArea : MonoBehaviour
 {
-    public MiniGameDuel basketballManager;
+    public MiniGameDuel revolverManager;
 
-    public void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.gameObject.CompareTag("Bullet"))
+        if (revolverManager == null)
         {
-            //Increment player score
-            basketballManager.localPlayerHitTarget(10);
+            revolverManager = FindObjectOfType<MiniGameDuel>();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            Projectile projectile = other.GetComponent<Projectile>();
+
+
+                // Sumar puntos
+                revolverManager.localPlayerHitTarget(10);
+
+                // Destruir o reciclar el proyectil
+                projectile.ResetProjectile(); // o ReturnToPool(), según cómo lo manejes
+
+
+            
         }
     }
 }

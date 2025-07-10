@@ -12,17 +12,17 @@ public class RevolverNetworkProjectile : NetworkBehaviour
     [Tooltip("The point that the project is created")]
     Transform m_StartPoint = null;
 
-    // [SerializeField]
-    // [Tooltip("The projectile that's created")]
+    [SerializeField]
+    [Tooltip("The projectile that's created")]
     // GameObject m_ProjectilePrefab = null;
 
-    [SerializeField]
-    [Tooltip("The speed at which the projectile is launched")]
+    // [SerializeField]
+    // [Tooltip("The speed at which the projectile is launched")]
     float m_LaunchSpeed = 1000f;
 
     [SerializeField]
     [Tooltip("The speed at which the projectile is launched")]
-    int m_MaxProjectilesAllowed = 15;
+    int m_MaxProjectilesAllowed = 1;
     readonly List<Projectile> m_ProjectileQueue = new();
 
     [Header("Audio")]
@@ -74,6 +74,8 @@ public class RevolverNetworkProjectile : NetworkBehaviour
             }
 
             GameObject newObject = m_ProjectilePooler.GetItem();
+            newObject.tag = "Bullet";
+
             if (!newObject.TryGetComponent(out Projectile projectile))
             {
                 Utils.Log("Projectile component not found on projectile object.", 1);
@@ -82,6 +84,7 @@ public class RevolverNetworkProjectile : NetworkBehaviour
 
             projectile.transform.SetPositionAndRotation(m_StartPoint.position, m_StartPoint.rotation);
             projectile.Setup(IsOwner, fireColor, OnProjectileDestroy);
+            
             m_AudioSource.PlayOneShot(m_AudioClip);
 
             if (newObject.TryGetComponent(out Rigidbody rigidBody))

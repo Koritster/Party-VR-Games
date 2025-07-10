@@ -74,6 +74,7 @@ public class NetworkProjectileLauncher : NetworkBehaviour
             }
 
             GameObject newObject = m_ProjectilePooler.GetItem();
+            newObject.tag = "Bullet";
             if (!newObject.TryGetComponent(out Projectile projectile))
             {
                 Utils.Log("Projectile component not found on projectile object.", 1);
