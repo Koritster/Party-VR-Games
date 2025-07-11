@@ -31,6 +31,11 @@ namespace XRMultiplayer.MiniGames
         public string gameName;
 
         /// <summary>
+        /// The icon for the button.
+        /// </summary>
+        public Sprite btnIcon;
+
+        /// <summary>
         /// The type of game.
         /// </summary>
         public enum GameType { Time, Score }
