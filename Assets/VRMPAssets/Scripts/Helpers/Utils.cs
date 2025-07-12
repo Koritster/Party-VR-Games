@@ -78,7 +78,12 @@ namespace XRMultiplayer
     public class TextButton
     {
         public Button button;
-        public TMP_Text buttonText;
+        //public TMP_Text buttonText;
+
+        public TextButton(Button button)
+        {
+            this.button = button;
+        }
 
         public void UpdateButton(UnityAction clickFunction, string newText, bool removeAllListeners = true, bool isInteractable = true)
         {
@@ -87,7 +92,7 @@ namespace XRMultiplayer
 
             button.interactable = isInteractable;
             button.onClick.AddListener(clickFunction);
-            buttonText.text = newText;
+            //buttonText.text = newText;
         }
     }
 }

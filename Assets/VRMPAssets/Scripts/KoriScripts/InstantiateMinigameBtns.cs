@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XRMultiplayer.MiniGames;
+using TMPro;
+using UnityEngine.UI;
+using XRMultiplayer;
 
 public class InstantiateMinigameBtns : MonoBehaviour
 {
@@ -18,7 +21,13 @@ public class InstantiateMinigameBtns : MonoBehaviour
             MiniGameManager mgManager = game.GetComponent<MiniGameManager>();
             MiniGameBase mgBase = mgManager.currentMiniGame;
 
+            GameObject btn = Instantiate(btnPrefab, btnHolder.transform);
+            TextButton dynBtn = new TextButton(btn.GetComponent<Button>());
 
+            btn.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = mgBase.gameName;
+            btn.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = mgBase.btnIcon;
+
+            mgManager.m_DynamicButton = dynBtn;
         }
     }
 }
