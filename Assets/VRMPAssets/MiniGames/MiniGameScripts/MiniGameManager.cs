@@ -178,8 +178,8 @@ namespace XRMultiplayer.MiniGames
         {
             base.OnNetworkSpawn();
             networkedGameState.OnValueChanged += GameStateValueChanged;
-            //m_BestAllScore.OnValueChanged += BestAllScoreChanged;
-            //m_CurrentPlayers.OnListChanged += UpdatePlayerList;
+            m_BestAllScore.OnValueChanged += BestAllScoreChanged;
+            m_CurrentPlayers.OnListChanged += UpdatePlayerList;
             //UpdateBestScore(m_BestAllScore.Value, m_BestAllText);
 
             if (IsServer)
@@ -191,7 +191,7 @@ namespace XRMultiplayer.MiniGames
 
             if (networkedGameState.Value == GameState.InGame)
             {
-                //ResetContestants(true);
+                ResetContestants(true);
             }
         }
 
@@ -204,7 +204,7 @@ namespace XRMultiplayer.MiniGames
             //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
         }
 
-        /*private void UpdatePlayerList(NetworkListEvent<ulong> changeEvent)
+        private void UpdatePlayerList(NetworkListEvent<ulong> changeEvent)
         {
             if (networkedGameState.Value != GameState.InGame) return;
 
@@ -231,9 +231,9 @@ namespace XRMultiplayer.MiniGames
                 m_ScoreboardSlots[i].gameObject.SetActive(true);
                 m_ScoreboardSlots[i].UpdateScore(0, currentMiniGame.currentGameType);
             }
-        }*/
+        }
 
-        /*void BestAllScoreChanged(float old, float current)
+        void BestAllScoreChanged(float old, float current)
         {
             if (m_BestAllScore.Value <= 0.0f)
             {
@@ -251,7 +251,7 @@ namespace XRMultiplayer.MiniGames
                     //m_BestAllText.text = $"<b>Current Record</b>: {current:N0}";
                 }
             }
-        }*/
+        }
 
         void GameStateValueChanged(GameState oldState, GameState currentState)
         {
@@ -290,7 +290,7 @@ namespace XRMultiplayer.MiniGames
                 m_ScoreboardSlots[i].gameObject.SetActive(true);
             }
 
-            //ResetContestants(false);
+            ResetContestants(false);
 
             //m_GameStateText.text = "Pre Game";
 
@@ -304,7 +304,7 @@ namespace XRMultiplayer.MiniGames
         void SetInGameState()
         {
             m_CurrentTimer = 0.0f;
-            //ResetContestants(true);
+            ResetContestants(true);
 
             foreach (var slot in currentPlayerDictionary.Values)
             {
@@ -693,7 +693,7 @@ namespace XRMultiplayer.MiniGames
                 //Comprueba si el juego no ha iniciado
                 if (networkedGameState.Value != GameState.PostGame)
                 {
-                    //AddPlayerToList(clientId);
+                    AddPlayerToList(clientId);
                 }
 
                 //Verifica que la id del cliente sea la del jugador local, no confundir con el jugador host
@@ -727,7 +727,7 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        /*void AddPlayerToList(ulong clientId)
+        void AddPlayerToList(ulong clientId)
         {
             if (XRINetworkGameManager.Instance.GetPlayerByID(clientId, out XRINetworkPlayer player))
             {
@@ -739,7 +739,7 @@ namespace XRMultiplayer.MiniGames
                     player.onDisconnected += PlayerDisconnected;
                 }
             }
-        }*/
+        }
 
         [ClientRpc]
         void RemovePlayerClientRpc(ulong clientId)
@@ -937,7 +937,7 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        /*void ResetContestants(bool showGamePlayers)
+        void ResetContestants(bool showGamePlayers)
         {
             // Wipe scoreboard.
             foreach (ScoreboardSlot s in m_ScoreboardSlots)
@@ -963,7 +963,7 @@ namespace XRMultiplayer.MiniGames
                     AddPlayerToList(playerId);
                 }
             }
-        }*/
+        }
 
         void TeleportToArea(Transform teleportTransform)
         {
