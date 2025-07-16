@@ -52,9 +52,9 @@ namespace XRMultiplayer.MiniGames
         [Header("UI")]
         //public TMP_Text m_GameStateText;
         /*[SerializeField] TMP_Text m_BestAllText;
-        [SerializeField] TMP_Text m_GameNameText;
+        [SerializeField] TMP_Text m_GameNameText;*/
         [SerializeField, Tooltip("Prefab used for scoreboard ui slots")] GameObject m_PlayerScoreboardSlotPrefab;
-        [SerializeField, Tooltip("Prefab used for scoreboard ui slots")] Transform m_ContentListParent;*/
+        [SerializeField, Tooltip("Prefab used for scoreboard ui slots")] Transform m_ContentListParent;
         public TextButton m_DynamicButton;
 
         /*[Header("Video Player")]
@@ -306,7 +306,7 @@ namespace XRMultiplayer.MiniGames
             m_CurrentTimer = 0.0f;
             ResetContestants(true);
 
-            foreach (var slot in currentPlayerDictionary.Values)
+            /*foreach (var slot in currentPlayerDictionary.Values)
             {
                 slot.UpdateScore(0.0f, currentMiniGame.currentGameType);
             }
@@ -314,12 +314,12 @@ namespace XRMultiplayer.MiniGames
             for (int i = currentPlayerDictionary.Count; i < m_ScoreboardSlots.Count; i++)
             {
                 m_ScoreboardSlots[i].gameObject.SetActive(false);
-            }
+            }*/
 
-            /*foreach (var trigger in m_StartZoneTrigger)
+            foreach (var trigger in m_StartZoneTrigger)
             {
                 trigger.subTriggerCollider.enabled = false;
-            }*/
+            }
 
             //m_GameStateText.text = "In Progess";
 
@@ -412,7 +412,7 @@ namespace XRMultiplayer.MiniGames
             {
                 if (currentPlayerDictionary.ContainsKey(player))
                 {
-                    currentPlayerDictionary[player].ToggleReady(isReady);
+                    //currentPlayerDictionary[player].ToggleReady(isReady);
                 }
             }
 
@@ -427,7 +427,7 @@ namespace XRMultiplayer.MiniGames
             int readyCount = 0;
             if (m_QueuedUpPlayers.Count <= 0) return;
 
-            foreach (var clientId in m_QueuedUpPlayers)
+            /*foreach (var clientId in m_QueuedUpPlayers)
             {
                 if (XRINetworkGameManager.Instance.GetPlayerByID(clientId, out var player))
                 {
@@ -439,7 +439,10 @@ namespace XRMultiplayer.MiniGames
                         }
                     }
                 }
-            }
+            }*/
+
+            //Falsear los jugadores listos
+            readyCount = 2;
 
             if (readyCount > 0 && readyCount < m_QueuedUpPlayers.Count)
             {
@@ -516,10 +519,10 @@ namespace XRMultiplayer.MiniGames
             m_CurrentPlayers.Clear();
             if (currentPlayerDictionary.Count > 0)
             {
-                float score = currentPlayerDictionary.First().Value.currentScore;
-                if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
+                //float score = currentPlayerDictionary.First().Value.currentScore;
+                /*if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
                 {
-                    if (score < m_BestAllScore.Value || m_BestAllScore.Value <= 0.0f)
+                    /*if (score < m_BestAllScore.Value || m_BestAllScore.Value <= 0.0f)
                     {
                         m_BestAllScore.Value = score;
                     }
@@ -530,7 +533,7 @@ namespace XRMultiplayer.MiniGames
                     {
                         m_BestAllScore.Value = score;
                     }
-                }
+                }*/
             }
         }
 
@@ -554,7 +557,7 @@ namespace XRMultiplayer.MiniGames
             {
                 if (currentPlayerDictionary.ContainsKey(player))
                 {
-                    currentPlayerDictionary[player].UpdateScore(score, currentMiniGame.currentGameType);
+                    //currentPlayerDictionary[player].UpdateScore(score, currentMiniGame.currentGameType);
                     if (finishGameOnScoreSubmit)
                     {
                         currentPlayerDictionary[player].isFinished = true;
@@ -634,7 +637,7 @@ namespace XRMultiplayer.MiniGames
                 tpIndex++;
             }
 
-            foreach (var clientId in m_QueuedUpPlayers)
+            /*foreach (var clientId in m_QueuedUpPlayers)
             {
                 if (XRINetworkGameManager.Instance.GetPlayerByID(clientId, out var player))
                 {
@@ -643,7 +646,7 @@ namespace XRMultiplayer.MiniGames
                         currentPlayerDictionary[player].isReady = true;
                     }
                 }
-            }
+            }*/
 
             CheckPlayersReady();
         }
@@ -705,14 +708,15 @@ namespace XRMultiplayer.MiniGames
                     m_DynamicButton.UpdateButton(RemoveLocalPlayer, "Leave");
 
                     //Define el punto de teletransporte
-                    TeleportRequest teleportRequest = new()
+                    /*TeleportRequest teleportRequest = new()
                     {
                         destinationPosition = m_JoinTeleportTransform[i].position,
                         destinationRotation = m_JoinTeleportTransform[i].rotation,
                         matchOrientation = MatchOrientation.TargetUpAndForward
                     };
+                    m_LocalPlayerTeleportProvider.QueueTeleportRequest(teleportRequest);*/
 
-                    m_LocalPlayerTeleportProvider.QueueTeleportRequest(teleportRequest);
+                    localPlayer.TeleportPlayer(m_JoinTeleportTransform[i]);
                     //Transform destination = GetClosestReadyPosition(m_JoinTeleportTransform.position);
                     //m_ScoreboardTransform.rotation = destination.rotation;
                     //m_ScoreboardTransform.position = destination.position + (m_ScoreboardTransform.forward + m_PreGameOffset);
@@ -733,9 +737,9 @@ namespace XRMultiplayer.MiniGames
             {
                 if (!currentPlayerDictionary.ContainsKey(player))
                 {
-                    ScoreboardSlot slot = m_ScoreboardSlots[currentPlayerDictionary.Count];
-                    currentPlayerDictionary.Add(player, slot);
-                    slot.SetupPlayerSlot(currentPlayerDictionary.Count, player.playerName);
+                    //ScoreboardSlot slot = m_ScoreboardSlots[currentPlayerDictionary.Count];
+                    currentPlayerDictionary.Add(player, null);
+                    //slot.SetupPlayerSlot(currentPlayerDictionary.Count, player.playerName);
                     player.onDisconnected += PlayerDisconnected;
                 }
             }
@@ -781,7 +785,7 @@ namespace XRMultiplayer.MiniGames
             if (currentPlayerDictionary.ContainsKey(droppedPlayer) && networkedGameState.Value != GameState.PostGame)
             {
                 removedSlot = currentPlayerDictionary[droppedPlayer];
-                removedSlot.SetSlotOpen();
+                //removedSlot.SetSlotOpen();
                 currentPlayerDictionary.Remove(droppedPlayer);
                 droppedPlayer.onDisconnected -= PlayerDisconnected;
 
@@ -831,14 +835,14 @@ namespace XRMultiplayer.MiniGames
         }
         void SortPlayers()
         {
-            if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
+            /*if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
             {
                 currentPlayerDictionary = currentPlayerDictionary.OrderBy(x => x.Value.currentScore).ToDictionary(x => x.Key, x => x.Value);
             }
             else
             {
                 currentPlayerDictionary = currentPlayerDictionary.OrderByDescending(x => x.Value.currentScore).ToDictionary(x => x.Key, x => x.Value);
-            }
+            }*/
             OrganizePlayerList();
         }
 
@@ -848,7 +852,7 @@ namespace XRMultiplayer.MiniGames
             foreach (var slot in currentPlayerDictionary.Values)
             {
                 slot.transform.SetSiblingIndex(currentPlace - 1);
-                slot.UpdatePlace(currentPlace++);
+                //slot.UpdatePlace(currentPlace++);
             }
 
             m_ScoreboardSlots.Sort((a, b) => a.transform.GetSiblingIndex().CompareTo(b.transform.GetSiblingIndex()));
@@ -911,7 +915,7 @@ namespace XRMultiplayer.MiniGames
             {
                 if (!p.Value.isFinished)
                 {
-                    p.Value.UpdateScore(m_CurrentTimer, currentMiniGame.currentGameType);
+                    //p.Value.UpdateScore(m_CurrentTimer, currentMiniGame.currentGameType);
                 }
             }
         }
@@ -942,7 +946,7 @@ namespace XRMultiplayer.MiniGames
             // Wipe scoreboard.
             foreach (ScoreboardSlot s in m_ScoreboardSlots)
             {
-                s.SetSlotOpen();
+                //s.SetSlotOpen();
             }
 
             currentPlayerDictionary.Clear();
@@ -967,14 +971,16 @@ namespace XRMultiplayer.MiniGames
 
         void TeleportToArea(Transform teleportTransform)
         {
-            TeleportRequest teleportRequest = new TeleportRequest
+            localPlayer.TeleportPlayer(teleportTransform);
+
+            /*TeleportRequest teleportRequest = new TeleportRequest
             {
                 destinationPosition = teleportTransform.position,
                 destinationRotation = teleportTransform.rotation,
                 matchOrientation = MatchOrientation.TargetUpAndForward
             };
 
-            m_LocalPlayerTeleportProvider.QueueTeleportRequest(teleportRequest);
+            m_LocalPlayerTeleportProvider.QueueTeleportRequest(teleportRequest);*/
         }
 
         void UpdateBestScore(float score, TMP_Text textAsset)
@@ -1008,7 +1014,7 @@ namespace XRMultiplayer.MiniGames
             for (int i = 0; i < maxAllowedPlayers; i++)
             {
                 //Instantiate(m_PlayerScoreboardSlotPrefab, m_ContentListParent).TryGetComponent(out ScoreboardSlot slot);
-                //m_ScoreboardSlots.Add(slot);
+                m_ScoreboardSlots.Add(slot);
                 //slot.SetSlotOpen();
             }
         }*/
