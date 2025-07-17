@@ -1857,18 +1857,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7962267681802575390}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &338688757 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3294264504302592604, guid: 560b33ea7ea2500428cbe99a394b74dd,
-    type: 3}
-  m_PrefabInstance: {fileID: 7962267681802575390}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &350540149
 GameObject:
   m_ObjectHideFlags: 0
@@ -8491,18 +8479,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2073930411}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2073930417 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3294264504302592604, guid: 560b33ea7ea2500428cbe99a394b74dd,
-    type: 3}
-  m_PrefabInstance: {fileID: 2073930411}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2081796064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8816,13 +8792,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8889b58006d5a04eacd30218afce0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameName: Duel
-  btnIcon: {fileID: 21300000, guid: 041d680ff7775514a95181a9a11b51d6, type: 3}
-  m_GameType: 1
-  m_GameLength: 50
-  m_GameInteractables:
-  - {fileID: 338688757}
-  - {fileID: 2073930417}
+  localScoreText: {fileID: 0}
+  enemyScoreText: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  gameOverText: {fileID: 0}
+  maxScoreToWin: 10
 --- !u!1 &2087977075
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,15 +19,18 @@ public class RevolverTargetArea : MonoBehaviour
         {
             Projectile projectile = other.GetComponent<Projectile>();
 
+            // Sumar puntos al jugador contrario
+            revolverManager.enemyPlayerHitTarget(1); // Puedes cambiar 1 por otra cantidad
 
-                // Sumar puntos
-                revolverManager.localPlayerHitTarget(10);
-
-                // Destruir o reciclar el proyectil
-                projectile.ResetProjectile(); // o ReturnToPool(), según cómo lo manejes
-
-
-            
+            // Reciclar o destruir el proyectil
+            if (projectile != null)
+            {
+                projectile.ResetProjectile(); // O ReturnToPool si usas pooling
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 }

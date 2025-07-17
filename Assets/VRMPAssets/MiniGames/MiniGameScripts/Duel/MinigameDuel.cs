@@ -1,32 +1,76 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
+using UnityEngine.UI;
 using XRMultiplayer;
-using XRMultiplayer.MiniGames;
 
-public class MiniGameDuel : MiniGameBase
+public class MiniGameDuel : NetworkBehaviour
 {
-    int currentPlayerScore = 0;
-    public override void StartGame()
-    {
-        base.StartGame();
+    // Puntajes sincronizados
+    private NetworkVariable<int> localPlayerScore = new(writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<int> enemyPlayerScore = new(writePerm: NetworkVariableWritePermission.Owner);
 
-        //reset the current player score
-        currentPlayerScore = 0;
+    [Header("UI")]
+    public Text localScoreText;
+    public Text enemyScoreText;
+    public GameObject gameOverPanel;
+    public Text gameOverText;
+
+    [Header("Configuración")]
+    [SerializeField] private int maxScoreToWin = 10;
+
+    public override void OnNetworkSpawn()
+    {
+        localPlayerScore.OnValueChanged += (_, _) => UpdateScoreUI();
+        enemyPlayerScore.OnValueChanged += (_, _) => UpdateScoreUI();
+
+        UpdateScoreUI(); // Mostrar valores iniciales
     }
 
-    public override void FinishGame(bool submitScore = true)
+    private void UpdateScoreUI()
     {
-        base.FinishGame(submitScore);
+        if (localScoreText != null)
+            localScoreText.text = "Tú: " + localPlayerScore.Value;
 
-        //add functionality for when game finishes
+        if (enemyScoreText != null)
+            enemyScoreText.text = "Enemigo: " + enemyPlayerScore.Value;
     }
 
-    public void localPlayerHitTarget(int targetPoints)
+    public void localPlayerHitTarget(int points)
     {
-        currentPlayerScore += targetPoints;
-        m_MiniGameManager.SubmitScoreServerRpc(currentPlayerScore, XRINetworkPlayer.LocalPlayer.OwnerClientId);
+        if (!IsOwner) return;
+
+        localPlayerScore.Value += points;
+        CheckGameEnd();
     }
 
-    //Creating a method for the player score
+    public void enemyPlayerHitTarget(int points)
+    {
+        if (!IsOwner) return;
+
+        enemyPlayerScore.Value += points;
+        CheckGameEnd();
+    }
+
+    private void CheckGameEnd()
+    {
+        if (localPlayerScore.Value >= maxScoreToWin)
+        {
+            ShowGameOver("¡Ganaste!");
+        }
+        else if (enemyPlayerScore.Value >= maxScoreToWin)
+        {
+            ShowGameOver("¡Perdiste!");
+        }
+    }
+
+    private void ShowGameOver(string message)
+    {
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(true);
+
+        if (gameOverText != null)
+            gameOverText.text = message;
+
+        // Aquí puedes desactivar controles si lo deseas
+    }
 }
