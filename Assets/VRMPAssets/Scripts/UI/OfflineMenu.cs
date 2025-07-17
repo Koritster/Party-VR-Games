@@ -126,5 +126,10 @@ namespace XRMultiplayer
         {
             CompleteCustomization();
         }
+
+        public void Quit()
+        {
+            Application.Quit();
+        }
     }
 }
