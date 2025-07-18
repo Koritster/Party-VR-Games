@@ -45,7 +45,7 @@ namespace XRMultiplayer
 
         private void Start()
         {
-            ShowCustomization();
+            //ShowCustomization();
             XRINetworkGameManager.Instance.connectionFailedAction += ConnectionFailed;
         }
 
