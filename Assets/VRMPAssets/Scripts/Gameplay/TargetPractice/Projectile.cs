@@ -40,6 +40,8 @@ namespace XRMultiplayer
         Rigidbody m_Rigidybody;
 
 
+
+
         /// <summary>
         /// Sets up the projectile with the specified parameters.
         /// </summary>
@@ -125,6 +127,10 @@ namespace XRMultiplayer
         {
             StopAllCoroutines();
             m_OnReturnToPool?.Invoke(this);
+            gameObject.SetActive(false); // O el método que uses en tu Pooler
         }
+
+        //revisar este
+        
     }
 }

@@ -72,7 +72,7 @@ namespace Unity.VRTemplate
                 StopCoroutine(m_StartCo);
             if (m_EndCo != null)
                 StopCoroutine(m_EndCo);
-            m_StartCo = StartCoroutine(StartDelay());
+            //m_StartCo = StartCoroutine(StartDelay());
         }
 
         public void GazeHoverEnd()
@@ -84,7 +84,7 @@ namespace Unity.VRTemplate
             }
 
             m_Gazing = false;
-            m_EndCo = StartCoroutine(EndDelay());
+            //m_EndCo = StartCoroutine(EndDelay());
         }
 
         IEnumerator StartDelay()

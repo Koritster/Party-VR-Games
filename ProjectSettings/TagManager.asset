@@ -9,6 +9,9 @@ TagManager:
   - Anchor
   - PlayerHand
   - Destroyer
+  - Ball
+  - Bullet
+  - Minigame
   layers:
   - Default
   - TransparentFX

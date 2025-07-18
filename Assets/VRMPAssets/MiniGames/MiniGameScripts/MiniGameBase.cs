@@ -31,6 +31,11 @@ namespace XRMultiplayer.MiniGames
         public string gameName;
 
         /// <summary>
+        /// The icon for the button.
+        /// </summary>
+        public Sprite btnIcon;
+
+        /// <summary>
         /// The type of game.
         /// </summary>
         public enum GameType { Time, Score }
@@ -114,7 +119,7 @@ namespace XRMultiplayer.MiniGames
             m_CurrentTimer -= deltaTime;
             if (m_GameType == GameType.Score)
             {
-                m_MiniGameManager.m_GameStateText.text = $"Time: {m_CurrentTimer:F0}";
+                //m_MiniGameManager.m_GameStateText.text = $"Time: {m_CurrentTimer:F0}";
             }
             CheckForGameEnd();
         }

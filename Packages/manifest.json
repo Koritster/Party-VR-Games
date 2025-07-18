@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.burst": "1.8.18",
     "com.unity.collab-proxy": "2.8.2",
     "com.unity.feature.development": "1.0.1",
@@ -15,7 +16,8 @@
     "com.unity.xr.hands": "1.5.0",
     "com.unity.xr.interaction.toolkit": "3.0.5",
     "com.unity.xr.management": "4.5.0",
-    "com.unity.xr.openxr": "1.13.0",
+    "com.unity.xr.openxr": "1.13.2",
+    "com.veriorpies.parrelsync": "https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

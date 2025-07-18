@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.Netcode;
+using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
@@ -49,41 +50,41 @@ namespace XRMultiplayer.MiniGames
         bool m_LocalPlayerInGame = false;
 
         [Header("UI")]
-        public TMP_Text m_GameStateText;
-        [SerializeField] TMP_Text m_BestAllText;
-        [SerializeField] TMP_Text m_GameNameText;
+        //public TMP_Text m_GameStateText;
+        /*[SerializeField] TMP_Text m_BestAllText;
+        [SerializeField] TMP_Text m_GameNameText;*/
         [SerializeField, Tooltip("Prefab used for scoreboard ui slots")] GameObject m_PlayerScoreboardSlotPrefab;
         [SerializeField, Tooltip("Prefab used for scoreboard ui slots")] Transform m_ContentListParent;
-        [SerializeField] TextButton m_DynamicButton;
+        public TextButton m_DynamicButton;
 
-        [Header("Video Player")]
+        /*[Header("Video Player")]
         [SerializeField] GameObject m_VideoPlayerObject;
         [SerializeField] GameObject m_TooltipObject;
         [SerializeField] Mask m_TopMask;
-        [SerializeField] Mask m_BottomMask;
+        [SerializeField] Mask m_BottomMask;*/
 
         [Header("Game")]
-        public int maxAllowedPlayers = 4;
+        public int maxAllowedPlayers = 2;
         [SerializeField] int m_ReadyUpTimeInSeconds = 15;
         [SerializeField] int m_StartCoutdownTimeInSeconds = 5;
         [SerializeField] int m_PostGameWaitTimeInSeconds = 3;
         [SerializeField] int m_PostGameCountdownTimeInSeconds = 7;
-        [SerializeField] GameObject m_TeleportZonesObject;
+        //[SerializeField] GameObject m_TeleportZonesObject;
         [SerializeField] SubTrigger[] m_StartZoneTrigger;
 
         [Header("Transform References")]
-        [SerializeField] Transform m_ScoreboardTransform;
-        [SerializeField] Transform m_ScoreboardInGameTransform;
+        //[SerializeField] Transform m_ScoreboardTransform;
+        //[SerializeField] Transform m_ScoreboardInGameTransform;
         //Lugar a donde se teletransportan los jugadores
-        [SerializeField] Transform m_JoinTeleportTransform;
-        [SerializeField] Transform m_LeaveTeleportTransform;
+        [SerializeField] Transform[] m_JoinTeleportTransform = new Transform[2];
+        //[SerializeField] Transform m_LeaveTeleportTransform;
         [SerializeField] Transform m_FinishTeleportTransform;
 
         [Header("Transform Offsets")]
         [SerializeField] bool m_UseInGameOffset = true;
         [SerializeField, Tooltip("Determines the offset of the canvas during game")] Vector3 m_InGameOffset;
         [SerializeField, Tooltip("Determines the offset of the canvas during the pre-game")] Vector3 m_PreGameOffset;
-        [SerializeField] float m_ScoreboardLerpSpeed = 5.0f;
+        //[SerializeField] float m_ScoreboardLerpSpeed = 5.0f;
 
         [Header("Barrier")]
         [SerializeField] bool m_UseBarrier = true;
@@ -96,9 +97,10 @@ namespace XRMultiplayer.MiniGames
         NetworkList<ulong> m_QueuedUpPlayers;
         readonly NetworkVariable<float> m_BestAllScore = new(0.0f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
         TeleportationProvider m_LocalPlayerTeleportProvider;
+        PlayerLocalInfo localPlayer;
 
         float m_CurrentTimer = 0.0f;
-        Pose m_ScoreboardStartPose;
+        //Pose m_ScoreboardStartPose;
         IEnumerator m_StartGameRoutine;
         IEnumerator m_PostGameRoutine;
 
@@ -111,16 +113,17 @@ namespace XRMultiplayer.MiniGames
             }
 
             m_LocalPlayerTeleportProvider = FindFirstObjectByType<TeleportationProvider>();
+            localPlayer = FindFirstObjectByType<PlayerLocalInfo>();
 
-            m_TeleportZonesObject.SetActive(false);
-            m_BestAllText.text = "<b>Current Record</b>: No Record Set";
-            m_ScoreboardStartPose = new Pose(m_ScoreboardTransform.position, m_ScoreboardTransform.rotation);
-            m_GameNameText.text = currentMiniGame.gameName;
+            //m_TeleportZonesObject.SetActive(false);
+            //m_BestAllText.text = "<b>Current Record</b>: No Record Set";
+            //m_ScoreboardStartPose = new Pose(m_ScoreboardTransform.position, m_ScoreboardTransform.rotation);
+            //m_GameNameText.text = currentMiniGame.gameName;
 
-            foreach (var trigger in m_StartZoneTrigger)
+            /*foreach (var trigger in m_StartZoneTrigger)
             {
                 trigger.OnTriggerAction += TriggerReadyState;
-            }
+            }*/
 
             m_QueuedUpPlayers = new NetworkList<ulong>();
             m_CurrentPlayers = new NetworkList<ulong>();
@@ -141,7 +144,7 @@ namespace XRMultiplayer.MiniGames
                 }
             }
 
-            SetupPlayerSlots();
+            //SetupPlayerSlots();
         }
 
         /// <inheritdoc/>
@@ -164,10 +167,10 @@ namespace XRMultiplayer.MiniGames
         {
             base.OnDestroy();
 
-            foreach (var trigger in m_StartZoneTrigger)
+            /*foreach (var trigger in m_StartZoneTrigger)
             {
                 trigger.OnTriggerAction -= TriggerReadyState;
-            }
+            }*/
         }
 
         /// <inheritdoc/>
@@ -177,7 +180,7 @@ namespace XRMultiplayer.MiniGames
             networkedGameState.OnValueChanged += GameStateValueChanged;
             m_BestAllScore.OnValueChanged += BestAllScoreChanged;
             m_CurrentPlayers.OnListChanged += UpdatePlayerList;
-            UpdateBestScore(m_BestAllScore.Value, m_BestAllText);
+            //UpdateBestScore(m_BestAllScore.Value, m_BestAllText);
 
             if (IsServer)
             {
@@ -198,7 +201,7 @@ namespace XRMultiplayer.MiniGames
             base.OnNetworkDespawn();
             m_LocalPlayerInGame = false;
             currentPlayerDictionary.Clear();
-            m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
+            //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
         }
 
         private void UpdatePlayerList(NetworkListEvent<ulong> changeEvent)
@@ -234,18 +237,18 @@ namespace XRMultiplayer.MiniGames
         {
             if (m_BestAllScore.Value <= 0.0f)
             {
-                m_BestAllText.text = $"<b>Current Record</b>: No Record Set";
+                //m_BestAllText.text = $"<b>Current Record</b>: No Record Set";
             }
             else
             {
                 if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
                 {
                     TimeSpan time = TimeSpan.FromSeconds(current);
-                    m_BestAllText.text = $"<b>Current Record</b>: {time.ToString(TIME_FORMAT)}";
+                    //m_BestAllText.text = $"<b>Current Record</b>: {time.ToString(TIME_FORMAT)}";
                 }
                 else
                 {
-                    m_BestAllText.text = $"<b>Current Record</b>: {current:N0}";
+                    //m_BestAllText.text = $"<b>Current Record</b>: {current:N0}";
                 }
             }
         }
@@ -280,7 +283,7 @@ namespace XRMultiplayer.MiniGames
             }
 
             currentMiniGame.SetupGame();
-            m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
+            //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
 
             for (int i = 0; i < m_ScoreboardSlots.Count; i++)
             {
@@ -289,10 +292,13 @@ namespace XRMultiplayer.MiniGames
 
             ResetContestants(false);
 
-            m_GameStateText.text = "Pre Game";
+            //m_GameStateText.text = "Pre Game";
 
-            m_DynamicButton.UpdateButton(AddLocalPlayer, "Join");
+            //m_DynamicButton.UpdateButton(AddLocalPlayer, "Join");
+            m_DynamicButton.UpdateButton(AddAllPlayers, "Join");
             StartCoroutine(ResetReadyZones());
+
+            tpIndex = 0;
         }
 
         void SetInGameState()
@@ -300,7 +306,7 @@ namespace XRMultiplayer.MiniGames
             m_CurrentTimer = 0.0f;
             ResetContestants(true);
 
-            foreach (var slot in currentPlayerDictionary.Values)
+            /*foreach (var slot in currentPlayerDictionary.Values)
             {
                 slot.UpdateScore(0.0f, currentMiniGame.currentGameType);
             }
@@ -308,23 +314,23 @@ namespace XRMultiplayer.MiniGames
             for (int i = currentPlayerDictionary.Count; i < m_ScoreboardSlots.Count; i++)
             {
                 m_ScoreboardSlots[i].gameObject.SetActive(false);
-            }
+            }*/
 
             foreach (var trigger in m_StartZoneTrigger)
             {
                 trigger.subTriggerCollider.enabled = false;
             }
 
-            m_GameStateText.text = "In Progess";
+            //m_GameStateText.text = "In Progess";
 
             if (LocalPlayerInGame)
             {
                 m_DynamicButton.button.interactable = true;
                 PlayerHudNotification.Instance.ShowText($"Game Started!");
-                ToggleShrink(true);
+                //ToggleShrink(true);
                 if (!m_UseInGameOffset)
                 {
-                    m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardInGameTransform.position, m_ScoreboardInGameTransform.rotation);
+                    //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardInGameTransform.position, m_ScoreboardInGameTransform.rotation);
                 }
             }
             else
@@ -339,16 +345,19 @@ namespace XRMultiplayer.MiniGames
         {
             if (LocalPlayerInGame)
             {
-                ToggleShrink(false);
-                TeleportToArea(m_LeaveTeleportTransform);
+                //ToggleShrink(false);
+                //TeleportToArea(m_LeaveTeleportTransform);
+                //Teletransporta al jugador a su lugar del lobby
+                localPlayer.TeleportPlayer();
+                
                 m_BarrierRend.gameObject.SetActive(true);
-                m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
+                //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
             }
 
             m_LocalPlayerInGame = false;
-            m_TeleportZonesObject.SetActive(false);
+            //m_TeleportZonesObject.SetActive(false);
             SortPlayers();
-            m_GameStateText.text = "Post Game";
+            //m_GameStateText.text = "Post Game";
             m_DynamicButton.UpdateButton(ResetGame, $"Wait", true, false);
             if (!currentMiniGame.finished)
             {
@@ -369,7 +378,7 @@ namespace XRMultiplayer.MiniGames
         IEnumerator PostGameRoutine()
         {
             yield return new WaitForSeconds(m_PostGameWaitTimeInSeconds);
-            m_GameStateText.text = "Next Game in";
+            //m_GameStateText.text = "Next Game in";
             for (int i = m_PostGameCountdownTimeInSeconds; i > 0; i--)
             {
                 m_DynamicButton.UpdateButton(ResetGame, $"{i}", true, false);
@@ -382,13 +391,13 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        void TriggerReadyState(Collider other, bool entered)
+        /*void TriggerReadyState(Collider other, bool entered)
         {
             if (other.TryGetComponent(out CharacterController controller))
             {
                 TogglePlayerReadyServerRpc(XRINetworkPlayer.LocalPlayer.OwnerClientId, entered);
             }
-        }
+        }*/
 
         [ServerRpc(RequireOwnership = false)]
         void TogglePlayerReadyServerRpc(ulong clientId, bool isReady)
@@ -403,7 +412,7 @@ namespace XRMultiplayer.MiniGames
             {
                 if (currentPlayerDictionary.ContainsKey(player))
                 {
-                    currentPlayerDictionary[player].ToggleReady(isReady);
+                    //currentPlayerDictionary[player].ToggleReady(isReady);
                 }
             }
 
@@ -418,7 +427,7 @@ namespace XRMultiplayer.MiniGames
             int readyCount = 0;
             if (m_QueuedUpPlayers.Count <= 0) return;
 
-            foreach (var clientId in m_QueuedUpPlayers)
+            /*foreach (var clientId in m_QueuedUpPlayers)
             {
                 if (XRINetworkGameManager.Instance.GetPlayerByID(clientId, out var player))
                 {
@@ -430,7 +439,10 @@ namespace XRMultiplayer.MiniGames
                         }
                     }
                 }
-            }
+            }*/
+
+            //Falsear los jugadores listos
+            readyCount = 2;
 
             if (readyCount > 0 && readyCount < m_QueuedUpPlayers.Count)
             {
@@ -454,7 +466,7 @@ namespace XRMultiplayer.MiniGames
                 {
                     PlayerHudNotification.Instance.ShowText("Game Start Cancelled");
                 }
-                m_GameStateText.text = "Pre Game";
+                //m_GameStateText.text = "Pre Game";
             }
             else
             {
@@ -471,16 +483,16 @@ namespace XRMultiplayer.MiniGames
         {
             for (int i = countdownTime; i > 0; i--)
             {
-                m_GameStateText.text = $"Game Starting In {i}";
+                //m_GameStateText.text = $"Game Starting In {i}";
 
                 if (LocalPlayerInGame)
                 {
-                    PlayerHudNotification.Instance.ShowText(m_GameStateText.text);
+                    PlayerHudNotification.Instance.ShowText($"Game Starting In {i}");
                 }
                 yield return new WaitForSeconds(1);
             }
 
-            m_GameStateText.text = $"Game Starting Now!";
+            //m_GameStateText.text = $"Game Starting Now!";
 
             if (IsServer)
             {
@@ -507,10 +519,10 @@ namespace XRMultiplayer.MiniGames
             m_CurrentPlayers.Clear();
             if (currentPlayerDictionary.Count > 0)
             {
-                float score = currentPlayerDictionary.First().Value.currentScore;
-                if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
+                //float score = currentPlayerDictionary.First().Value.currentScore;
+                /*if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
                 {
-                    if (score < m_BestAllScore.Value || m_BestAllScore.Value <= 0.0f)
+                    /*if (score < m_BestAllScore.Value || m_BestAllScore.Value <= 0.0f)
                     {
                         m_BestAllScore.Value = score;
                     }
@@ -521,7 +533,7 @@ namespace XRMultiplayer.MiniGames
                     {
                         m_BestAllScore.Value = score;
                     }
-                }
+                }*/
             }
         }
 
@@ -545,7 +557,7 @@ namespace XRMultiplayer.MiniGames
             {
                 if (currentPlayerDictionary.ContainsKey(player))
                 {
-                    currentPlayerDictionary[player].UpdateScore(score, currentMiniGame.currentGameType);
+                    //currentPlayerDictionary[player].UpdateScore(score, currentMiniGame.currentGameType);
                     if (finishGameOnScoreSubmit)
                     {
                         currentPlayerDictionary[player].isFinished = true;
@@ -586,7 +598,7 @@ namespace XRMultiplayer.MiniGames
         {
             if (LocalPlayerInGame)
             {
-                ToggleShrink(false);
+                //ToggleShrink(false);
             }
             StartCoroutine(TeleportAfterFinish());
         }
@@ -605,8 +617,38 @@ namespace XRMultiplayer.MiniGames
         /// </summary>
         public void AddLocalPlayer()
         {
+            Debug.Log("Jugador agregado al lobby del minijuego");
             m_DynamicButton.button.interactable = false;
-            AddPlayerServerRpc(XRINetworkPlayer.LocalPlayer.OwnerClientId);
+            AddPlayerServerRpc(XRINetworkPlayer.LocalPlayer.OwnerClientId, tpIndex);
+        }
+
+        int tpIndex = 0;
+
+        public void AddAllPlayers()
+        {
+            List<ulong> playersID = XRINetworkGameManager.Instance.CurrentPlayerIDs;
+
+            m_DynamicButton.button.interactable = false;
+            Debug.Log("Agregando a todos los jugadores");
+
+            foreach (ulong id in playersID)
+            {
+                AddPlayerServerRpc(id, tpIndex);
+                tpIndex++;
+            }
+
+            /*foreach (var clientId in m_QueuedUpPlayers)
+            {
+                if (XRINetworkGameManager.Instance.GetPlayerByID(clientId, out var player))
+                {
+                    if (currentPlayerDictionary.ContainsKey(player))
+                    {
+                        currentPlayerDictionary[player].isReady = true;
+                    }
+                }
+            }*/
+
+            CheckPlayersReady();
         }
 
         /// <summary>
@@ -619,9 +661,9 @@ namespace XRMultiplayer.MiniGames
         }
 
         [ServerRpc(RequireOwnership = false)]
-        void AddPlayerServerRpc(ulong clientId)
+        void AddPlayerServerRpc(ulong clientId, int i)
         {
-            AddPlayerClientRpc(clientId);
+            AddPlayerClientRpc(clientId, i);
             if (m_QueuedUpPlayers.Count < maxAllowedPlayers)
             {
                 m_QueuedUpPlayers.Add(clientId);
@@ -644,10 +686,11 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
+        //Aï¿½adir jugador a la partida
         [ClientRpc]
-        void AddPlayerClientRpc(ulong clientId)
+        void AddPlayerClientRpc(ulong clientId, int i)
         {
-            //Verifica que no haya más de 2 jugadores
+            //Verifica que no haya mï¿½s de 2 jugadores
             if (currentPlayerDictionary.Count < maxAllowedPlayers)
             {
                 //Comprueba si el juego no ha iniciado
@@ -665,17 +708,18 @@ namespace XRMultiplayer.MiniGames
                     m_DynamicButton.UpdateButton(RemoveLocalPlayer, "Leave");
 
                     //Define el punto de teletransporte
-                    TeleportRequest teleportRequest = new()
+                    /*TeleportRequest teleportRequest = new()
                     {
-                        destinationPosition = m_JoinTeleportTransform.position,
-                        destinationRotation = m_JoinTeleportTransform.rotation,
+                        destinationPosition = m_JoinTeleportTransform[i].position,
+                        destinationRotation = m_JoinTeleportTransform[i].rotation,
                         matchOrientation = MatchOrientation.TargetUpAndForward
                     };
+                    m_LocalPlayerTeleportProvider.QueueTeleportRequest(teleportRequest);*/
 
-                    m_LocalPlayerTeleportProvider.QueueTeleportRequest(teleportRequest);
-                    Transform destination = GetClosestReadyPosition(m_JoinTeleportTransform.position);
-                    m_ScoreboardTransform.rotation = destination.rotation;
-                    m_ScoreboardTransform.position = destination.position + (m_ScoreboardTransform.forward + m_PreGameOffset);
+                    localPlayer.TeleportPlayer(m_JoinTeleportTransform[i]);
+                    //Transform destination = GetClosestReadyPosition(m_JoinTeleportTransform.position);
+                    //m_ScoreboardTransform.rotation = destination.rotation;
+                    //m_ScoreboardTransform.position = destination.position + (m_ScoreboardTransform.forward + m_PreGameOffset);
                     PlayerHudNotification.Instance.ShowText($"Joined {currentMiniGame.gameName}");
                     m_BarrierRend.gameObject.SetActive(false);
                 }
@@ -693,9 +737,9 @@ namespace XRMultiplayer.MiniGames
             {
                 if (!currentPlayerDictionary.ContainsKey(player))
                 {
-                    ScoreboardSlot slot = m_ScoreboardSlots[currentPlayerDictionary.Count];
-                    currentPlayerDictionary.Add(player, slot);
-                    slot.SetupPlayerSlot(currentPlayerDictionary.Count, player.playerName);
+                    //ScoreboardSlot slot = m_ScoreboardSlots[currentPlayerDictionary.Count];
+                    currentPlayerDictionary.Add(player, null);
+                    //slot.SetupPlayerSlot(currentPlayerDictionary.Count, player.playerName);
                     player.onDisconnected += PlayerDisconnected;
                 }
             }
@@ -712,7 +756,7 @@ namespace XRMultiplayer.MiniGames
             if (clientId == XRINetworkPlayer.LocalPlayer.OwnerClientId)
             {
                 m_LocalPlayerInGame = false;
-                m_TeleportZonesObject.SetActive(false);
+                //m_TeleportZonesObject.SetActive(false);
 
                 //If local player left, and we are still in game, don't let them rejoin mid game.
                 if (networkedGameState.Value != GameState.InGame)
@@ -720,11 +764,12 @@ namespace XRMultiplayer.MiniGames
                     m_DynamicButton.button.interactable = true;
                 }
 
-                ToggleShrink(false);
+                //ToggleShrink(false);
                 currentMiniGame.RemoveInteractables();
                 PlayerHudNotification.Instance.ShowText($"Left {currentMiniGame.gameName}");
-                TeleportToArea(m_LeaveTeleportTransform);
-                m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
+                //TeleportToArea(m_LeaveTeleportTransform);
+                localPlayer.TeleportPlayer();
+                //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
                 m_BarrierRend.gameObject.SetActive(true);
             }
         }
@@ -740,7 +785,7 @@ namespace XRMultiplayer.MiniGames
             if (currentPlayerDictionary.ContainsKey(droppedPlayer) && networkedGameState.Value != GameState.PostGame)
             {
                 removedSlot = currentPlayerDictionary[droppedPlayer];
-                removedSlot.SetSlotOpen();
+                //removedSlot.SetSlotOpen();
                 currentPlayerDictionary.Remove(droppedPlayer);
                 droppedPlayer.onDisconnected -= PlayerDisconnected;
 
@@ -790,14 +835,14 @@ namespace XRMultiplayer.MiniGames
         }
         void SortPlayers()
         {
-            if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
+            /*if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
             {
                 currentPlayerDictionary = currentPlayerDictionary.OrderBy(x => x.Value.currentScore).ToDictionary(x => x.Key, x => x.Value);
             }
             else
             {
                 currentPlayerDictionary = currentPlayerDictionary.OrderByDescending(x => x.Value.currentScore).ToDictionary(x => x.Key, x => x.Value);
-            }
+            }*/
             OrganizePlayerList();
         }
 
@@ -807,13 +852,13 @@ namespace XRMultiplayer.MiniGames
             foreach (var slot in currentPlayerDictionary.Values)
             {
                 slot.transform.SetSiblingIndex(currentPlace - 1);
-                slot.UpdatePlace(currentPlace++);
+                //slot.UpdatePlace(currentPlace++);
             }
 
             m_ScoreboardSlots.Sort((a, b) => a.transform.GetSiblingIndex().CompareTo(b.transform.GetSiblingIndex()));
         }
 
-        void ToggleShrink(bool toggle)
+        /*void ToggleShrink(bool toggle)
         {
             m_BottomMask.enabled = toggle;
             m_BottomMask.graphic.enabled = toggle;
@@ -823,7 +868,7 @@ namespace XRMultiplayer.MiniGames
             m_GameNameText.enabled = !toggle;
             m_VideoPlayerObject.SetActive(!toggle);
             m_TooltipObject.SetActive(!toggle);
-        }
+        }*/
 
         IEnumerator CheckBarrierRendererDistance()
         {
@@ -841,9 +886,9 @@ namespace XRMultiplayer.MiniGames
         {
             Vector3 offset = networkedGameState.Value == GameState.InGame ? m_InGameOffset : m_PreGameOffset;
             Transform destination = GetClosestReadyPosition(XRINetworkPlayer.LocalPlayer.transform.position);
-            m_ScoreboardTransform.rotation = destination.rotation;
-            Vector3 destinationPosition = destination.position + (m_ScoreboardTransform.right * offset.x) + (m_ScoreboardTransform.up * offset.y) + (m_ScoreboardTransform.forward * offset.z);
-            m_ScoreboardTransform.position = Vector3.Lerp(m_ScoreboardTransform.position, destinationPosition, Time.deltaTime * m_ScoreboardLerpSpeed);
+            //m_ScoreboardTransform.rotation = destination.rotation;
+            //Vector3 destinationPosition = destination.position + (m_ScoreboardTransform.right * offset.x) + (m_ScoreboardTransform.up * offset.y) + (m_ScoreboardTransform.forward * offset.z);
+            //m_ScoreboardTransform.position = Vector3.Lerp(m_ScoreboardTransform.position, destinationPosition, Time.deltaTime * m_ScoreboardLerpSpeed);
         }
 
         Transform GetClosestReadyPosition(Vector3 position)
@@ -870,7 +915,7 @@ namespace XRMultiplayer.MiniGames
             {
                 if (!p.Value.isFinished)
                 {
-                    p.Value.UpdateScore(m_CurrentTimer, currentMiniGame.currentGameType);
+                    //p.Value.UpdateScore(m_CurrentTimer, currentMiniGame.currentGameType);
                 }
             }
         }
@@ -901,7 +946,7 @@ namespace XRMultiplayer.MiniGames
             // Wipe scoreboard.
             foreach (ScoreboardSlot s in m_ScoreboardSlots)
             {
-                s.SetSlotOpen();
+                //s.SetSlotOpen();
             }
 
             currentPlayerDictionary.Clear();
@@ -926,14 +971,16 @@ namespace XRMultiplayer.MiniGames
 
         void TeleportToArea(Transform teleportTransform)
         {
-            TeleportRequest teleportRequest = new TeleportRequest
+            localPlayer.TeleportPlayer(teleportTransform);
+
+            /*TeleportRequest teleportRequest = new TeleportRequest
             {
                 destinationPosition = teleportTransform.position,
                 destinationRotation = teleportTransform.rotation,
                 matchOrientation = MatchOrientation.TargetUpAndForward
             };
 
-            m_LocalPlayerTeleportProvider.QueueTeleportRequest(teleportRequest);
+            m_LocalPlayerTeleportProvider.QueueTeleportRequest(teleportRequest);*/
         }
 
         void UpdateBestScore(float score, TMP_Text textAsset)
@@ -962,14 +1009,14 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        void SetupPlayerSlots()
+        /*void SetupPlayerSlots()
         {
             for (int i = 0; i < maxAllowedPlayers; i++)
             {
-                Instantiate(m_PlayerScoreboardSlotPrefab, m_ContentListParent).TryGetComponent(out ScoreboardSlot slot);
+                //Instantiate(m_PlayerScoreboardSlotPrefab, m_ContentListParent).TryGetComponent(out ScoreboardSlot slot);
                 m_ScoreboardSlots.Add(slot);
-                slot.SetSlotOpen();
+                //slot.SetSlotOpen();
             }
-        }
+        }*/
     }
 }
