@@ -11,78 +11,36 @@ namespace XRMultiplayer.MiniGames
     [RequireComponent(typeof(MiniGameManager))]
     public class MiniGameBase : MonoBehaviour, IMiniGame
     {
-        /// <summary>
-        /// External flag for the game being finished.
-        /// </summary>
         public bool finished
         {
             get => m_Finished;
             set => m_Finished = value;
         }
 
-        /// <summary>
-        /// Internal flag for the game being finished.
-        /// </summary>
         protected bool m_Finished;
 
-        /// <summary>
-        /// The name of the game.
-        /// </summary>
         public string gameName;
-
-        /// <summary>
-        /// The icon for the button.
-        /// </summary>
         public Sprite btnIcon;
 
-        /// <summary>
-        /// The type of game.
-        /// </summary>
         public enum GameType { Time, Score }
-
-        /// <summary>
-        /// The current game type.
-        /// </summary>
         public GameType currentGameType
         {
             get => m_GameType;
             set => m_GameType = value;
         }
-
-        /// <summary>
-        /// The game type.
-        /// </summary>
         [SerializeField] GameType m_GameType;
-
-        /// <summary>
-        /// The length of the game.
-        /// </summary>
+        
         [SerializeField] protected float m_GameLength = 90.0f;
 
         [SerializeField] protected XRBaseInteractable[] m_GameInteractables;
 
-        /// <summary>
-        /// Manager for the mini-game.
-        /// </summary>
         protected MiniGameManager m_MiniGameManager;
-
-        /// <summary>
-        /// Manager for the interaction.
-        /// </summary>
         protected XRInteractionManager m_InteractionManager;
 
-
-        /// <summary>
-        /// The current timer for the game.
-        /// </summary>
         protected float m_CurrentTimer;
 
-        /// <summary>
-        /// Flag indicating whether the game ending notification has been sent.
-        /// </summary>
         bool m_GameEndingNotificationSent = false;
 
-        ///<inheritdoc/>
         public virtual void Start()
         {
             TryGetComponent(out m_MiniGameManager);
@@ -90,9 +48,6 @@ namespace XRMultiplayer.MiniGames
             m_InteractionManager = FindFirstObjectByType<XRInteractionManager>();
         }
 
-        /// <summary>
-        /// Sets up the mini-game.
-        /// </summary>
         public virtual void SetupGame()
         {
             if (m_GameType == GameType.Score)
@@ -101,19 +56,12 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        /// <summary>
-        /// Starts the mini-game.
-        /// </summary>
         public virtual void StartGame()
         {
             m_GameEndingNotificationSent = false;
             m_Finished = false;
         }
 
-        /// <summary>
-        /// Updates the mini-game.
-        /// </summary>
-        /// <param name="deltaTime">The time since the last frame.</param>
         public virtual void UpdateGame(float deltaTime)
         {
             m_CurrentTimer -= deltaTime;
@@ -133,10 +81,6 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        /// <summary>
-        /// Finishes the mini-game.
-        /// </summary>
-        /// <param name="submitScore">Flag indicating whether to submit the score.</param>
         public virtual void FinishGame(bool submitScore = true)
         {
             RemoveInteractables();
@@ -144,10 +88,6 @@ namespace XRMultiplayer.MiniGames
             m_CurrentTimer = m_GameLength;
         }
 
-        /// <summary>
-        /// Coroutine for displaying the game end notification.
-        /// </summary>
-        /// <returns>An IEnumerator.</returns>
         IEnumerator CheckForGameEndingRoutine()
         {
             int seconds = 3;
@@ -169,9 +109,6 @@ namespace XRMultiplayer.MiniGames
                 m_MiniGameManager.StopGameServerRpc();
         }
 
-        /// <summary>
-        /// Removes the interactables from the mini-game.
-        /// </summary>
         public virtual void RemoveInteractables()
         {
             foreach (IXRInteractable interactable in m_GameInteractables)
