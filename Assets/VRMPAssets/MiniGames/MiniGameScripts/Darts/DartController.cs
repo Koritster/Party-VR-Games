@@ -15,7 +15,7 @@ public class DartController : MonoBehaviour
 
     public void MoveDelay()
     {
-        Invoke(nameof(Move), 3f);
+        Invoke(nameof(Move), 4f);
     }
 
     private void Move()
@@ -29,7 +29,8 @@ public class DartController : MonoBehaviour
         if (TryGetComponent<DartsTarget>(out DartsTarget target))
         {
             target.OnHitRegister();
-            rb.isKinematic = true;
         }
+
+        rb.isKinematic = true;
     }
 }
