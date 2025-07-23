@@ -78,6 +78,8 @@ namespace XRMultiplayer
         }
         public async void CheckInternetAsync()
         {
+            Debug.Log(XRINetworkGameManager.Instance);
+
             if (!XRINetworkGameManager.Instance.IsAuthenticated())
             {
                 ToggleConnectionSubPanel(5);

@@ -19,7 +19,6 @@ public class DartsTarget : NetworkBehaviour
     private void Awake()
     {
         dartsManager= GetComponentInParent<DartsMinigame>();
-        Debug.Log(dartsManager);
         dartTxtPool = dartsManager.GetComponentInChildren<DartTextPooler>();
     }
 
