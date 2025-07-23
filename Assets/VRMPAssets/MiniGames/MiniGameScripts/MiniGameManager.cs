@@ -156,10 +156,10 @@ namespace XRMultiplayer.MiniGames
                 m_CurrentTimer += dt;
                 currentMiniGame.UpdateGame(dt);
             }
-            if ((networkedGameState.Value == GameState.PreGame || (networkedGameState.Value == GameState.InGame && m_UseInGameOffset)) && LocalPlayerInGame)
+            /*if ((networkedGameState.Value == GameState.PreGame || (networkedGameState.Value == GameState.InGame && m_UseInGameOffset)) && LocalPlayerInGame)
             {
                 UpdateScoreboardPosition();
-            }
+            }*/
         }
 
         /// <inheritdoc/>
@@ -296,7 +296,7 @@ namespace XRMultiplayer.MiniGames
 
             //m_DynamicButton.UpdateButton(AddLocalPlayer, "Join");
             m_DynamicButton.UpdateButton(AddAllPlayers, "Join");
-            StartCoroutine(ResetReadyZones());
+            //StartCoroutine(ResetReadyZones());
 
             tpIndex = 0;
         }
@@ -316,10 +316,11 @@ namespace XRMultiplayer.MiniGames
                 m_ScoreboardSlots[i].gameObject.SetActive(false);
             }*/
 
-            foreach (var trigger in m_StartZoneTrigger)
+            /*foreach (var trigger in m_StartZoneTrigger)
+
             {
                 trigger.subTriggerCollider.enabled = false;
-            }
+            }*/
 
             //m_GameStateText.text = "In Progess";
 

@@ -20,7 +20,7 @@ public class DartController : MonoBehaviour
 
     private void Move()
     {
-        rb.isKinematic = true;
+        //rb.isKinematic = true;
         transform.position = originPos;
     }
 
@@ -29,8 +29,8 @@ public class DartController : MonoBehaviour
         if (TryGetComponent<DartsTarget>(out DartsTarget target))
         {
             target.OnHitRegister();
+            rb.isKinematic = true;
         }
 
-        rb.isKinematic = true;
     }
 }
