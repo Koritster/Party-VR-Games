@@ -942,11 +942,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 76f8ded8-785a-42b2-a745-bb91a66d8e45
+  cloudProjectId: efcd164a-b490-429d-9723-02c4fa73f3c0
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: Party VR Games
-  organizationId: maxwake
+  organizationId: koritster
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
