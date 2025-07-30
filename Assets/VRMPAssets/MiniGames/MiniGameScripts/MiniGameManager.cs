@@ -350,7 +350,7 @@ namespace XRMultiplayer.MiniGames
                 //TeleportToArea(m_LeaveTeleportTransform);
                 //Teletransporta al jugador a su lugar del lobby
                 localPlayer.TeleportPlayer();
-                
+
                 m_BarrierRend.gameObject.SetActive(true);
                 //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
             }
@@ -561,17 +561,29 @@ namespace XRMultiplayer.MiniGames
                     //currentPlayerDictionary[player].UpdateScore(score, currentMiniGame.currentGameType);
                     if (finishGameOnScoreSubmit)
                     {
-                        currentPlayerDictionary[player].isFinished = true;
-                        if (player.IsLocalPlayer)
+                        foreach(ScoreboardSlot finishedPlayer in currentPlayerDictionary.Values)
                         {
-                            FinishGame();
+                            finishedPlayer.isFinished = true;
                         }
+
+                        FinishGameForAllClientsClientRpc();
                     }
                 }
             }
 
-            SortPlayers();
-            CheckIfAllPlayersAreFinished();
+            //SortPlayers();
+            //CheckIfAllPlayersAreFinished();
+        }
+
+        private bool gameFinished;
+
+        [ClientRpc]
+        void FinishGameForAllClientsClientRpc()
+        {
+            if (gameFinished) return;
+            
+            gameFinished = true;
+            FinishGame();
         }
 
         void CheckIfAllPlayersAreFinished()
