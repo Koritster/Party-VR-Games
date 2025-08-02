@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 namespace XRMultiplayer.MiniGames
 {
     public class DuelNetworked : NetworkBehaviour
     {
-        [SerializeField] private Text txt_Timer;
+        [SerializeField] private TextMeshProUGUI txt_Timer;
+        [SerializeField] private DuelMinigame ref_DuelMinigame;
 
         private NetworkVariable<float> timerToShoot = new NetworkVariable<float>(
         0f,
@@ -18,12 +19,17 @@ namespace XRMultiplayer.MiniGames
         private float timerTime;
         private bool inGame;
 
+        private void Start()
+        {
+            ref_DuelMinigame = GetComponent<DuelMinigame>();
+        }
+
         public void StartGame()
         {
+            timerToShoot.OnValueChanged += UpdateUITimer;
+
             //Obtener los id de los jugadores
             if (!IsOwner) return;
-
-
         }
 
         public void StartRound()
@@ -36,13 +42,19 @@ namespace XRMultiplayer.MiniGames
                 timerToShoot.Value = timerTime;
                 ShowGunsClientRpc(false);
             }
-
-            timerToShoot.OnValueChanged += UpdateUITimer;
         }
 
         private void UpdateUITimer(float oldValue, float newValue)
         {
-            txt_Timer.text = Mathf.CeilToInt(newValue).ToString();
+            float actualTime = Mathf.CeilToInt(newValue);
+            if(actualTime <= 0)
+            {
+                txt_Timer.text = "FUEGO!";
+            }
+            else
+            {
+                txt_Timer.text = actualTime.ToString();
+            }
         }
 
         private void Update()
@@ -51,6 +63,7 @@ namespace XRMultiplayer.MiniGames
 
             //Actualizar timer solo si está en juego
             timerToShoot.Value -= Time.deltaTime;
+
             if (timerToShoot.Value <= 0f)
             {
                 timerToShoot.Value = 0f;
@@ -63,6 +76,7 @@ namespace XRMultiplayer.MiniGames
         private void ShowGunsClientRpc(bool show) 
         {
             //Aparecer pistolas
+            ref_DuelMinigame.ShowInteractables(show);
         }
 
         public void FinishRound()

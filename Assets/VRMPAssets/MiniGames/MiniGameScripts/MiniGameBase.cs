@@ -67,6 +67,12 @@ namespace XRMultiplayer.MiniGames
             m_CurrentTimer -= deltaTime;
             if (m_GameType == GameType.Score)
             {
+                if (m_Finished && !m_GameEndingNotificationSent)
+                {
+                    m_GameEndingNotificationSent = true;
+                    StartCoroutine(CheckForGameEndingRoutine());
+                }
+                return;
                 //m_MiniGameManager.m_GameStateText.text = $"Time: {m_CurrentTimer:F0}";
             }
             CheckForGameEnd();
@@ -83,6 +89,7 @@ namespace XRMultiplayer.MiniGames
 
         public virtual void FinishGame(bool submitScore = true)
         {
+            Debug.Log("El juego ha terminado");
             RemoveInteractables();
             m_Finished = true;
             m_CurrentTimer = m_GameLength;

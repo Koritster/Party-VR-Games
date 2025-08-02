@@ -357,7 +357,7 @@ namespace XRMultiplayer.MiniGames
 
             m_LocalPlayerInGame = false;
             //m_TeleportZonesObject.SetActive(false);
-            SortPlayers();
+            //SortPlayers();
             //m_GameStateText.text = "Post Game";
             m_DynamicButton.UpdateButton(ResetGame, $"Wait", true, false);
             if (!currentMiniGame.finished)
@@ -518,24 +518,6 @@ namespace XRMultiplayer.MiniGames
         {
             networkedGameState.Value = GameState.PostGame;
             m_CurrentPlayers.Clear();
-            if (currentPlayerDictionary.Count > 0)
-            {
-                //float score = currentPlayerDictionary.First().Value.currentScore;
-                /*if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
-                {
-                    /*if (score < m_BestAllScore.Value || m_BestAllScore.Value <= 0.0f)
-                    {
-                        m_BestAllScore.Value = score;
-                    }
-                }
-                else
-                {
-                    if (score > m_BestAllScore.Value || m_BestAllScore.Value <= 0.0f)
-                    {
-                        m_BestAllScore.Value = score;
-                    }
-                }*/
-            }
         }
 
         /// <summary>
@@ -546,21 +528,22 @@ namespace XRMultiplayer.MiniGames
         /// <param name="clientId">Client ID of the player to set the score for.</param>
         /// <param name="finishGameOnScoreSubmit">Whether or not to finish the game on score submit.</param>
         [ServerRpc(RequireOwnership = false)]
-        public void SubmitScoreServerRpc(float score, ulong clientId, bool finishGameOnScoreSubmit = false)
+        public void SubmitScoreServerRpc(float score, ulong clientId, bool finishGameOnScoreSubmit = false, bool someoneWon = false)
         {
-            SubmitScoreClientRpc(score, clientId, finishGameOnScoreSubmit);
+            SubmitScoreClientRpc(score, clientId, finishGameOnScoreSubmit, someoneWon);
         }
 
         [ClientRpc]
-        void SubmitScoreClientRpc(float score, ulong clientId, bool finishGameOnScoreSubmit = false)
+        void SubmitScoreClientRpc(float score, ulong clientId, bool finishGameOnScoreSubmit = false, bool someoneWon = false)
         {
             if (XRINetworkGameManager.Instance.GetPlayerByID(clientId, out XRINetworkPlayer player))
             {
                 if (currentPlayerDictionary.ContainsKey(player))
                 {
                     //currentPlayerDictionary[player].UpdateScore(score, currentMiniGame.currentGameType);
-                    if (finishGameOnScoreSubmit)
+                    if (finishGameOnScoreSubmit || someoneWon)
                     {
+                        Debug.Log("Finalizando el juego para todos");
                         foreach(ScoreboardSlot finishedPlayer in currentPlayerDictionary.Values)
                         {
                             finishedPlayer.isFinished = true;
@@ -846,6 +829,7 @@ namespace XRMultiplayer.MiniGames
                 CheckPlayersReady();
             }
         }
+
         void SortPlayers()
         {
             /*if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
@@ -856,7 +840,7 @@ namespace XRMultiplayer.MiniGames
             {
                 currentPlayerDictionary = currentPlayerDictionary.OrderByDescending(x => x.Value.currentScore).ToDictionary(x => x.Key, x => x.Value);
             }*/
-            OrganizePlayerList();
+            //OrganizePlayerList();
         }
 
         void OrganizePlayerList()
@@ -956,12 +940,6 @@ namespace XRMultiplayer.MiniGames
 
         void ResetContestants(bool showGamePlayers)
         {
-            // Wipe scoreboard.
-            foreach (ScoreboardSlot s in m_ScoreboardSlots)
-            {
-                //s.SetSlotOpen();
-            }
-
             currentPlayerDictionary.Clear();
 
             if (showGamePlayers)
@@ -985,51 +963,6 @@ namespace XRMultiplayer.MiniGames
         void TeleportToArea(Transform teleportTransform)
         {
             localPlayer.TeleportPlayer(teleportTransform);
-
-            /*TeleportRequest teleportRequest = new TeleportRequest
-            {
-                destinationPosition = teleportTransform.position,
-                destinationRotation = teleportTransform.rotation,
-                matchOrientation = MatchOrientation.TargetUpAndForward
-            };
-
-            m_LocalPlayerTeleportProvider.QueueTeleportRequest(teleportRequest);*/
         }
-
-        void UpdateBestScore(float score, TMP_Text textAsset)
-        {
-            if (m_BestAllScore.Value <= 0.0f)
-            {
-                textAsset.text = $"<b>Current Record</b>: No Record Set";
-            }
-            else
-            {
-                if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
-                {
-                    if (score <= m_BestAllScore.Value && m_BestAllScore.Value > 0.0f)
-                    {
-                        TimeSpan time = TimeSpan.FromSeconds(score);
-                        textAsset.text = $"<b>Current Record</b>: {time.ToString(TIME_FORMAT)}";
-                    }
-                }
-                else
-                {
-                    if (score >= m_BestAllScore.Value && m_BestAllScore.Value > 0.0f)
-                    {
-                        textAsset.text = $"<b>Current Record</b>:  {score:N0}";
-                    }
-                }
-            }
-        }
-
-        /*void SetupPlayerSlots()
-        {
-            for (int i = 0; i < maxAllowedPlayers; i++)
-            {
-                //Instantiate(m_PlayerScoreboardSlotPrefab, m_ContentListParent).TryGetComponent(out ScoreboardSlot slot);
-                m_ScoreboardSlots.Add(slot);
-                //slot.SetSlotOpen();
-            }
-        }*/
     }
 }
