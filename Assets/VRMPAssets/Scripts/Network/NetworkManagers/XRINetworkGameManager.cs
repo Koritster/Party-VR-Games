@@ -526,8 +526,8 @@ namespace XRMultiplayer
                 {
                     connected = NetworkManager.Singleton.StartHost();
                     
-                    playerInfo.isHost = true;
-                    playerInfo.hubSpot = hostTeleportPoint;
+                    playerInfo.m_isHost = true;
+                    playerInfo.m_HubSpot = hostTeleportPoint;
 
                     playerInfo.TeleportPlayer();
                 }
@@ -535,12 +535,12 @@ namespace XRMultiplayer
                 {
                     connected = NetworkManager.Singleton.StartClient();
 
-                    playerInfo.hubSpot = clientTeleportPoint;
+                    playerInfo.m_HubSpot = clientTeleportPoint;
 
                     playerInfo.TeleportPlayer();
                 }
 
-                playerInfo.isConnected = true;
+                playerInfo.m_isConnected = true;
             }
             else
             {
