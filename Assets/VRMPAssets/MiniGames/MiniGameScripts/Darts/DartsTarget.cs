@@ -13,19 +13,21 @@ public class DartsTarget : NetworkBehaviour
     [SerializeField] private int multiply;
 
     private DartsMinigame dartsManager;
+    private DartsNetworked dartsNetworked;
     private DartTextPooler dartTxtPool;
     private GameObject newTxt;
 
     private void Awake()
     {
-        dartsManager= GetComponentInParent<DartsMinigame>();
+        dartsManager = GetComponentInParent<DartsMinigame>();
+        dartsNetworked = GetComponentInParent<DartsNetworked>();
         dartTxtPool = dartsManager.GetComponentInChildren<DartTextPooler>();
     }
 
     public void OnHitRegister()
     {
         int points = basePoints * multiply;
-        dartsManager.LocalPlayerHit(points);
+        dartsNetworked.LocalPlayerHitServerRpc(points);
 
         newTxt = dartTxtPool.GetItem();
         

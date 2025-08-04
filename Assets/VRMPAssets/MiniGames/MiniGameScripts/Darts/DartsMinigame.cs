@@ -19,9 +19,5 @@ namespace XRMultiplayer.MiniGames
         {
             base.FinishGame(name, score);
         }
-
-        public void LocalPlayerHit(int points)
-        {
-        }
     }
 }

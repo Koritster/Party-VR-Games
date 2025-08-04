@@ -60,8 +60,6 @@ public class DartsNetworked : NetworkBehaviour
         Debug.Log("Iniciando juego de dardos");
 
         timer.OnValueChanged += UpdateTimer;
-
-        
     }
 
     private void UpdateTimer(float oldValue, float newValue)
@@ -81,7 +79,19 @@ public class DartsNetworked : NetworkBehaviour
             timer.Value = 0f;
 
             //Terminar el juego
-            int winnerScore = 0;
+            int winnerPoints = 0;
+            string winnerName = "ERROR";
+
+            for(int i = 0; i < playerPoints.Count; i++)
+            {
+                if (playerPoints.ElementAt(i).Value.points > winnerPoints)
+                {
+                    winnerPoints = playerPoints.ElementAt(i).Value.points;
+                    winnerName = playerPoints.ElementAt(i).Key.playerName;
+                }
+            }
+
+            m_DartsMinigame.FinishGame(winnerName, winnerPoints.ToString());
         }
     }
 
@@ -112,6 +122,8 @@ public class DartsNetworked : NetworkBehaviour
             if (scoreIndex < 0 || scoreIndex >= m_MinigameManager.m_Scores.Length)
                 return;
 
+            Debug.Log($"Registrando al jugador {m_localPlayer.playerName}");
+
             //Set names
             TextMeshProUGUI[] texts = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<TextMeshProUGUI>();
             TextMeshProUGUI scoreTxt = null;
@@ -137,7 +149,9 @@ public class DartsNetworked : NetworkBehaviour
     public void LocalPlayerHitServerRpc(int points)
     {
         if (XRINetworkGameManager.Instance.GetPlayerByID(m_playerLocalInfo.m_PlayerId, out XRINetworkPlayer m_localPlayer))
+        {
             LocalPlayerHitClientRpc(m_playerLocalInfo.m_PlayerId, points);
+        }
     }
 
     [ClientRpc]
@@ -146,6 +160,7 @@ public class DartsNetworked : NetworkBehaviour
         if (XRINetworkGameManager.Instance.GetPlayerByID(playerId, out XRINetworkPlayer m_localPlayer))
         {
             playerPoints[m_localPlayer].AddPoints(points);
+            Debug.Log($"El jugador {m_localPlayer} ha obtenido {points}");
         }
     }
 }
