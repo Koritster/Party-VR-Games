@@ -45,21 +45,6 @@ namespace XRMultiplayer.MiniGames
                 //Declaración del PlayerLocalInfo y XRINetworkPlayer local
                 m_scoreGO = m_playerLocalInfo.m_Score;
 
-                //Set names
-                TextMeshProUGUI[] texts = m_scoreGO.GetComponentsInChildren<TextMeshProUGUI>();
-
-                //Esto solo está cambiando los nombres de forma local, se debe cambiar para que sea a todos los jugadores
-                foreach (TextMeshProUGUI text in texts)
-                {
-                    if (text.CompareTag("PlayerNameText"))
-                    {
-                        text.text = m_localPlayer.name;
-                    }
-                    else if (text.CompareTag("ScoreText"))
-                    {
-                        m_scoreTxt = text;
-                    }
-                }
 
                 //Registrar el jugador para el diccionario de todos los jugadores
                 RegisterPlayerServerRpc();
@@ -93,9 +78,26 @@ namespace XRMultiplayer.MiniGames
                 if (scoreIndex < 0 || scoreIndex >= m_MinigameManager.m_Scores.Length)
                     return;
 
+                //Add player to dictionary
                 List<DuelLives> duelLives = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<DuelLives>().ToList();
                 
                 playerLives.Add(m_localPlayer, duelLives);
+
+
+                //Set names
+                TextMeshProUGUI[] texts = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<TextMeshProUGUI>();
+
+                foreach (TextMeshProUGUI text in texts)
+                {
+                    if (text.CompareTag("PlayerNameText"))
+                    {
+                        text.text = m_localPlayer.name;
+                    }
+                    else if (text.CompareTag("ScoreText"))
+                    {
+                        m_scoreTxt = text;
+                    }
+                }
             }
         }
 
@@ -180,7 +182,9 @@ namespace XRMultiplayer.MiniGames
                         if(kvp.Key == m_localPlayer)
                             continue;
 
-                        //Mostrar al ganador
+                        //Mostrar al ganador y finalizar juego
+                        m_DuelMinigame.FinishGame(kvp.Key.playerName);
+                        return;
                     }
                 }
             }

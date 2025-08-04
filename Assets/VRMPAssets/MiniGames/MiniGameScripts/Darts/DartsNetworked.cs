@@ -81,6 +81,55 @@ public class DartsNetworked : NetworkBehaviour
             timer.Value = 0f;
 
             //Terminar el juego
+            int winnerScore = 0;
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RegisterPlayerServerRpc()
+    {
+        if (XRINetworkGameManager.Instance.GetPlayerByID(m_playerLocalInfo.m_PlayerId, out XRINetworkPlayer m_localPlayer))
+        {
+            int scoreIndex = -1;
+            for (int i = 0; i < m_MinigameManager.m_Scores.Length; i++)
+            {
+                if (m_MinigameManager.m_Scores[i] == m_scoreGO)
+                {
+                    scoreIndex = i;
+                    break;
+                }
+            }
+
+            RegisterPlayerClientRpc(m_playerLocalInfo.m_PlayerId, scoreIndex);
+        }
+    }
+
+    [ClientRpc]
+    private void RegisterPlayerClientRpc(ulong playerId, int scoreIndex)
+    {
+        if (XRINetworkGameManager.Instance.GetPlayerByID(playerId, out XRINetworkPlayer m_localPlayer))
+        {
+            if (scoreIndex < 0 || scoreIndex >= m_MinigameManager.m_Scores.Length)
+                return;
+
+            //Set names
+            TextMeshProUGUI[] texts = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI scoreTxt = null;
+
+            foreach (TextMeshProUGUI text in texts)
+            {
+                if (text.CompareTag("PlayerNameText"))
+                {
+                    text.text = m_localPlayer.name;
+                }
+                else if (text.CompareTag("ScoreText"))
+                {
+                    scoreTxt = text.GetComponentInChildren<TextMeshProUGUI>();
+                }
+            }
+
+            //Add player to dictionary
+            playerPoints.Add(m_localPlayer, new Points(0, scoreTxt));
         }
     }
 
@@ -97,7 +146,6 @@ public class DartsNetworked : NetworkBehaviour
         if (XRINetworkGameManager.Instance.GetPlayerByID(playerId, out XRINetworkPlayer m_localPlayer))
         {
             playerPoints[m_localPlayer].AddPoints(points);
-
         }
     }
 }
