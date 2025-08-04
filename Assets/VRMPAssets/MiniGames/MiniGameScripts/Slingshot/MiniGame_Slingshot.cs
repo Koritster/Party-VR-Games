@@ -49,11 +49,11 @@ namespace XRMultiplayer.MiniGames
         }
 
         ///<inheritdoc/>
-        public override void FinishGame(bool submitScore = true)
+        public override void FinishGame(string name, string score = "")
         {
-            base.FinishGame(submitScore);
+            base.FinishGame(name, score);
             m_TargetManager.DeactivateTargets();
-            m_MiniGameManager.FinishGame();
+            m_MiniGameManager.FinishGame("");
 
             SetSlingshotHeights(m_PreGameHeight);
         }

@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.Netcode;
 using Unity.Services.Authentication;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 
@@ -52,6 +54,10 @@ namespace XRMultiplayer.MiniGames
         [Header("UI")]
         public TextButton m_DynamicButton;
         public GameObject m_WinnerCanvas;
+        public Button m_RestartBtn;
+        public Button m_ReturnBtn;
+        public TextMeshProUGUI m_WinnerNameText;
+        public TextMeshProUGUI m_WinnerScoreText;
 
         [Header("Game")]
         public int maxAllowedPlayers = 2;
@@ -60,16 +66,11 @@ namespace XRMultiplayer.MiniGames
         [SerializeField] int m_PostGameWaitTimeInSeconds = 3;
         [SerializeField] int m_PostGameCountdownTimeInSeconds = 7;
         
-        [SerializeField] private GameObject[] m_Scores = new GameObject[2];
+        public GameObject[] m_Scores = new GameObject[2];
 
         [Header("Transform References")]
         [SerializeField] Transform[] m_JoinTeleportTransform = new Transform[2];
         [SerializeField] Transform m_FinishTeleportTransform;
-
-        [Header("Transform Offsets")]
-        [SerializeField] bool m_UseInGameOffset = true;
-        [SerializeField, Tooltip("Determines the offset of the canvas during game")] Vector3 m_InGameOffset;
-        [SerializeField, Tooltip("Determines the offset of the canvas during the pre-game")] Vector3 m_PreGameOffset;
 
         [Header("Barrier")]
         [SerializeField] bool m_UseBarrier = true;
@@ -118,6 +119,10 @@ namespace XRMultiplayer.MiniGames
             }
 
             localPlayer.m_PlayerId = XRINetworkPlayer.LocalPlayer.OwnerClientId;
+
+            //Setup win panel buttons
+            m_RestartBtn.onClick.AddListener(currentMiniGame.RestartMinigame);
+            m_ReturnBtn.onClick.AddListener(currentMiniGame.ReturnToSelect);
         }
 
         /// <inheritdoc/>
@@ -142,7 +147,6 @@ namespace XRMultiplayer.MiniGames
         {
             base.OnNetworkSpawn();
             networkedGameState.OnValueChanged += GameStateValueChanged;
-            m_BestAllScore.OnValueChanged += BestAllScoreChanged;
             m_CurrentPlayers.OnListChanged += UpdatePlayerList;
 
             if (IsServer)
@@ -195,25 +199,7 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        void BestAllScoreChanged(float old, float current)
-        {
-            if (m_BestAllScore.Value <= 0.0f)
-            {
-                //m_BestAllText.text = $"<b>Current Record</b>: No Record Set";
-            }
-            else
-            {
-                if (currentMiniGame.currentGameType == MiniGameBase.GameType.Time)
-                {
-                    TimeSpan time = TimeSpan.FromSeconds(current);
-                    //m_BestAllText.text = $"<b>Current Record</b>: {time.ToString(TIME_FORMAT)}";
-                }
-                else
-                {
-                    //m_BestAllText.text = $"<b>Current Record</b>: {current:N0}";
-                }
-            }
-        }
+        #region Game State
 
         void GameStateValueChanged(GameState oldState, GameState currentState)
         {
@@ -245,7 +231,6 @@ namespace XRMultiplayer.MiniGames
             }
 
             currentMiniGame.SetupGame();
-            //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
 
             for (int i = 0; i < m_ScoreboardSlots.Count; i++)
             {
@@ -254,11 +239,7 @@ namespace XRMultiplayer.MiniGames
 
             ResetContestants(false);
 
-            //m_GameStateText.text = "Pre Game";
-
-            //m_DynamicButton.UpdateButton(AddLocalPlayer, "Join");
             m_DynamicButton.UpdateButton(AddAllPlayers, "Join");
-            //StartCoroutine(ResetReadyZones());
 
             tpIndex = 0;
         }
@@ -272,11 +253,6 @@ namespace XRMultiplayer.MiniGames
             {
                 m_DynamicButton.button.interactable = true;
                 PlayerHudNotification.Instance.ShowText($"Game Started!");
-                //ToggleShrink(true);
-                if (!m_UseInGameOffset)
-                {
-                    //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardInGameTransform.position, m_ScoreboardInGameTransform.rotation);
-                }
             }
             else
             {
@@ -290,23 +266,17 @@ namespace XRMultiplayer.MiniGames
         {
             if (LocalPlayerInGame)
             {
-                //ToggleShrink(false);
-                //TeleportToArea(m_LeaveTeleportTransform);
-                //Teletransporta al jugador a su lugar del lobby
                 localPlayer.TeleportPlayer();
 
                 m_BarrierRend.gameObject.SetActive(true);
-                //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
             }
 
             m_LocalPlayerInGame = false;
-            //m_TeleportZonesObject.SetActive(false);
-            //SortPlayers();
-            //m_GameStateText.text = "Post Game";
-            m_DynamicButton.UpdateButton(ResetGame, $"Wait", true, false);
+            
+            m_DynamicButton.UpdateButton(ResetGameServerRpc, $"Wait", true, false);
             if (!currentMiniGame.finished)
             {
-                currentMiniGame.FinishGame(false);
+                currentMiniGame.FinishGame("");
             }
 
             m_PostGameRoutine = PostGameRoutine();
@@ -323,10 +293,9 @@ namespace XRMultiplayer.MiniGames
         IEnumerator PostGameRoutine()
         {
             yield return new WaitForSeconds(m_PostGameWaitTimeInSeconds);
-            //m_GameStateText.text = "Next Game in";
             for (int i = m_PostGameCountdownTimeInSeconds; i > 0; i--)
             {
-                m_DynamicButton.UpdateButton(ResetGame, $"{i}", true, false);
+                m_DynamicButton.UpdateButton(ResetGameServerRpc, $"{i}", true, false);
                 yield return new WaitForSeconds(1);
             }
 
@@ -335,6 +304,8 @@ namespace XRMultiplayer.MiniGames
                 networkedGameState.Value = GameState.PreGame;
             }
         }
+
+        #endregion
 
         void CheckPlayersReady()
         {
@@ -380,6 +351,8 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
+        #region Start Game
+
         IEnumerator StartGameAfterTime(int countdownTime)
         {
             for (int i = countdownTime; i > 0; i--)
@@ -413,12 +386,9 @@ namespace XRMultiplayer.MiniGames
             networkedGameState.Value = GameState.InGame;
         }
 
-        [ServerRpc(RequireOwnership = false)]
-        public void StopGameServerRpc()
-        {
-            networkedGameState.Value = GameState.PostGame;
-            m_CurrentPlayers.Clear();
-        }
+        #endregion
+
+        #region Submit Score
 
         /// <summary>
         /// Submits a player score. If <see cref="finishGameOnScoreSubmit"/> is true, it will finish the game for that player.
@@ -448,7 +418,7 @@ namespace XRMultiplayer.MiniGames
                             finishedPlayer.isFinished = true;
                         }
 
-                        FinishGameForAllClientsClientRpc();
+                        FinishGameForAllClientsClientRpc("");
                     }
                 }
             }
@@ -457,15 +427,26 @@ namespace XRMultiplayer.MiniGames
             //CheckIfAllPlayersAreFinished();
         }
 
+        #endregion
+
+        #region Finish Game
+
         private bool gameFinished;
 
+        [ServerRpc(RequireOwnership = false)]
+        public void StopGameServerRpc()
+        {
+            networkedGameState.Value = GameState.PostGame;
+            m_CurrentPlayers.Clear();
+        }
+
         [ClientRpc]
-        void FinishGameForAllClientsClientRpc()
+        public void FinishGameForAllClientsClientRpc(string name, string score = "")
         {
             if (gameFinished) return;
             
             gameFinished = true;
-            FinishGame();
+            FinishGame(name, score);
         }
 
         void CheckIfAllPlayersAreFinished()
@@ -489,27 +470,29 @@ namespace XRMultiplayer.MiniGames
         /// <summary>
         /// Called localled on each client when the game is finished.
         /// </summary>
-        public void FinishGame()
+        public void FinishGame(string name, string score = "")
         {
-            if (LocalPlayerInGame)
-            {
-                //ToggleShrink(false);
-            }
-            StartCoroutine(TeleportAfterFinish());
+            Debug.Log("El juego ha finalizado! MinigameManager");
+    
+            StartCoroutine(TeleportAfterFinish(name, score));
         }
 
-        IEnumerator TeleportAfterFinish()
+        IEnumerator TeleportAfterFinish(string name, string score = "")
         {
             yield return new WaitForSeconds(1.5f);
             if (networkedGameState.Value == GameState.InGame)
             {
                 TeleportToArea(m_FinishTeleportTransform);
             }
+
+            m_WinnerCanvas.SetActive(true);
+            m_WinnerNameText.text = name;
+            m_WinnerScoreText.text = score;
         }
 
-        /// <summary>
-        /// Called from UI Buttons
-        /// </summary>
+        #endregion
+
+        #region Add Players
 
         int tpIndex = 0;
 
@@ -529,15 +512,6 @@ namespace XRMultiplayer.MiniGames
             CheckPlayersReady();
         }
 
-        /// <summary>
-        /// Called from UI buttons
-        /// </summary>
-        /*public void RemoveLocalPlayer()
-        {
-            m_DynamicButton.UpdateButton(AddLocalPlayer, "Join", false, false);
-            RemovePlayerServerRpc(XRINetworkPlayer.LocalPlayer.OwnerClientId);
-        }*/
-
         [ServerRpc(RequireOwnership = false)]
         void AddPlayerServerRpc(ulong clientId, int i)
         {
@@ -547,22 +521,6 @@ namespace XRMultiplayer.MiniGames
                 m_QueuedUpPlayers.Add(clientId);
             }
         }
-
-        /*[ServerRpc(RequireOwnership = false)]
-        void RemovePlayerServerRpc(ulong clientId)
-        {
-            RemovePlayerClientRpc(clientId);
-
-            if (m_QueuedUpPlayers.Contains(clientId))
-            {
-                m_QueuedUpPlayers.Remove(clientId);
-            }
-
-            if (m_CurrentPlayers.Contains(clientId))
-            {
-                m_CurrentPlayers.Remove(clientId);
-            }
-        }*/
 
         //A�adir jugador a la partida
         [ClientRpc]
@@ -609,34 +567,9 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        /*[ClientRpc]
-        void RemovePlayerClientRpc(ulong clientId)
-        {
-            if (XRINetworkGameManager.Instance.GetPlayerByID(clientId, out XRINetworkPlayer player))
-            {
-                CheckDroppedPlayer(player);
-            }
+        #endregion
 
-            if (clientId == XRINetworkPlayer.LocalPlayer.OwnerClientId)
-            {
-                m_LocalPlayerInGame = false;
-                //m_TeleportZonesObject.SetActive(false);
-
-                //If local player left, and we are still in game, don't let them rejoin mid game.
-                if (networkedGameState.Value != GameState.InGame)
-                {
-                    m_DynamicButton.button.interactable = true;
-                }
-
-                //ToggleShrink(false);
-                currentMiniGame.RemoveInteractables();
-                PlayerHudNotification.Instance.ShowText($"Left {currentMiniGame.gameName}");
-                //TeleportToArea(m_LeaveTeleportTransform);
-                localPlayer.TeleportPlayer();
-                //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
-                m_BarrierRend.gameObject.SetActive(true);
-            }
-        }*/
+        #region Disconect
 
         private void PlayerDisconnected(XRINetworkPlayer droppedPlayer)
         {
@@ -696,6 +629,8 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
+        #endregion
+
         IEnumerator CheckBarrierRendererDistance()
         {
             while (true)
@@ -708,19 +643,7 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
-        /// <summary>
-        /// Updates the player scores based on <see cref="m_CurrentTimer"/>.
-        /// </summary>
-        public void UpdatePlayerScores()
-        {
-            foreach (var p in currentPlayerDictionary)
-            {
-                if (!p.Value.isFinished)
-                {
-                    //p.Value.UpdateScore(m_CurrentTimer, currentMiniGame.currentGameType);
-                }
-            }
-        }
+        #region Reset Game
 
         /// <summary>
         /// Resets the Game State
@@ -728,8 +651,17 @@ namespace XRMultiplayer.MiniGames
         /// <remarks>
         /// This function is called locally at times, which creates a divergence between local game state and network game state
         /// </remarks>
-        void ResetGame()
+        [ServerRpc(RequireOwnership = false)]
+        public void ResetGameServerRpc()
         {
+            ResetGameClientRpc();
+            AddAllPlayers();
+        }
+
+        [ClientRpc]
+        private void ResetGameClientRpc()
+        {
+            Debug.Log("Reiniciando minijuego...");
             networkedGameState.Value = GameState.PreGame;
             SetPreGameState();
         }
@@ -756,9 +688,69 @@ namespace XRMultiplayer.MiniGames
             }
         }
 
+        #endregion
+
         void TeleportToArea(Transform teleportTransform)
         {
             localPlayer.TeleportPlayer(teleportTransform);
         }
+
+        #region Remove Player
+
+        /// <summary>
+        /// Called from UI buttons
+        /// </summary>
+        /*public void RemoveLocalPlayer()
+        {
+            m_DynamicButton.UpdateButton(AddLocalPlayer, "Join", false, false);
+            RemovePlayerServerRpc(XRINetworkPlayer.LocalPlayer.OwnerClientId);
+        }*/
+
+        /*[ServerRpc(RequireOwnership = false)]
+        void RemovePlayerServerRpc(ulong clientId)
+        {
+            RemovePlayerClientRpc(clientId);
+
+            if (m_QueuedUpPlayers.Contains(clientId))
+            {
+                m_QueuedUpPlayers.Remove(clientId);
+            }
+
+            if (m_CurrentPlayers.Contains(clientId))
+            {
+                m_CurrentPlayers.Remove(clientId);
+            }
+        }*/
+
+        /*[ClientRpc]
+        void RemovePlayerClientRpc(ulong clientId)
+        {
+            if (XRINetworkGameManager.Instance.GetPlayerByID(clientId, out XRINetworkPlayer player))
+            {
+                CheckDroppedPlayer(player);
+            }
+
+            if (clientId == XRINetworkPlayer.LocalPlayer.OwnerClientId)
+            {
+                m_LocalPlayerInGame = false;
+                //m_TeleportZonesObject.SetActive(false);
+
+                //If local player left, and we are still in game, don't let them rejoin mid game.
+                if (networkedGameState.Value != GameState.InGame)
+                {
+                    m_DynamicButton.button.interactable = true;
+                }
+
+                //ToggleShrink(false);
+                currentMiniGame.RemoveInteractables();
+                PlayerHudNotification.Instance.ShowText($"Left {currentMiniGame.gameName}");
+                //TeleportToArea(m_LeaveTeleportTransform);
+                localPlayer.TeleportPlayer();
+                //m_ScoreboardTransform.SetPositionAndRotation(m_ScoreboardStartPose.position, m_ScoreboardStartPose.rotation);
+                m_BarrierRend.gameObject.SetActive(true);
+            }
+        }*/
+
+        #endregion
     }
 }

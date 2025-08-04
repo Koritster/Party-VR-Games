@@ -15,9 +15,9 @@ public class MinigameBasketball : MiniGameBase
         currentPlayerScore = 0;
     }
 
-    public override void FinishGame(bool submitScore = true)
+    public override void FinishGame(string name, string score = "")
     {
-        base.FinishGame(submitScore);
+        base.FinishGame(name, score);
 
         //add functionality for when game finishes
     }

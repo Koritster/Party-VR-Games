@@ -83,9 +83,9 @@ namespace XRMultiplayer.MiniGames
         /// Finishes the game and ends the networked gameplay.
         /// </summary>
         /// <param name="submitScore">Whether to submit the score or not.</param>
-        public override void FinishGame(bool submitScore = true)
+        public override void FinishGame(string name, string score = "")
         {
-            base.FinishGame(submitScore);
+            base.FinishGame(name, score);
             m_NetworkedGameplay.EndGame();
         }
 

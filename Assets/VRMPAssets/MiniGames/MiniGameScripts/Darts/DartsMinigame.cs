@@ -6,22 +6,22 @@ namespace XRMultiplayer.MiniGames
 {
     public class DartsMinigame : MiniGameBase
     {
-        int currentPlayerScore = 0;
+        DartsNetworked m_DartsNetworked;
 
         public override void StartGame()
         {
             base.StartGame();
+
+            m_DartsNetworked.GetComponent<DartsNetworked>();
         }
 
-        public override void FinishGame(bool submitScore = true)
+        public override void FinishGame(string name, string score = "")
         {
-            base.FinishGame(submitScore);
+            base.FinishGame(name, score);
         }
 
         public void LocalPlayerHit(int points)
         {
-            currentPlayerScore += points;
-            m_MiniGameManager.SubmitScoreServerRpc(currentPlayerScore, XRINetworkPlayer.LocalPlayer.OwnerClientId);
         }
     }
 }

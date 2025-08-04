@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DuelLives : MonoBehaviour
 {
+
+
     public void LiveLost()
     {
 

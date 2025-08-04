@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace XRMultiplayer.MiniGames
 {
@@ -20,7 +21,6 @@ namespace XRMultiplayer.MiniGames
         {
             base.Start();
             m_LocalPlayerTimer = 0.0f;
-            m_CurrentTimer = m_GameLength;
             foreach (var bell in m_FinishBells)
             {
                 bell.subTriggerCollider.enabled = false;
@@ -66,7 +66,6 @@ namespace XRMultiplayer.MiniGames
             }
 
             m_LocalPlayerTimer = 0.0f;
-            m_CurrentTimer = m_GameLength;
         }
 
         ///<inheritdoc/>
@@ -77,21 +76,18 @@ namespace XRMultiplayer.MiniGames
             {
                 m_LocalPlayerTimer += Time.deltaTime;
             }
-            m_MiniGameManager.UpdatePlayerScores();
+            //m_MiniGameManager.UpdatePlayerScores();
         }
 
         ///<inheritdoc/>
-        public override void FinishGame(bool submitScore = true)
+        public override void FinishGame(string name, string score = "")
         {
-            base.FinishGame(submitScore);
+            base.FinishGame(name, score);
 
             foreach (var bells in m_FinishBells)
             {
                 bells.subTriggerCollider.enabled = false;
             }
-
-            if (submitScore)
-                m_MiniGameManager.SubmitScoreServerRpc(m_LocalPlayerTimer, XRINetworkPlayer.LocalPlayer.OwnerClientId, true);
         }
 
         void HitBell(Collider collider, bool isTriggered, Renderer bell)
@@ -109,7 +105,7 @@ namespace XRMultiplayer.MiniGames
                         particle.Play();
                     }
 
-                    FinishGame();
+                    FinishGame(name, score);
                 }
             }
         }

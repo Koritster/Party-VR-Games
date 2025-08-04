@@ -8,8 +8,6 @@ namespace XRMultiplayer.MiniGames
 {
     public class DuelMinigame : MiniGameBase
     {
-        int currentPlayerScore;
-
         DuelNetworked ref_DuelNetworked;
 
         public override void Start()
@@ -26,10 +24,10 @@ namespace XRMultiplayer.MiniGames
             ref_DuelNetworked.StartRound();
         }
 
-        public override void FinishGame(bool submitScore = true)
+        public override void FinishGame(string name, string score = "")
         {
             Debug.Log("Finalizando juego");
-            base.FinishGame(submitScore);
+            base.FinishGame(name, score);
         }
 
         public void ShowInteractables(bool show)

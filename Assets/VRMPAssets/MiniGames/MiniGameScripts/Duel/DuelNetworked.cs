@@ -13,6 +13,7 @@ namespace XRMultiplayer.MiniGames
         private DuelMinigame m_DuelMinigame;
         private MiniGameManager m_MinigameManager;
         private GameObject m_scoreGO;
+        private TextMeshProUGUI m_scoreTxt;
         private PlayerLocalInfo m_playerLocalInfo;
         private Dictionary<XRINetworkPlayer, List<DuelLives>> playerLives;
 
@@ -23,8 +24,6 @@ namespace XRMultiplayer.MiniGames
 
         private float timerTime;
         private bool inGame;
-
-        
 
         #region Start Functions
 
@@ -47,16 +46,56 @@ namespace XRMultiplayer.MiniGames
                 m_scoreGO = m_playerLocalInfo.m_Score;
 
                 //Set names
-                m_scoreGO.GetComponentInChildren<TextMeshProUGUI>().text = m_localPlayer.name;
+                TextMeshProUGUI[] texts = m_scoreGO.GetComponentsInChildren<TextMeshProUGUI>();
 
-                //Set lives objects && set lives
-                List<DuelLives> livesGO = GetComponentsInChildren<DuelLives>().ToList<DuelLives>();
-
-                //Declarar la lista de jugadores con las vidas máximas
-                foreach (KeyValuePair<XRINetworkPlayer, ScoreboardSlot> kvp in m_MinigameManager.currentPlayerDictionary)
+                //Esto solo está cambiando los nombres de forma local, se debe cambiar para que sea a todos los jugadores
+                foreach (TextMeshProUGUI text in texts)
                 {
-                    playerLives.Add(kvp.Key, livesGO);
+                    if (text.CompareTag("PlayerNameText"))
+                    {
+                        text.text = m_localPlayer.name;
+                    }
+                    else if (text.CompareTag("ScoreText"))
+                    {
+                        m_scoreTxt = text;
+                    }
                 }
+
+                //Registrar el jugador para el diccionario de todos los jugadores
+                RegisterPlayerServerRpc();
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void RegisterPlayerServerRpc()
+        {
+            if (XRINetworkGameManager.Instance.GetPlayerByID(m_playerLocalInfo.m_PlayerId, out XRINetworkPlayer m_localPlayer))
+            {
+                int scoreIndex = -1;
+                for(int i = 0; i < m_MinigameManager.m_Scores.Length; i++)
+                {
+                    if (m_MinigameManager.m_Scores[i] == m_scoreGO)
+                    {
+                        scoreIndex = i;
+                        break;
+                    }
+                }
+
+                RegisterPlayerClientRpc(m_playerLocalInfo.m_PlayerId, scoreIndex);
+            }
+        }
+
+        [ClientRpc]
+        private void RegisterPlayerClientRpc(ulong playerId, int scoreIndex)
+        {
+            if (XRINetworkGameManager.Instance.GetPlayerByID(playerId, out XRINetworkPlayer m_localPlayer))
+            {
+                if (scoreIndex < 0 || scoreIndex >= m_MinigameManager.m_Scores.Length)
+                    return;
+
+                List<DuelLives> duelLives = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<DuelLives>().ToList();
+                
+                playerLives.Add(m_localPlayer, duelLives);
             }
         }
 
@@ -127,7 +166,7 @@ namespace XRMultiplayer.MiniGames
         [ClientRpc]
         public void LocalPlayerLooseClientRpc(ulong playerId)
         {
-            if (XRINetworkGameManager.Instance.GetPlayerByID(m_playerLocalInfo.m_PlayerId, out XRINetworkPlayer m_localPlayer))
+            if (XRINetworkGameManager.Instance.GetPlayerByID(playerId, out XRINetworkPlayer m_localPlayer))
             {
                 //Restar una vida al jugador
                 playerLives[m_localPlayer].Last<DuelLives>().LiveLost();

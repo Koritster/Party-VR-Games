@@ -12,6 +12,8 @@ TagManager:
   - Ball
   - Bullet
   - Minigame
+  - Player Name Text
+  - Score Text
   layers:
   - Default
   - TransparentFX

@@ -22,7 +22,7 @@ namespace XRMultiplayer.MiniGames
         public string gameName;
         public Sprite btnIcon;
 
-        public enum GameType { Time, Score }
+        public enum GameType { Time, Score, Lives }
         public GameType currentGameType
         {
             get => m_GameType;
@@ -37,14 +37,12 @@ namespace XRMultiplayer.MiniGames
         protected MiniGameManager m_MiniGameManager;
         protected XRInteractionManager m_InteractionManager;
 
-        protected float m_CurrentTimer;
 
-        bool m_GameEndingNotificationSent = false;
+        protected string winnerName, score;
 
         public virtual void Start()
         {
             TryGetComponent(out m_MiniGameManager);
-            m_CurrentTimer = m_GameLength;
             m_InteractionManager = FindFirstObjectByType<XRInteractionManager>();
         }
 
@@ -52,50 +50,47 @@ namespace XRMultiplayer.MiniGames
         {
             if (m_GameType == GameType.Score)
             {
-                m_CurrentTimer = m_GameLength;
             }
         }
 
         public virtual void StartGame()
         {
-            m_GameEndingNotificationSent = false;
             m_Finished = false;
         }
 
         public virtual void UpdateGame(float deltaTime)
         {
-            m_CurrentTimer -= deltaTime;
-            if (m_GameType == GameType.Score)
+            /*if (m_GameType == GameType.Score)
             {
+                m_CurrentTimer -= deltaTime;
                 if (m_Finished && !m_GameEndingNotificationSent)
                 {
                     m_GameEndingNotificationSent = true;
                     StartCoroutine(CheckForGameEndingRoutine());
                 }
-                return;
-                //m_MiniGameManager.m_GameStateText.text = $"Time: {m_CurrentTimer:F0}";
-            }
-            CheckForGameEnd();
+                CheckForGameEnd();
+            }*/
         }
 
-        protected void CheckForGameEnd()
+        /*protected void CheckForGameEnd()
         {
             if (m_CurrentTimer <= 3.5f & !m_GameEndingNotificationSent)
             {
                 m_GameEndingNotificationSent = true;
                 StartCoroutine(CheckForGameEndingRoutine());
             }
-        }
+        }*/
 
-        public virtual void FinishGame(bool submitScore = true)
+        public virtual void FinishGame(string name, string score = "")
         {
             Debug.Log("El juego ha terminado");
             RemoveInteractables();
             m_Finished = true;
-            m_CurrentTimer = m_GameLength;
+
+            CheckForGameEndingRoutine(name, score);
         }
 
-        IEnumerator CheckForGameEndingRoutine()
+        IEnumerator CheckForGameEndingRoutine(string name, string score)
         {
             int seconds = 3;
             while (seconds > 0)
@@ -112,8 +107,17 @@ namespace XRMultiplayer.MiniGames
                 PlayerHudNotification.Instance.ShowText($"Game Complete!");
             }
 
-            if (m_MiniGameManager.IsServer && m_MiniGameManager.currentNetworkedGameState == MiniGameManager.GameState.InGame)
-                m_MiniGameManager.StopGameServerRpc();
+            m_MiniGameManager.FinishGameForAllClientsClientRpc(name, score);
+        }
+
+        public virtual void ReturnToSelect()
+        {
+            m_MiniGameManager.StopGameServerRpc();
+        }
+
+        public virtual void RestartMinigame()
+        {
+            m_MiniGameManager.ResetGameServerRpc();
         }
 
         public virtual void RemoveInteractables()
@@ -149,7 +153,16 @@ namespace XRMultiplayer.MiniGames
         /// <summary>
         /// Finishes the mini-game.
         /// </summary>
-        /// <param name="submitScore">Flag indicating whether to submit the score.</param>
-        void FinishGame(bool submitScore = true);
+        void FinishGame(string name, string score = "");
+
+        /// <summary>
+        /// Returns players to select minigame.
+        /// </summary>
+        void ReturnToSelect();
+
+        /// <summary>
+        /// Starts the game again.
+        /// </summary>
+        void RestartMinigame();
     }
 }
