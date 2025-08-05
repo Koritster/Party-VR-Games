@@ -87,11 +87,13 @@ namespace XRMultiplayer.MiniGames
             RemoveInteractables();
             m_Finished = true;
 
-            CheckForGameEndingRoutine(name, score);
+            StartCoroutine(CheckForGameEndingRoutine(name, score));
         }
 
         IEnumerator CheckForGameEndingRoutine(string name, string score)
         {
+            Debug.Log("Iniciando Coroutine");
+
             int seconds = 3;
             while (seconds > 0)
             {

@@ -96,6 +96,8 @@ public class DartsNetworked : NetworkBehaviour
 
         if (timer.Value <= 0f)
         {
+            inGame = false;
+         
             Debug.Log("El tiempo a terminado");
 
             timer.Value = 0f;
