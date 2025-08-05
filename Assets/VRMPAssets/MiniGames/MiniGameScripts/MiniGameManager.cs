@@ -118,8 +118,6 @@ namespace XRMultiplayer.MiniGames
                 }
             }
 
-            Debug.Log(localPlayer.m_PlayerId);
-
             //Setup win panel buttons
             m_RestartBtn.onClick.AddListener(currentMiniGame.RestartMinigame);
             m_ReturnBtn.onClick.AddListener(currentMiniGame.ReturnToSelect);
@@ -337,7 +335,6 @@ namespace XRMultiplayer.MiniGames
                 {
                     PlayerHudNotification.Instance.ShowText("Game Start Cancelled");
                 }
-                //m_GameStateText.text = "Pre Game";
             }
             else
             {
@@ -538,6 +535,8 @@ namespace XRMultiplayer.MiniGames
                 //Verifica que la id del cliente sea la del jugador local, no confundir con el jugador host
                 if (clientId == XRINetworkPlayer.LocalPlayer.OwnerClientId)
                 {
+                    Debug.Log("Añadiendo al jugador " + clientId);
+
                     m_LocalPlayerInGame = true;
                     //m_DynamicButton.UpdateButton(RemoveLocalPlayer, "Leave");
 
@@ -547,7 +546,9 @@ namespace XRMultiplayer.MiniGames
                     PlayerHudNotification.Instance.ShowText($"Joined {currentMiniGame.gameName}");
                     m_BarrierRend.gameObject.SetActive(false);
 
-                    localPlayer.m_PlayerId = XRINetworkPlayer.LocalPlayer.OwnerClientId;
+                    localPlayer.m_PlayerId = clientId;
+                    XRINetworkGameManager.Instance.GetPlayerByID(clientId, out XRINetworkPlayer playerxdxd);
+                    Debug.Log("Confirmando que su Id es " + clientId + " y su nombre es " + playerxdxd.playerName);
                 }
 
                 if (currentPlayerDictionary.Count >= maxAllowedPlayers & !LocalPlayerInGame && networkedGameState.Value != GameState.PostGame)

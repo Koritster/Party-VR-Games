@@ -8,6 +8,11 @@ namespace XRMultiplayer.MiniGames
     {
         DartsNetworked m_DartsNetworked;
 
+        private void Awake()
+        {
+            m_DartsNetworked = GetComponent<DartsNetworked>();
+        }
+
         public override void StartGame()
         {
             base.StartGame();

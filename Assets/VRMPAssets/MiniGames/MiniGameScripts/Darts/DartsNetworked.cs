@@ -12,6 +12,8 @@ using XRMultiplayer.MiniGames;
 public class DartsNetworked : NetworkBehaviour
 {
     [SerializeField] private float timeLenght;
+    [SerializeField] private GameObject clock;
+    [SerializeField] private Gradient clockColors;
 
     private float currentTime;
     
@@ -30,6 +32,7 @@ public class DartsNetworked : NetworkBehaviour
         {
             this.points = m_points;
             this.scoreTxt = m_scoreTxt;
+            this.scoreTxt.text = "Score: 0";
         }
 
         public void AddPoints(int m_points)
@@ -39,7 +42,7 @@ public class DartsNetworked : NetworkBehaviour
         }
     }
 
-    private Dictionary<XRINetworkPlayer, Points> playerPoints;
+    private Dictionary<XRINetworkPlayer, Points> playerPoints = new Dictionary<XRINetworkPlayer, Points>();
 
     private NetworkVariable<float> timer = new NetworkVariable<float>(
         0,
@@ -61,12 +64,27 @@ public class DartsNetworked : NetworkBehaviour
 
         timer.OnValueChanged += UpdateTimer;
 
+        m_scoreGO = m_playerLocalInfo.m_Score;
+
         RegisterPlayerServerRpc();
+
+        if (IsServer)
+        {
+            timer.Value = timeLenght;
+        }
+
+        inGame = true;
     }
 
     private void UpdateTimer(float oldValue, float newValue)
     {
         //Cambiar el color del reloj
+        float t = newValue / timeLenght;
+
+        Color color = clockColors.Evaluate(t);
+        clock.GetComponent<Renderer>().material.color = color;
+
+        Debug.Log(newValue);
     }
 
     private void Update()
@@ -100,17 +118,26 @@ public class DartsNetworked : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void RegisterPlayerServerRpc()
     {
+        Debug.Log("Buscando si existe el jugador " + m_playerLocalInfo.m_PlayerId);
+
         if (XRINetworkGameManager.Instance.GetPlayerByID(m_playerLocalInfo.m_PlayerId, out XRINetworkPlayer m_localPlayer))
         {
+            Debug.Log("Si existe");
+            
             int scoreIndex = -1;
             for (int i = 0; i < m_MinigameManager.m_Scores.Length; i++)
             {
+                Debug.Log($"{m_MinigameManager.m_Scores[i]} == {m_scoreGO}? {m_MinigameManager.m_Scores[i] == m_scoreGO}");
+
                 if (m_MinigameManager.m_Scores[i] == m_scoreGO)
                 {
                     scoreIndex = i;
+                    Debug.Log("Se encontró un indice!");
                     break;
                 }
             }
+
+            Debug.Log(scoreIndex);
 
             RegisterPlayerClientRpc(m_playerLocalInfo.m_PlayerId, scoreIndex);
         }
@@ -119,12 +146,17 @@ public class DartsNetworked : NetworkBehaviour
     [ClientRpc]
     private void RegisterPlayerClientRpc(ulong playerId, int scoreIndex)
     {
+        Debug.Log("Regsitrando el usuario a todos los clientes...");
+
         if (XRINetworkGameManager.Instance.GetPlayerByID(playerId, out XRINetworkPlayer m_localPlayer))
         {
             if (scoreIndex < 0 || scoreIndex >= m_MinigameManager.m_Scores.Length)
+            {
+                Debug.LogError("Problema con el indice");
                 return;
+            }
 
-            Debug.Log($"Registrando al jugador {m_localPlayer.playerName}");
+            Debug.LogWarning($"Registrando al jugador {m_localPlayer.playerName}");
 
             //Set names
             TextMeshProUGUI[] texts = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<TextMeshProUGUI>();
@@ -132,13 +164,13 @@ public class DartsNetworked : NetworkBehaviour
 
             foreach (TextMeshProUGUI text in texts)
             {
-                if (text.CompareTag("PlayerNameText"))
+                if (text.CompareTag("Player Name Text"))
                 {
                     text.text = m_localPlayer.name;
                 }
-                else if (text.CompareTag("ScoreText"))
+                else if (text.CompareTag("Score Text"))
                 {
-                    scoreTxt = text.GetComponentInChildren<TextMeshProUGUI>();
+                    scoreTxt = text.GetComponent<TextMeshProUGUI>();
                 }
             }
 
