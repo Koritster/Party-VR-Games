@@ -482,6 +482,7 @@ namespace XRMultiplayer.MiniGames
                 TeleportToArea(m_FinishTeleportTransform);
             }
 
+            Debug.Log("Activando el canvas del ganador");
             m_WinnerCanvas.SetActive(true);
             m_WinnerNameText.text = name;
             m_WinnerScoreText.text = score;
