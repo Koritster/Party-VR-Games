@@ -118,7 +118,7 @@ namespace XRMultiplayer.MiniGames
                 }
             }
 
-            localPlayer.m_PlayerId = XRINetworkPlayer.LocalPlayer.OwnerClientId;
+            Debug.Log(localPlayer.m_PlayerId);
 
             //Setup win panel buttons
             m_RestartBtn.onClick.AddListener(currentMiniGame.RestartMinigame);
@@ -546,6 +546,8 @@ namespace XRMultiplayer.MiniGames
 
                     PlayerHudNotification.Instance.ShowText($"Joined {currentMiniGame.gameName}");
                     m_BarrierRend.gameObject.SetActive(false);
+
+                    localPlayer.m_PlayerId = XRINetworkPlayer.LocalPlayer.OwnerClientId;
                 }
 
                 if (currentPlayerDictionary.Count >= maxAllowedPlayers & !LocalPlayerInGame && networkedGameState.Value != GameState.PostGame)

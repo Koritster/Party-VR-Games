@@ -12,7 +12,7 @@ namespace XRMultiplayer.MiniGames
         {
             base.StartGame();
 
-            m_DartsNetworked.GetComponent<DartsNetworked>();
+            m_DartsNetworked.StartGame();
         }
 
         public override void FinishGame(string name, string score = "")

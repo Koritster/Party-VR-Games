@@ -60,6 +60,8 @@ public class DartsNetworked : NetworkBehaviour
         Debug.Log("Iniciando juego de dardos");
 
         timer.OnValueChanged += UpdateTimer;
+
+        RegisterPlayerServerRpc();
     }
 
     private void UpdateTimer(float oldValue, float newValue)

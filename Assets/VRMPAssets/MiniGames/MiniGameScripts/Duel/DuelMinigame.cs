@@ -14,13 +14,12 @@ namespace XRMultiplayer.MiniGames
         {
             base.Start();
             ref_DuelNetworked = GetComponent<DuelNetworked>();
-
-            ref_DuelNetworked.StartGame();
         }
 
         public override void StartGame()
         {
             base.StartGame();
+            ref_DuelNetworked.StartGame();
             ref_DuelNetworked.StartRound();
         }
 

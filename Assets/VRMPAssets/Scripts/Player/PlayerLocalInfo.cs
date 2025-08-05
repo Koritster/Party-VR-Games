@@ -13,7 +13,7 @@ public class PlayerLocalInfo : MonoBehaviour
     [HideInInspector] public GameObject m_Score;
 
     public ulong m_PlayerId;
-
+    
     public void TeleportPlayer()
     {
         TeleportationProvider m_TeleportationProvider = GetComponentInChildren<TeleportationProvider>();
