@@ -15,6 +15,8 @@ namespace XRMultiplayer.MiniGames
 
         public override void StartGame()
         {
+            Debug.Log("Iniciando minijuego desde DartsMinigame");
+
             base.StartGame();
 
             m_DartsNetworked.StartGame();
@@ -22,6 +24,8 @@ namespace XRMultiplayer.MiniGames
 
         public override void FinishGame(string name, string score = "")
         {
+            Debug.LogWarning("Finalizando juego desde DartsMinigame");
+
             base.FinishGame(name, score);
         }
     }

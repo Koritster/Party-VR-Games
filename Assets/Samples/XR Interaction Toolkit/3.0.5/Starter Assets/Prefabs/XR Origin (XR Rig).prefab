@@ -54,6 +54,7 @@ MonoBehaviour:
   m_RayInteractor: {fileID: 0}
   m_NearFarInteractor: {fileID: 8877177980677234388}
   m_TeleportInteractor: {fileID: 1319746312}
+  m_DirectInteractor: {fileID: 0}
   m_TeleportMode: {fileID: 0}
   m_TeleportModeCancel: {fileID: 0}
   m_Turn: {fileID: 0}
@@ -243,6 +244,7 @@ MonoBehaviour:
   m_RayInteractor: {fileID: 0}
   m_NearFarInteractor: {fileID: 1883230248363655243}
   m_TeleportInteractor: {fileID: 2449787133337329425}
+  m_DirectInteractor: {fileID: 0}
   m_TeleportMode: {fileID: 0}
   m_TeleportModeCancel: {fileID: 0}
   m_Turn: {fileID: 0}

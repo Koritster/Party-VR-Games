@@ -58,6 +58,7 @@ namespace XRMultiplayer.MiniGames
         public Button m_ReturnBtn;
         public TextMeshProUGUI m_WinnerNameText;
         public TextMeshProUGUI m_WinnerScoreText;
+        public GameObject objetoquesedesactivaelhijodelaverga;
 
         [Header("Game")]
         public int maxAllowedPlayers = 2;
@@ -187,13 +188,13 @@ namespace XRMultiplayer.MiniGames
 
             for (int i = currentPlayerDictionary.Count; i < m_ScoreboardSlots.Count; i++)
             {
-                m_ScoreboardSlots[i].gameObject.SetActive(false);
+                //m_ScoreboardSlots[i].gameObject.SetActive(false);
             }
 
             for (int i = 0; i < currentPlayerDictionary.Count; i++)
             {
-                m_ScoreboardSlots[i].gameObject.SetActive(true);
-                m_ScoreboardSlots[i].UpdateScore(0, currentMiniGame.currentGameType);
+                //m_ScoreboardSlots[i].gameObject.SetActive(true);
+                //m_ScoreboardSlots[i].UpdateScore(0, currentMiniGame.currentGameType);
             }
         }
 
@@ -249,12 +250,10 @@ namespace XRMultiplayer.MiniGames
 
             if (LocalPlayerInGame)
             {
-                m_DynamicButton.button.interactable = true;
                 PlayerHudNotification.Instance.ShowText($"Game Started!");
             }
             else
             {
-                m_DynamicButton.button.interactable = false;
             }
 
             currentMiniGame.StartGame();
@@ -271,7 +270,7 @@ namespace XRMultiplayer.MiniGames
 
             m_LocalPlayerInGame = false;
             
-            m_DynamicButton.UpdateButton(ResetGameServerRpc, $"Wait", true, false);
+            //m_DynamicButton.UpdateButton(ResetGameServerRpc, $"Wait", true, false);
             if (!currentMiniGame.finished)
             {
                 currentMiniGame.FinishGame("");
@@ -293,7 +292,6 @@ namespace XRMultiplayer.MiniGames
             yield return new WaitForSeconds(m_PostGameWaitTimeInSeconds);
             for (int i = m_PostGameCountdownTimeInSeconds; i > 0; i--)
             {
-                m_DynamicButton.UpdateButton(ResetGameServerRpc, $"{i}", true, false);
                 yield return new WaitForSeconds(1);
             }
 
@@ -317,7 +315,6 @@ namespace XRMultiplayer.MiniGames
             {
                 if (LocalPlayerInGame)
                 {
-                    m_DynamicButton.button.interactable = false;
                 }
                 if (m_StartGameRoutine != null) StopCoroutine(m_StartGameRoutine);
                 m_StartGameRoutine = StartGameAfterTime(m_ReadyUpTimeInSeconds);
@@ -327,7 +324,6 @@ namespace XRMultiplayer.MiniGames
             {
                 if (LocalPlayerInGame)
                 {
-                    m_DynamicButton.button.interactable = true;
                 }
                 if (m_StartGameRoutine != null) StopCoroutine(m_StartGameRoutine);
 
@@ -340,7 +336,6 @@ namespace XRMultiplayer.MiniGames
             {
                 if (LocalPlayerInGame)
                 {
-                    m_DynamicButton.button.interactable = false;
                 }
                 if (m_StartGameRoutine != null) StopCoroutine(m_StartGameRoutine);
                 m_StartGameRoutine = StartGameAfterTime(m_StartCoutdownTimeInSeconds);
@@ -352,29 +347,30 @@ namespace XRMultiplayer.MiniGames
 
         IEnumerator StartGameAfterTime(int countdownTime)
         {
+
             for (int i = countdownTime; i > 0; i--)
             {
-                //m_GameStateText.text = $"Game Starting In {i}";
-
                 if (LocalPlayerInGame)
                 {
                     PlayerHudNotification.Instance.ShowText($"Game Starting In {i}");
                 }
+                //Aqui se desactiva
                 yield return new WaitForSeconds(1);
             }
 
-            //m_GameStateText.text = $"Game Starting Now!";
-
             if (IsServer)
             {
-                m_DynamicButton.button.interactable = false;
                 StartGameServerRpc();
             }
+
+            objetoquesedesactivaelhijodelaverga.SetActive(true);
         }
 
         [ServerRpc(RequireOwnership = false)]
         void StartGameServerRpc()
         {
+            StartGameServerRpc();
+
             for (int i = 0; i < m_QueuedUpPlayers.Count; i++)
             {
                 m_CurrentPlayers.Add(m_QueuedUpPlayers[i]);
@@ -498,7 +494,6 @@ namespace XRMultiplayer.MiniGames
         {
             List<ulong> playersID = XRINetworkGameManager.Instance.CurrentPlayerIDs;
 
-            m_DynamicButton.button.interactable = false;
             Debug.Log("Agregando a todos los jugadores");
 
             foreach (ulong id in playersID)
@@ -554,7 +549,6 @@ namespace XRMultiplayer.MiniGames
 
                 if (currentPlayerDictionary.Count >= maxAllowedPlayers & !LocalPlayerInGame && networkedGameState.Value != GameState.PostGame)
                 {
-                    m_DynamicButton.button.interactable = false;
                 }
             }
         }
@@ -600,12 +594,11 @@ namespace XRMultiplayer.MiniGames
             {
                 if (removedSlot != null)
                 {
-                    removedSlot.gameObject.SetActive(false);
+                    //removedSlot.gameObject.SetActive(false);
                 }
 
                 if (currentPlayerDictionary.Count <= 0)
                 {
-                    m_DynamicButton.button.interactable = false;
                     if (IsServer)
                     {
                         StopGameServerRpc();
@@ -622,11 +615,9 @@ namespace XRMultiplayer.MiniGames
                 {
                     if (currentPlayerDictionary.Count >= maxAllowedPlayers)
                     {
-                        m_DynamicButton.button.interactable = false;
                     }
                     else
                     {
-                        m_DynamicButton.button.interactable = true;
                     }
                 }
                 CheckPlayersReady();

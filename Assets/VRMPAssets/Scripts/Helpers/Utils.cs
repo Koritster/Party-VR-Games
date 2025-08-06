@@ -87,6 +87,8 @@ namespace XRMultiplayer
 
         public void UpdateButton(UnityAction clickFunction, string newText, bool removeAllListeners = true, bool isInteractable = true)
         {
+            Debug.LogWarning("Actualizando botón");
+
             if (removeAllListeners)
                 button.onClick.RemoveAllListeners();
 
