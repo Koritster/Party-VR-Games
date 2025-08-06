@@ -41,6 +41,10 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
         [Tooltip("The interactor used for teleportation.")]
         XRRayInteractor m_TeleportInteractor;
 
+        [SerializeField]
+        [Tooltip("Direct interactor used for direct manipulation.")]
+        XRDirectInteractor m_DirectInteractor;
+
         [Space]
         [Header("Controller Actions")]
 
