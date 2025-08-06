@@ -83,8 +83,6 @@ public class DartsNetworked : NetworkBehaviour
 
         Color color = clockColors.Evaluate(t);
         clock.GetComponent<Renderer>().material.color = color;
-
-        Debug.Log(newValue);
     }
 
     private void Update()
