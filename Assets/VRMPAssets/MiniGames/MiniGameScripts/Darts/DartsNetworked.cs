@@ -60,6 +60,8 @@ public class DartsNetworked : NetworkBehaviour
 
     public void StartGame()
     {
+        playerPoints.Clear();
+
         Debug.Log("Iniciando juego de dardos");
 
         timer.OnValueChanged += UpdateTimer;
@@ -91,6 +93,8 @@ public class DartsNetworked : NetworkBehaviour
 
         //Actualizar timer solo si está en juego
         timer.Value -= Time.deltaTime;
+
+        Debug.Log("");
 
         if (timer.Value <= 0f)
         {

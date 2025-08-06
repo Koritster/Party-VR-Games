@@ -20,7 +20,7 @@ public class PlayerLocalInfo : MonoBehaviour
         Vector3 destination = m_HubSpot.position;
         Quaternion rotation = Quaternion.Euler(0, 180f, 0); //Quaternion rotation = Quaternion.Euler(0, hubSpot.eulerAngles.y, 0); ;
 
-        Debug.Log($"Teleporting player to {destination} with rotation {rotation.eulerAngles}");
+        //Debug.Log($"Teleporting player to {destination} with rotation {rotation.eulerAngles}");
 
         TeleportRequest teleportRequest = new()
         {
@@ -33,8 +33,6 @@ public class PlayerLocalInfo : MonoBehaviour
         {
             Debug.LogWarning("Failed to queue teleport request");
         }
-
-        Debug.Log(this.transform.rotation.eulerAngles);
     }
 
     public void TeleportPlayer(Transform tpArea)

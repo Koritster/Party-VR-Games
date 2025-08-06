@@ -658,6 +658,8 @@ namespace XRMultiplayer.MiniGames
         [ServerRpc(RequireOwnership = false)]
         public void ResetGameServerRpc()
         {
+            Debug.Log("Llamando al reinicio del minijuego");
+
             ResetGameClientRpc();
             AddAllPlayers();
         }
@@ -668,6 +670,7 @@ namespace XRMultiplayer.MiniGames
             Debug.Log("Reiniciando minijuego...");
             networkedGameState.Value = GameState.PreGame;
             SetPreGameState();
+            AddAllPlayers();
         }
 
         void ResetContestants(bool showGamePlayers)

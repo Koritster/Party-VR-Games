@@ -48,9 +48,7 @@ namespace XRMultiplayer.MiniGames
 
         public virtual void SetupGame()
         {
-            if (m_GameType == GameType.Score)
-            {
-            }
+            
         }
 
         public virtual void StartGame()
