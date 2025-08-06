@@ -429,6 +429,7 @@ namespace XRMultiplayer.MiniGames
         [ServerRpc(RequireOwnership = false)]
         public void StopGameServerRpc()
         {
+            Debug.Log("Parando el juego");
             networkedGameState.Value = GameState.PostGame;
             m_CurrentPlayers.Clear();
         }
@@ -492,6 +493,8 @@ namespace XRMultiplayer.MiniGames
 
         public void AddAllPlayers()
         {
+            tpIndex = 0;
+
             List<ulong> playersID = XRINetworkGameManager.Instance.CurrentPlayerIDs;
 
             Debug.Log("Agregando a todos los jugadores");

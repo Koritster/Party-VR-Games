@@ -233,7 +233,6 @@ GameObject:
   - component: {fileID: 35362636}
   - component: {fileID: 35362635}
   - component: {fileID: 35362634}
-  - component: {fileID: 35362633}
   m_Layer: 0
   m_Name: SelectMinigame
   m_TagString: Untagged
@@ -262,45 +261,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.5}
   m_SizeDelta: {x: 100, y: 151.8}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &35362633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 35362631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba379b52851771f438e4580c5da84a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GazeTransform: {fileID: 0}
-  m_FacingThreshold: 0.85
-  m_FacingEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FacingExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LargeMovementDistanceThreshold: 0.05
-  m_LargeMovementCoolDownTime: 0.25
-  m_UseDistanceThreshold: 0
-  m_MaxDistanceThreshold: 10
-  m_CanvasGroup: {fileID: 0}
-  m_TooltipUI: {fileID: 0}
-  m_FadeDuration: 0.25
-  m_MinMaxThresholdDistance: {x: 2, y: 5}
-  m_MinMaxFacingThreshold: {x: 0.6, y: 0.95}
-  m_MaxRenderingDistance: 15
-  m_ComponentsToToggle:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_ObjectsToToggle: []
-  m_StartHidden: 1
-  m_DisableCanvasGroupObject: 1
 --- !u!114 &35362634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,7 +1526,7 @@ PrefabInstance:
     - target: {fileID: 5676668323438788329, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6244696470421420510, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
@@ -9939,6 +9899,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battery Interactable
       objectReference: {fileID: 0}
+    - target: {fileID: 4561598888617898672, guid: e9e8956bce235e54db09fa2f44c06b9d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4683408364973889388, guid: e9e8956bce235e54db09fa2f44c06b9d,
         type: 3}
       propertyPath: m_Name
@@ -10083,31 +10048,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Participantes
-      objectReference: {fileID: 0}
-    - target: {fileID: 1110780194457123666, guid: 77ac6b10722bcca4a8baf70e44d89e78,
-        type: 3}
-      propertyPath: m_EnableUIInteraction
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1110780194457123666, guid: 77ac6b10722bcca4a8baf70e44d89e78,
-        type: 3}
-      propertyPath: m_SelectInput.m_InputActionReferenceValue
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1110780194457123666, guid: 77ac6b10722bcca4a8baf70e44d89e78,
-        type: 3}
-      propertyPath: m_ActivateInput.m_InputActionReferenceValue
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1110780194457123666, guid: 77ac6b10722bcca4a8baf70e44d89e78,
-        type: 3}
-      propertyPath: m_SelectInput.m_InputActionReferencePerformed
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1110780194457123666, guid: 77ac6b10722bcca4a8baf70e44d89e78,
-        type: 3}
-      propertyPath: m_ActivateInput.m_InputActionReferencePerformed
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1149113664312379306, guid: 77ac6b10722bcca4a8baf70e44d89e78,
         type: 3}
@@ -10969,26 +10909,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 46
-      objectReference: {fileID: 0}
-    - target: {fileID: 7960896337995949517, guid: 77ac6b10722bcca4a8baf70e44d89e78,
-        type: 3}
-      propertyPath: m_SelectInput.m_InputActionReferenceValue
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7960896337995949517, guid: 77ac6b10722bcca4a8baf70e44d89e78,
-        type: 3}
-      propertyPath: m_ActivateInput.m_InputActionReferenceValue
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7960896337995949517, guid: 77ac6b10722bcca4a8baf70e44d89e78,
-        type: 3}
-      propertyPath: m_SelectInput.m_InputActionReferencePerformed
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7960896337995949517, guid: 77ac6b10722bcca4a8baf70e44d89e78,
-        type: 3}
-      propertyPath: m_ActivateInput.m_InputActionReferencePerformed
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8041710214278646512, guid: 77ac6b10722bcca4a8baf70e44d89e78,
         type: 3}

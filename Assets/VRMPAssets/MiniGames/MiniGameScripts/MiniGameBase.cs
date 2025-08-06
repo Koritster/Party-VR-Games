@@ -117,6 +117,7 @@ namespace XRMultiplayer.MiniGames
 
         public virtual void RestartMinigame()
         {
+            m_MiniGameManager.StopGameServerRpc();
             m_MiniGameManager.ResetGameServerRpc();
         }
 
