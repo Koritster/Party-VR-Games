@@ -9,13 +9,15 @@ namespace XRMultiplayer.MiniGames
 {
     public class DuelNetworked : NetworkBehaviour
     {
+        public DuelPlayerCollision[] playerCollisions;
+        
         private TextMeshProUGUI txt_Timer;
         private DuelMinigame m_DuelMinigame;
         private MiniGameManager m_MinigameManager;
         private GameObject m_scoreGO;
-        private TextMeshProUGUI m_scoreTxt;
         private PlayerLocalInfo m_playerLocalInfo;
         private Dictionary<XRINetworkPlayer, List<DuelLives>> playerLives;
+        private bool roundEnded;
 
         private NetworkVariable<float> timerToShoot = new NetworkVariable<float>(
         0f,
@@ -66,6 +68,14 @@ namespace XRMultiplayer.MiniGames
                     }
                 }
 
+                if(scoreIndex < 0)
+                {
+                    Debug.LogError("No se encontró un indice valido");
+                    return;
+                }
+
+                playerCollisions[scoreIndex].SetupPlayerCollision(this);
+
                 RegisterPlayerClientRpc(m_playerLocalInfo.m_PlayerId, scoreIndex);
             }
         }
@@ -78,12 +88,6 @@ namespace XRMultiplayer.MiniGames
                 if (scoreIndex < 0 || scoreIndex >= m_MinigameManager.m_Scores.Length)
                     return;
 
-                //Add player to dictionary
-                List<DuelLives> duelLives = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<DuelLives>().ToList();
-                
-                playerLives.Add(m_localPlayer, duelLives);
-
-
                 //Set names
                 TextMeshProUGUI[] texts = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<TextMeshProUGUI>();
 
@@ -93,11 +97,12 @@ namespace XRMultiplayer.MiniGames
                     {
                         text.text = m_localPlayer.name;
                     }
-                    else if (text.CompareTag("ScoreText"))
-                    {
-                        m_scoreTxt = text;
-                    }
                 }
+
+                //Add player to dictionary
+                List<DuelLives> duelLives = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<DuelLives>().ToList();
+
+                playerLives.Add(m_localPlayer, duelLives);
             }
         }
 
@@ -109,6 +114,7 @@ namespace XRMultiplayer.MiniGames
             if (IsOwner)
             {
                 inGame = true;
+                roundEnded = false;
                 timerTime = Random.Range(4f, 9f);
                 timerToShoot.Value = timerTime;
                 ShowGunsClientRpc(false);
@@ -162,14 +168,19 @@ namespace XRMultiplayer.MiniGames
         public void LocalPlayerLooseServerRpc()
         {
             if (XRINetworkGameManager.Instance.GetPlayerByID(m_playerLocalInfo.m_PlayerId, out XRINetworkPlayer m_localPlayer))
+            {
                 LocalPlayerLooseClientRpc(m_playerLocalInfo.m_PlayerId);
+            }
         }
 
         [ClientRpc]
-        public void LocalPlayerLooseClientRpc(ulong playerId)
+        private void LocalPlayerLooseClientRpc(ulong playerId)
         {
             if (XRINetworkGameManager.Instance.GetPlayerByID(playerId, out XRINetworkPlayer m_localPlayer))
             {
+                //Terminar ronda
+                roundEnded = true;
+
                 //Restar una vida al jugador
                 playerLives[m_localPlayer].Last<DuelLives>().LiveLost();
                 playerLives[m_localPlayer].RemoveAt(playerLives[m_localPlayer].Count - 1);
@@ -177,7 +188,14 @@ namespace XRMultiplayer.MiniGames
                 //Comprobar si ha perdido
                 if(playerLives[m_localPlayer].Count <= 0)
                 {
-                    foreach(KeyValuePair<XRINetworkPlayer, List<DuelLives>> kvp in playerLives)
+                    FinishRound(false);
+
+                    foreach (DuelPlayerCollision playerCollision in playerCollisions)
+                    {
+                        playerCollision.RestartSetup();
+                    }
+
+                    foreach (KeyValuePair<XRINetworkPlayer, List<DuelLives>> kvp in playerLives)
                     {
                         if(kvp.Key == m_localPlayer)
                             continue;
@@ -187,15 +205,22 @@ namespace XRMultiplayer.MiniGames
                         return;
                     }
                 }
+
+                FinishRound(true);
             }
         }
 
         #endregion
 
-        public void FinishRound()
+        public void FinishRound(bool keepPlaying)
         {
-            //Fin de ronda | Decidir el ganador
+            //Fin de ronda
             inGame = false;
+
+            if (keepPlaying)
+            {
+                StartRound();
+            }
         }
     }
 }

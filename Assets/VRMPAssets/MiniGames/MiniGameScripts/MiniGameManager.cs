@@ -363,7 +363,7 @@ namespace XRMultiplayer.MiniGames
                 StartGameServerRpc();
             }
 
-            objetoquesedesactivaelhijodelaverga.SetActive(true);
+            //objetoquesedesactivaelhijodelaverga.SetActive(true);
         }
 
         [ServerRpc(RequireOwnership = false)]

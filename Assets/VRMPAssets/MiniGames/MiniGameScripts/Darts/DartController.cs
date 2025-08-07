@@ -29,8 +29,10 @@ public class DartController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         if (TryGetComponent<DartsTarget>(out DartsTarget target))
         {
+            Debug.Log("Si jalo este pdo");
             target.OnHitRegister();
             rb.isKinematic = true;
         }
