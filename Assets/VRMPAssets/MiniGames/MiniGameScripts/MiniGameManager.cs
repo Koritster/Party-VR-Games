@@ -595,7 +595,6 @@ namespace XRMultiplayer.MiniGames
             {
                 if (removedSlot != null)
                 {
-                    //removedSlot.gameObject.SetActive(false);
                 }
 
                 if (currentPlayerDictionary.Count <= 0)
@@ -607,7 +606,6 @@ namespace XRMultiplayer.MiniGames
                 }
                 else
                 {
-                    CheckIfAllPlayersAreFinished();
                 }
             }
             else if (networkedGameState.Value == GameState.PreGame)

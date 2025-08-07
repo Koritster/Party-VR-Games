@@ -88,6 +88,8 @@ namespace XRMultiplayer.MiniGames
                 if (scoreIndex < 0 || scoreIndex >= m_MinigameManager.m_Scores.Length)
                     return;
 
+                Debug.Log("Registrando al usuario " + m_localPlayer);
+
                 //Set names
                 TextMeshProUGUI[] texts = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<TextMeshProUGUI>();
 
@@ -95,9 +97,12 @@ namespace XRMultiplayer.MiniGames
                 {
                     if (text.CompareTag("Player Name Text"))
                     {
+                        Debug.Log("Seteando nombre...");
                         text.text = m_localPlayer.name;
+                        Debug.Log(text.text);
                     }
                 }
+
                 
                 //Add player to dictionary
                 List<DuelLives> duelLives = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<DuelLives>().ToList();
