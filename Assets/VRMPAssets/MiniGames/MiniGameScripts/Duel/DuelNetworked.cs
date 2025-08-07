@@ -16,7 +16,7 @@ namespace XRMultiplayer.MiniGames
         private MiniGameManager m_MinigameManager;
         private GameObject m_scoreGO;
         private PlayerLocalInfo m_playerLocalInfo;
-        private Dictionary<XRINetworkPlayer, List<DuelLives>> playerLives;
+        private Dictionary<XRINetworkPlayer, List<DuelLives>> playerLives = new Dictionary<XRINetworkPlayer, List<DuelLives>>();
         private bool roundEnded;
 
         private NetworkVariable<float> timerToShoot = new NetworkVariable<float>(
@@ -98,7 +98,7 @@ namespace XRMultiplayer.MiniGames
                         text.text = m_localPlayer.name;
                     }
                 }
-
+                
                 //Add player to dictionary
                 List<DuelLives> duelLives = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<DuelLives>().ToList();
 

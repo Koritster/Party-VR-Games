@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XRMultiplayer.MiniGames;
+using static Codice.Client.Common.EventTracking.TrackFeatureUseEvent.Features.DesktopGUI.Filters;
 
 public class DuelPlayerCollision : MonoBehaviour
 {
@@ -22,7 +23,21 @@ public class DuelPlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Projectile") && isLocal)
+        Debug.Log("Esta mmda chocó con " + other.name);
+
+        if (other.CompareTag("Bullet") && isLocal)
+        {
+            Debug.LogWarning("Has recibido un disparo!");
+            m_DuelNetworked.LocalPlayerLooseServerRpc();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
+        Debug.Log(collision.gameObject.tag);
+
+        if (collision.gameObject.CompareTag("Bullet") && isLocal)
         {
             Debug.LogWarning("Has recibido un disparo!");
             m_DuelNetworked.LocalPlayerLooseServerRpc();
