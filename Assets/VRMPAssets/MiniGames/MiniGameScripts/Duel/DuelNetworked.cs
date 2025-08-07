@@ -154,7 +154,7 @@ namespace XRMultiplayer.MiniGames
             {
                 timerToShoot.Value = 0f;
 
-                //ShowGunsClientRpc(true);
+                ShowGunsClientRpc(true);
             }
         }
 

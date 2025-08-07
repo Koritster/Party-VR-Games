@@ -9,9 +9,9 @@ using UnityEngine;
 using XRMultiplayer;
 using XRMultiplayer.MiniGames;
 
-public class DartsNetworked : MiniGameNetworked
+public class DartsNetworked : NetworkBehaviour
 {
-    struct PlayerNetworkData : INetworkSerializable
+    /*struct PlayerNetworkData : INetworkSerializable
     {
         private int <
 
@@ -19,9 +19,9 @@ public class DartsNetworked : MiniGameNetworked
         {
 
         }
-    }
+    }*/
 
-    /*[SerializeField] private float timeLenght;
+    [SerializeField] private float timeLenght;
     [SerializeField] private GameObject clock;
     [SerializeField] private Gradient clockColors;
 
@@ -212,5 +212,5 @@ public class DartsNetworked : MiniGameNetworked
             playerPoints[m_localPlayer].AddPoints(points);
             Debug.Log($"El jugador {m_localPlayer} ha obtenido {points}");
         }
-    }*/
+    }
 }
