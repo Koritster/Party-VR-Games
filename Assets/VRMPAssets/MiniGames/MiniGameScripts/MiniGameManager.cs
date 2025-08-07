@@ -369,8 +369,6 @@ namespace XRMultiplayer.MiniGames
         [ServerRpc(RequireOwnership = false)]
         void StartGameServerRpc()
         {
-            StartGameServerRpc();
-
             for (int i = 0; i < m_QueuedUpPlayers.Count; i++)
             {
                 m_CurrentPlayers.Add(m_QueuedUpPlayers[i]);

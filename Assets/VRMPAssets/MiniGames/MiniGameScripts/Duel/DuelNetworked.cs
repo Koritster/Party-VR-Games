@@ -11,7 +11,7 @@ namespace XRMultiplayer.MiniGames
     {
         public DuelPlayerCollision[] playerCollisions;
         
-        private TextMeshProUGUI txt_Timer;
+        [SerializeField] private TextMeshProUGUI txt_Timer;
         private DuelMinigame m_DuelMinigame;
         private MiniGameManager m_MinigameManager;
         private GameObject m_scoreGO;
@@ -93,7 +93,7 @@ namespace XRMultiplayer.MiniGames
 
                 foreach (TextMeshProUGUI text in texts)
                 {
-                    if (text.CompareTag("PlayerNameText"))
+                    if (text.CompareTag("Player Name Text"))
                     {
                         text.text = m_localPlayer.name;
                     }
@@ -178,6 +178,9 @@ namespace XRMultiplayer.MiniGames
         {
             if (XRINetworkGameManager.Instance.GetPlayerByID(playerId, out XRINetworkPlayer m_localPlayer))
             {
+                if (roundEnded)
+                    return;
+
                 //Terminar ronda
                 roundEnded = true;
 
