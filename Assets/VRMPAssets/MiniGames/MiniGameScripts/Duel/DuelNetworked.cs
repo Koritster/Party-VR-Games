@@ -117,7 +117,7 @@ namespace XRMultiplayer.MiniGames
                 roundEnded = false;
                 timerTime = Random.Range(4f, 9f);
                 timerToShoot.Value = timerTime;
-                ShowGunsClientRpc(false);
+                //ShowGunsClientRpc(false);
             }
         }
 
@@ -149,7 +149,7 @@ namespace XRMultiplayer.MiniGames
             {
                 timerToShoot.Value = 0f;
 
-                ShowGunsClientRpc(true);
+                //ShowGunsClientRpc(true);
             }
         }
 
