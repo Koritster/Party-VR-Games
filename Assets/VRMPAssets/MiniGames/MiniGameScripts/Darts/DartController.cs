@@ -29,8 +29,9 @@ public class DartController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
-        if (TryGetComponent<DartsTarget>(out DartsTarget target))
+        DartsTarget target = other.GetComponent<DartsTarget>();
+        Debug.Log(target);
+        if (target != null)
         {
             Debug.Log("Si jalo este pdo");
             target.OnHitRegister();
