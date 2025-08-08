@@ -122,7 +122,7 @@ namespace XRMultiplayer.MiniGames
                 roundEnded = false;
                 timerTime = Random.Range(4f, 9f);
                 timerToShoot.Value = timerTime;
-                ShowGunsClientRpc(false);
+                //ShowGunsClientRpc(false);
             }
         }
 
@@ -166,7 +166,6 @@ namespace XRMultiplayer.MiniGames
         private void ShowGunsClientRpc(bool show) 
         {
             //Aparecer pistolas
-            Debug.Log("Cambiando estado de pistolas...");
             m_DuelMinigame.ShowInteractables(show);
         }
 
@@ -187,8 +186,8 @@ namespace XRMultiplayer.MiniGames
                 if (roundEnded)
                     return;
 
-                FinishRound(true);
-
+                //Terminar ronda
+                roundEnded = true;
 
                 //Restar una vida al jugador
                 playerLives[m_localPlayer].Last<DuelLives>().LiveLost();
@@ -214,8 +213,9 @@ namespace XRMultiplayer.MiniGames
                         return;
                     }
                 }
-            }
 
+                FinishRound(true);
+            }
         }
 
         #endregion
@@ -223,7 +223,6 @@ namespace XRMultiplayer.MiniGames
         public void FinishRound(bool keepPlaying)
         {
             //Fin de ronda
-            roundEnded = true;
             inGame = false;
 
             if (keepPlaying)

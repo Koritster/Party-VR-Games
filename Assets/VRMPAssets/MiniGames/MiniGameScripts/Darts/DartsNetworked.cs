@@ -3,26 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.Collections;
 using Unity.Netcode;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using XRMultiplayer;
 using XRMultiplayer.MiniGames;
 
-public class DartsNetworked : MiniGameNetworked
+public class DartsNetworked : NetworkBehaviour
 {
-    struct PlayerNetworkData : INetworkSerializable
+    /*struct PlayerNetworkData : INetworkSerializable
     {
-        private int score;
-        private FixedString32Bytes name;
+        private int <
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
-            serializer.SerializeValue(ref score);
-            serializer.SerializeValue(ref name);
+
         }
-    }
+    }*/
 
     [SerializeField] private float timeLenght;
     [SerializeField] private GameObject clock;
@@ -30,6 +27,11 @@ public class DartsNetworked : MiniGameNetworked
 
     private float currentTime;
     
+    private DartsMinigame m_DartsMinigame;
+    private MiniGameManager m_MinigameManager;
+    private GameObject m_scoreGO;
+    private PlayerLocalInfo m_playerLocalInfo;
+
     [Serializable]
     private class Points
     {
