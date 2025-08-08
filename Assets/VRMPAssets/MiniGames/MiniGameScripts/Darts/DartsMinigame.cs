@@ -6,11 +6,11 @@ namespace XRMultiplayer.MiniGames
 {
     public class DartsMinigame : MiniGameBase
     {
-        DartsNetworked m_DartsNetworked;
+        MiniGameNetworked m_MinigameNetworked;
 
         private void Awake()
         {
-            m_DartsNetworked = GetComponent<DartsNetworked>();
+            m_MinigameNetworked = GetComponent<MiniGameNetworked>();
         }
 
         public override void StartGame()
@@ -19,7 +19,7 @@ namespace XRMultiplayer.MiniGames
 
             base.StartGame();
 
-            m_DartsNetworked.StartGame();
+            m_MinigameNetworked.StartGame();
         }
 
         public override void FinishGame(string name, string score = "")

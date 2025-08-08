@@ -538,7 +538,7 @@ namespace XRMultiplayer.MiniGames
                     //m_DynamicButton.UpdateButton(RemoveLocalPlayer, "Leave");
 
                     localPlayer.TeleportPlayer(m_JoinTeleportTransform[i]);
-                    localPlayer.m_Score = m_Scores[i];
+                    //localPlayer.m_Score = m_Scores[i];
 
                     PlayerHudNotification.Instance.ShowText($"Joined {currentMiniGame.gameName}");
                     m_BarrierRend.gameObject.SetActive(false);

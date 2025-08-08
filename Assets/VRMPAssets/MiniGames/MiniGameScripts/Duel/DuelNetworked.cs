@@ -45,7 +45,7 @@ namespace XRMultiplayer.MiniGames
             if (XRINetworkGameManager.Instance.GetPlayerByID(m_playerLocalInfo.m_PlayerId, out XRINetworkPlayer m_localPlayer))
             {
                 //Declaración del PlayerLocalInfo y XRINetworkPlayer local
-                m_scoreGO = m_playerLocalInfo.m_Score;
+                //m_scoreGO = m_playerLocalInfo.m_Score;
 
 
                 //Registrar el jugador para el diccionario de todos los jugadores

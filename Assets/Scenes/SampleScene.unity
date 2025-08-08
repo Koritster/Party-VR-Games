@@ -2189,7 +2189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b692c826f3a4f45b3bad8a6e8e9dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLenght: 10
+  timeLenght: 60
   clock: {fileID: 750279926}
   clockColors:
     serializedVersion: 2

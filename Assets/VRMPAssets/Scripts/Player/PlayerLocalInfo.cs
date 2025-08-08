@@ -10,7 +10,6 @@ public class PlayerLocalInfo : MonoBehaviour
     [HideInInspector] public bool m_isHost;
 
     [HideInInspector] public Transform m_HubSpot;
-    [HideInInspector] public GameObject m_Score;
 
     public ulong m_PlayerId;
     

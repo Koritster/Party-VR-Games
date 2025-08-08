@@ -58,26 +58,8 @@ namespace XRMultiplayer.MiniGames
 
         public virtual void UpdateGame(float deltaTime)
         {
-            /*if (m_GameType == GameType.Score)
-            {
-                m_CurrentTimer -= deltaTime;
-                if (m_Finished && !m_GameEndingNotificationSent)
-                {
-                    m_GameEndingNotificationSent = true;
-                    StartCoroutine(CheckForGameEndingRoutine());
-                }
-                CheckForGameEnd();
-            }*/
+            
         }
-
-        /*protected void CheckForGameEnd()
-        {
-            if (m_CurrentTimer <= 3.5f & !m_GameEndingNotificationSent)
-            {
-                m_GameEndingNotificationSent = true;
-                StartCoroutine(CheckForGameEndingRoutine());
-            }
-        }*/
 
         public virtual void FinishGame(string name, string score = "")
         {
