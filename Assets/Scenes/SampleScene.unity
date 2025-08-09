@@ -3330,21 +3330,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1887887352598333128, guid: 555a1e905c4669f4fb3ddd339da2d239,
-        type: 3}
-      propertyPath: m_MovementType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1887887352598333128, guid: 555a1e905c4669f4fb3ddd339da2d239,
-        type: 3}
-      propertyPath: m_FarAttachMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1887887352598333128, guid: 555a1e905c4669f4fb3ddd339da2d239,
-        type: 3}
-      propertyPath: m_ThrowVelocityScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7478227192145178455, guid: 555a1e905c4669f4fb3ddd339da2d239,
         type: 3}
       propertyPath: m_Name
@@ -3354,21 +3339,6 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3467787425
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939589290893185449, guid: 555a1e905c4669f4fb3ddd339da2d239,
-        type: 3}
-      propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 2727466294
-      objectReference: {fileID: 0}
-    - target: {fileID: 8815755300140433434, guid: 555a1e905c4669f4fb3ddd339da2d239,
-        type: 3}
-      propertyPath: m_LaunchSpeed
-      value: 10000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8815755300140433434, guid: 555a1e905c4669f4fb3ddd339da2d239,
-        type: 3}
-      propertyPath: m_MaxProjectilesAllowed
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
