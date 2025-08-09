@@ -33,10 +33,10 @@ public class DartsNetworked : MiniGameNetworked
 
     //public NetworkList<PlayerNetworkData> playerList = new NetworkList<PlayerNetworkData>();
     public NetworkVariable<PlayerNetworkData> player1Data = new NetworkVariable<PlayerNetworkData>(
-        new PlayerNetworkData("Jugador 1", 0), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        new PlayerNetworkData("Jugador 1", 0), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     public NetworkVariable<PlayerNetworkData> player2Data = new NetworkVariable<PlayerNetworkData>(
-        new PlayerNetworkData("Jugador 1", 0), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        new PlayerNetworkData("Jugador 1", 0), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     [SerializeField] private float timeLenght;
     [SerializeField] private GameObject clock;
@@ -66,6 +66,7 @@ public class DartsNetworked : MiniGameNetworked
             }
         }
 
+        Debug.Log("Asignando listeners...");
         player1Data.OnValueChanged += (oldData, newData) => OnPlayerDataChanged(0, oldData, newData);
         player2Data.OnValueChanged += (oldData, newData) => OnPlayerDataChanged(1, oldData, newData);
     }
@@ -167,10 +168,12 @@ public class DartsNetworked : MiniGameNetworked
         if(playerId == 0)
         {
             player1Data.Value = playerData;
+            Debug.Log("Se ha registrado al jugador 1");
         }
         else if(playerId == 1)
         {
             player2Data.Value = playerData;
+            Debug.Log("Se ha registrado al jugador 2");
         }
         else
         {
