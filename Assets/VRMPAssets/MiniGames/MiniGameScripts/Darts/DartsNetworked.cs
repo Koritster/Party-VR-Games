@@ -32,6 +32,7 @@ public class DartsNetworked : MiniGameNetworked
         public void AddScore(int amount)
         {
             score += amount;
+            Debug.Log($"Has obtenido {amount} puntos!");
         }
 
         public FixedString32Bytes GetPlayerName()
@@ -126,16 +127,16 @@ public class DartsNetworked : MiniGameNetworked
             int winnerPoints = 0;
             string winnerName = "ERROR";
 
-            /*for(int i = 0; i < playerPoints.Count; i++)
+            for(int i = 0; i < playerList.Count; i++)
             {
-                if (playerPoints.ElementAt(i).Value.points > winnerPoints)
+                if (playerList[i].GetScore() > winnerPoints)
                 {
-                    winnerPoints = playerPoints.ElementAt(i).Value.points;
-                    winnerName = playerPoints.ElementAt(i).Key.playerName;
+                    winnerPoints = playerList[i].GetScore();
+                    winnerName = playerList[i].GetPlayerName().ToString();
                 }
             }
 
-            m_DartsMinigame.FinishGame(winnerName, winnerPoints.ToString());*/
+            m_MinigameBase.FinishGame(winnerName, winnerPoints.ToString());
         }
     }
 
@@ -176,9 +177,13 @@ public class DartsNetworked : MiniGameNetworked
     [ServerRpc(RequireOwnership = false)]
     public void LocalPlayerHitServerRpc(int points)
     {
+        Debug.Log($"El jugador ha dado a un objetivo que le otorgó {points} puntos!");
+
         var data = playerList[playerId];
         data.AddScore(points);
         playerList[playerId] = data;
+
+        
 
         LocalPlayerHitClientRpc();
     }
@@ -188,7 +193,9 @@ public class DartsNetworked : MiniGameNetworked
     {
         for(int i = 0; i < playerList.Count; i++)
         {
-            txt_Scores[i].text = $"Score: + {playerList[i].GetScore().ToString()}";
+            Debug.Log($"La nueva puntuación del jugador {playerList[i].GetPlayerName()} ahora tiene {playerList[i].GetScore()}");
+
+            txt_Scores[i].text = $"Score: + {playerList[i].GetScore()}";
         }
     }
 }
