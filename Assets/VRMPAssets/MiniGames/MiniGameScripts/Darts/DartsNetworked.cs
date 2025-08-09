@@ -211,7 +211,7 @@ public class DartsNetworked : MiniGameNetworked
         }    
         else if(id == 1)
         {
-            var temp = player1Data.Value;
+            var temp = player2Data.Value;
             temp.score += points;
             player2Data.Value = temp;
         }
