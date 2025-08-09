@@ -33,9 +33,6 @@ public class DuelPlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
-        Debug.Log(collision.gameObject.tag);
-
         if (collision.gameObject.CompareTag("Bullet") && isLocal)
         {
             Debug.LogWarning("Has recibido un disparo!");
