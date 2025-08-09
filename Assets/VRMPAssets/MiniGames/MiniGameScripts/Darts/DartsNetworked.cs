@@ -7,15 +7,16 @@ using Unity.Collections;
 using Unity.Netcode;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Filtering;
 using XRMultiplayer;
 using XRMultiplayer.MiniGames;
 
 public class DartsNetworked : MiniGameNetworked
 {
-    public struct PlayerNetworkData : INetworkSerializable, IEquatable<PlayerNetworkData>
+    public struct PlayerNetworkData : INetworkSerializable
     {
-        private FixedString32Bytes playerName;
-        private int score;
+        public FixedString32Bytes playerName;
+        public int score;
 
         public PlayerNetworkData(FixedString32Bytes playerName, int score)
         {
@@ -28,31 +29,14 @@ public class DartsNetworked : MiniGameNetworked
             serializer.SerializeValue(ref playerName);
             serializer.SerializeValue(ref score);
         }
-
-        public void AddScore(int amount)
-        {
-            score += amount;
-            Debug.Log($"Has obtenido {amount} puntos!");
-        }
-
-        public FixedString32Bytes GetPlayerName()
-        {
-            return playerName;
-        }
-
-        public int GetScore()
-        {
-            return score;
-        }
-
-        public bool Equals(PlayerNetworkData other)
-        {
-            return playerName.Equals(other.playerName) && score == other.score;
-        }
-
     }
 
-    public NetworkList<PlayerNetworkData> playerList = new NetworkList<PlayerNetworkData>();
+    //public NetworkList<PlayerNetworkData> playerList = new NetworkList<PlayerNetworkData>();
+    public NetworkVariable<PlayerNetworkData> player1Data = new NetworkVariable<PlayerNetworkData>(
+        new PlayerNetworkData("Jugador 1", 0), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+    public NetworkVariable<PlayerNetworkData> player2Data = new NetworkVariable<PlayerNetworkData>(
+        new PlayerNetworkData("Jugador 1", 0), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [SerializeField] private float timeLenght;
     [SerializeField] private GameObject clock;
@@ -68,7 +52,22 @@ public class DartsNetworked : MiniGameNetworked
     {
         base.Start();
 
-        playerList.OnListChanged += OnPlayerAddedToList;
+        //Get Score texts
+        for (int i = 0; i < m_Scores.Length; i++)
+        {
+            TextMeshProUGUI[] texts = m_Scores[i].GetComponentsInChildren<TextMeshProUGUI>();
+
+            foreach (TextMeshProUGUI text in texts)
+            {
+                if (text.CompareTag("Score Text"))
+                {
+                    txt_Scores[i] = text;
+                }
+            }
+        }
+
+        player1Data.OnValueChanged += (oldData, newData) => OnPlayerDataChanged(0, oldData, newData);
+        player2Data.OnValueChanged += (oldData, newData) => OnPlayerDataChanged(1, oldData, newData);
     }
 
     private bool inGame;
@@ -78,9 +77,8 @@ public class DartsNetworked : MiniGameNetworked
         base.StartGame();
 
         //Reiniciar los jugadores registrados
-        playerList.Clear();
-        playerList.Add(new PlayerNetworkData("Jugador 1", 0));
-        playerList.Add(new PlayerNetworkData("Jugador 2", 0));
+        player1Data.Value = new PlayerNetworkData("Jugador 1", 0);
+        player2Data.Value = new PlayerNetworkData("Jugador 2", 0);
 
         playerId = (int)m_playerLocalInfo.m_PlayerId;
 
@@ -95,6 +93,19 @@ public class DartsNetworked : MiniGameNetworked
         }
 
         inGame = true;
+    }
+
+    private void OnPlayerDataChanged(int id, PlayerNetworkData oldValue, PlayerNetworkData newValue)
+    {
+        Debug.Log($"Actualizando la información de {newValue.playerName}, ahora tiene {newValue.score} puntos");
+
+        UpdateUI(id, newValue);
+    }
+
+    private void UpdateUI(int id, PlayerNetworkData data)
+    {
+        txt_PlayerNames[id].text = data.playerName.ToString();
+        txt_Scores[id].text = data.score.ToString();
     }
 
     private void UpdateTimer(float oldValue, float newValue)
@@ -127,13 +138,20 @@ public class DartsNetworked : MiniGameNetworked
             int winnerPoints = 0;
             string winnerName = "ERROR";
 
-            for(int i = 0; i < playerList.Count; i++)
+            if(player1Data.Value.score == player2Data.Value.score)
             {
-                if (playerList[i].GetScore() > winnerPoints)
-                {
-                    winnerPoints = playerList[i].GetScore();
-                    winnerName = playerList[i].GetPlayerName().ToString();
-                }
+                winnerPoints = player1Data.Value.score;
+                winnerName = "Draw";
+            }
+            else if(player1Data.Value.score > player2Data.Value.score)
+            {
+                winnerPoints = player1Data.Value.score;
+                winnerName = player1Data.Value.playerName.ToString();
+            }
+            else
+            {
+                winnerPoints = player2Data.Value.score;
+                winnerName = player2Data.Value.playerName.ToString();
             }
 
             m_MinigameBase.FinishGame(winnerName, winnerPoints.ToString());
@@ -145,57 +163,37 @@ public class DartsNetworked : MiniGameNetworked
     {
         XRINetworkGameManager.Instance.GetPlayerByID((ulong)playerId, out XRINetworkPlayer m_localPlayer);
         PlayerNetworkData playerData = new PlayerNetworkData(m_localPlayer.playerName, 0);
-        playerList[playerId] = playerData;
-    }
-
-    private void OnPlayerAddedToList(NetworkListEvent<PlayerNetworkData> changeEvent)
-    {
-        for (int i = 0; i < playerList.Count; i++)
+        
+        if(playerId == 0)
         {
-            TextMeshProUGUI[] texts = m_Scores[i].GetComponentsInChildren<TextMeshProUGUI>();
-
-            foreach (TextMeshProUGUI text in texts)
-            {
-                if (text.CompareTag("Player Name Text"))
-                {
-                    Debug.Log("Seteando nombre...");
-                    text.text = playerList[i].GetPlayerName().ToString();
-                    Debug.Log(text.text);
-                }
-                else if(text.CompareTag("Score Text"))
-                {
-                    Debug.Log("Seteando score...");
-                    {
-                        txt_Scores.Add(text);
-                        text.text = "Score: 0";
-                    }
-                }
-            }
+            player1Data.Value = playerData;
+        }
+        else if(playerId == 1)
+        {
+            player2Data.Value = playerData;
+        }
+        else
+        {
+            Debug.LogError("Valio vrga");
         }
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void LocalPlayerHitServerRpc(int points)
+    public void LocalPlayerHitServerRpc(int id, int points)
     {
         Debug.Log($"El jugador ha dado a un objetivo que le otorgó {points} puntos!");
 
-        var data = playerList[playerId];
-        data.AddScore(points);
-        playerList[playerId] = data;
-
-        
-
-        LocalPlayerHitClientRpc();
-    }
-
-    [ClientRpc]
-    private void LocalPlayerHitClientRpc()
-    {
-        for(int i = 0; i < playerList.Count; i++)
+        if(id == 0)
         {
-            Debug.Log($"La nueva puntuación del jugador {playerList[i].GetPlayerName()} ahora tiene {playerList[i].GetScore()}");
-
-            txt_Scores[i].text = $"Score: + {playerList[i].GetScore()}";
+            var temp = player1Data.Value;
+            temp.score += points;
+            player1Data.Value = temp;
+        }    
+        else if(id == 1)
+        {
+            var temp = player1Data.Value;
+            temp.score += points;
+            player2Data.Value = temp;
         }
     }
 }

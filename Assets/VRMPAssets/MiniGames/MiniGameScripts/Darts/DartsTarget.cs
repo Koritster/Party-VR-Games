@@ -27,9 +27,9 @@ public class DartsTarget : NetworkBehaviour
     public void OnHitRegister()
     {
         int points = basePoints * multiply;
-        dartsNetworked.LocalPlayerHitServerRpc(points);
+        dartsNetworked.LocalPlayerHitServerRpc(dartsNetworked.playerId, points);
 
-        newTxt = dartTxtPool.GetItem();
+        /*newTxt = dartTxtPool.GetItem();
         
         if(!newTxt.transform.GetChild(0).TryGetComponent(out TextMeshProUGUI text))
         {
@@ -42,11 +42,11 @@ public class DartsTarget : NetworkBehaviour
 
         Invoke(nameof(ReturnPoolTxt), 2f);
 
-        text.GetComponent<Animator>().Play("MoveTxt");
+        text.GetComponent<Animator>().Play("MoveTxt");*/
     }
 
-    private void ReturnPoolTxt()
+    /*private void ReturnPoolTxt()
     {
         dartTxtPool.ReturnItem(newTxt.gameObject);
-    }
+    }*/
 }

@@ -12,6 +12,7 @@ public class MiniGameNetworked : NetworkBehaviour, INetworkMinigame
     public MiniGameManager m_MinigameManager;
     public PlayerLocalInfo m_playerLocalInfo;
     public GameObject[] m_Scores;
+    public TextMeshProUGUI[] txt_PlayerNames;
 
     public int playerId;
 
@@ -22,6 +23,19 @@ public class MiniGameNetworked : NetworkBehaviour, INetworkMinigame
         m_playerLocalInfo = m_MinigameManager.localPlayer;
 
         m_Scores = m_MinigameManager.m_Scores;
+
+        for(int i = 0; i < m_Scores.Length; i++)
+        {
+            TextMeshProUGUI[] texts = m_Scores[i].GetComponentsInChildren<TextMeshProUGUI>();
+
+            foreach (TextMeshProUGUI text in texts)
+            {
+                if (text.CompareTag("Player Name Text"))
+                {
+                    txt_PlayerNames[i] = text;
+                }
+            }
+        }
     }
 
     public virtual void StartGame()
