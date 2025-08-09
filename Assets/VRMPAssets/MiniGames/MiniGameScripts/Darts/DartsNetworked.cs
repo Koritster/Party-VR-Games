@@ -125,8 +125,6 @@ public class DartsNetworked : MiniGameNetworked
         //Actualizar timer solo si está en juego
         timer.Value -= Time.deltaTime;
 
-        Debug.Log("");
-
         if (timer.Value <= 0f)
         {
             inGame = false;

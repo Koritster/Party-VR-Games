@@ -12,7 +12,7 @@ public class MiniGameNetworked : NetworkBehaviour, INetworkMinigame
     public MiniGameManager m_MinigameManager;
     public PlayerLocalInfo m_playerLocalInfo;
     public GameObject[] m_Scores;
-    public TextMeshProUGUI[] txt_PlayerNames;
+    public List<TextMeshProUGUI> txt_PlayerNames = new List<TextMeshProUGUI>();
 
     public int playerId;
 
