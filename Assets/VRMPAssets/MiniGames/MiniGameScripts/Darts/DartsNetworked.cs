@@ -108,17 +108,17 @@ public class DartsNetworked : MiniGameNetworked
 
     private void UpdateUI(int id)
     {
-        Debug.Log("Actualizando UI...");
+        Debug.Log($"Actualizando UI del usuario con id {id}...");
 
         if(id == 0)
         {
-            Debug.Log("Actualizando información del jugador 1");
+            Debug.Log($"Actualizando información del jugador 1, con id {id}, nombre {player1Data.Value.playerName.ToString()} y que ahora tiene {player1Data.Value.score}");
             txt_PlayerNames[id].text = player1Data.Value.playerName.ToString();
             txt_Scores[id].text = player1Data.Value.score.ToString();
         }
         else if(id == 1)
         {
-            Debug.Log("Actualizando información del jugador 2");
+            Debug.Log($"Actualizando información del jugador 2, con id {id}, nombre {player2Data.Value.playerName.ToString()} y que ahora tiene {player2Data.Value.score}");
             txt_PlayerNames[id].text = player2Data.Value.playerName.ToString();
             txt_Scores[id].text = player2Data.Value.score.ToString();
         }
