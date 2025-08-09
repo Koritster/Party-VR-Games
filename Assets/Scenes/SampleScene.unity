@@ -2189,6 +2189,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b692c826f3a4f45b3bad8a6e8e9dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MinigameBase: {fileID: 0}
+  m_MinigameManager: {fileID: 0}
+  m_playerLocalInfo: {fileID: 0}
+  m_Scores:
+  - {fileID: 0}
+  - {fileID: 0}
+  txt_PlayerNames:
+  - {fileID: 0}
+  - {fileID: 0}
+  playerId: 0
   timeLenght: 60
   clock: {fileID: 750279926}
   clockColors:
@@ -2221,6 +2231,9 @@ MonoBehaviour:
     m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  txt_Scores:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &269933886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6089,7 +6102,6 @@ MonoBehaviour:
   m_isConnected: 0
   m_isHost: 0
   m_HubSpot: {fileID: 0}
-  m_Score: {fileID: 0}
   m_PlayerId: 0
 --- !u!1001 &1154457192
 PrefabInstance:

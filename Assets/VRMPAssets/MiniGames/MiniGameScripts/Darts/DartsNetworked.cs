@@ -77,9 +77,12 @@ public class DartsNetworked : MiniGameNetworked
     {
         base.StartGame();
 
-        //Reiniciar los jugadores registrados
-        player1Data.Value = new PlayerNetworkData("Jugador 1", 0);
-        player2Data.Value = new PlayerNetworkData("Jugador 2", 0);
+        if (IsServer)
+        {
+            //Reiniciar los jugadores registrados
+            player1Data.Value = new PlayerNetworkData("Jugador 1", 0);
+            player2Data.Value = new PlayerNetworkData("Jugador 2", 0);
+        }
 
         playerId = (int)m_playerLocalInfo.m_PlayerId;
 
@@ -105,6 +108,8 @@ public class DartsNetworked : MiniGameNetworked
 
     private void UpdateUI(int id, PlayerNetworkData data)
     {
+        Debug.Log("Actualizando UI...");
+
         txt_PlayerNames[id].text = data.playerName.ToString();
         txt_Scores[id].text = data.score.ToString();
     }
