@@ -48,12 +48,13 @@ namespace XRMultiplayer.MiniGames
 
         public virtual void SetupGame()
         {
-            
+            m_MiniGameManager.m_WinnerCanvas.SetActive(false);
         }
 
         public virtual void StartGame()
         {
             m_Finished = false;
+            m_MiniGameManager.m_WinnerCanvas.SetActive(false);
         }
 
         public virtual void UpdateGame(float deltaTime)

@@ -39,6 +39,7 @@ public class DartsTarget : NetworkBehaviour
         }
 
         text.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+        text.transform.localScale = Vector3.one;
         text.text = $"+{points}";
 
         Invoke(nameof(ReturnPoolTxt), 2f);
