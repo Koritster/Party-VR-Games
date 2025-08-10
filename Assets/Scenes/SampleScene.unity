@@ -581,7 +581,7 @@ MonoBehaviour:
   m_UseCollectionChecks: 1
   m_DefaultCapacity: 50
   m_MaxCapacity: 1000
-  m_ParentUnderTransform: 0
+  m_ParentUnderTransform: 1
 --- !u!1 &72520782
 GameObject:
   m_ObjectHideFlags: 0
@@ -10665,10 +10665,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce2808796b43f144a453c9e2c3f20dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCollisions:
-  - {fileID: 621324169}
-  - {fileID: 1619450436}
-  txt_Timer: {fileID: 1810103672}
+  m_MinigameBase: {fileID: 0}
+  m_MinigameManager: {fileID: 0}
+  m_playerLocalInfo: {fileID: 0}
+  m_Scores: []
+  txt_PlayerNames: []
+  txt_Scores: []
+  playerId: 0
+  positiveLimit: {fileID: 0}
+  negativeLimit: {fileID: 0}
+  firstTimeToSpawn: 0
+  minLimitTimeToSpawn: 0
+  ratioOfDecreasingTime: 0
 --- !u!1 &2087977075
 GameObject:
   m_ObjectHideFlags: 0
