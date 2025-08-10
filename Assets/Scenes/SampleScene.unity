@@ -2378,6 +2378,11 @@ PrefabInstance:
       propertyPath: idPlayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 354299978940623340, guid: a188ceb171e80cb4fb9a4bbe409c0227,
+        type: 3}
+      propertyPath: m_ParentUnderTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 362381959250144227, guid: a188ceb171e80cb4fb9a4bbe409c0227,
         type: 3}
       propertyPath: idPlayer
@@ -12941,6 +12946,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 312769230}
     m_Modifications:
+    - target: {fileID: 354299978940623340, guid: a188ceb171e80cb4fb9a4bbe409c0227,
+        type: 3}
+      propertyPath: m_ParentUnderTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5642860116540794946, guid: a188ceb171e80cb4fb9a4bbe409c0227,
         type: 3}
       propertyPath: GlobalObjectIdHash
