@@ -128,7 +128,7 @@ namespace XRMultiplayer
 
                 float appliedCurve = m_VoiceCurve.Evaluate(m_VoiceDestinationVolume);
                 voiceAmp.Value = appliedCurve;
-                m_HeadRend.SetBlendShapeWeight(0, 100 - appliedCurve * 100);
+                //m_HeadRend.SetBlendShapeWeight(0, 100 - appliedCurve * 100);      // o no
             }
             else
             {
@@ -146,7 +146,8 @@ namespace XRMultiplayer
 
         void UpdatePlayerColor(Color color)
         {
-            m_HeadRend.materials[2].color = color;
+            //m_HeadRend.materials[2].color = color;
+            m_HeadRend.materials[0].color = color;
         }
 
         /// <summary>

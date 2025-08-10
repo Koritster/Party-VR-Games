@@ -69,8 +69,8 @@ namespace XRMultiplayer
 
         public virtual void UpdateMouth()
         {
-            if (m_headRend != null)
-                m_headRend.SetBlendShapeWeight(0, 100 - (m_NetworkPlayerAvatar.playerVoiceAmp * 100));
+            /*if (m_headRend != null)
+                m_headRend.SetBlendShapeWeight(0, 100 - (m_NetworkPlayerAvatar.playerVoiceAmp * 100));*/
         }
 
         public virtual void PlayerSpawnedLocal()
@@ -91,7 +91,7 @@ namespace XRMultiplayer
 
         public virtual void SetPlayerColor(Color newColor)
         {
-            m_headRend.materials[2].SetColor("_BaseColor", newColor);
+            m_headRend.materials[0].SetColor("_BaseColor", newColor);
         }
     }
 }
