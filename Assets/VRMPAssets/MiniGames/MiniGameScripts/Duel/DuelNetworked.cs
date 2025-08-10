@@ -7,214 +7,66 @@ using System.Linq;
 
 namespace XRMultiplayer.MiniGames
 {
-    public class DuelNetworked : NetworkBehaviour
+    public class DuelNetworked : MiniGameNetworked
     {
-        public DuelPlayerCollision[] playerCollisions;
-        
-        [SerializeField] private TextMeshProUGUI txt_Timer;
-        private DuelMinigame m_DuelMinigame;
-        private MiniGameManager m_MinigameManager;
-        private GameObject m_scoreGO;
-        private PlayerLocalInfo m_playerLocalInfo;
-        private Dictionary<XRINetworkPlayer, List<DuelLives>> playerLives = new Dictionary<XRINetworkPlayer, List<DuelLives>>();
-        private bool roundEnded;
+        [SerializeField] private Transform positiveLimit;
+        [SerializeField] private Transform negativeLimit;
+        [SerializeField] private float firstTimeToSpawn;
+        [SerializeField] private float minLimitTimeToSpawn;
+        [SerializeField] private float ratioOfDecreasingTime;
 
-        private NetworkVariable<float> timerToShoot = new NetworkVariable<float>(
-        0f,
-        NetworkVariableReadPermission.Everyone,
-        NetworkVariableWritePermission.Server);
+        private float actualTimeToSpawn;
+        private float currentTimer;
 
-        private float timerTime;
         private bool inGame;
+
+        private DianaPool m_dianaPool;
+        
 
         #region Start Functions
 
-        private void Start()
+        public override void Start()
         {
-            m_DuelMinigame = GetComponent<DuelMinigame>();
-            m_MinigameManager = GetComponent<MiniGameManager>();
-            m_playerLocalInfo = m_MinigameManager.localPlayer;
+            base.Start();
+
+            m_dianaPool = GetComponentInChildren<DianaPool>();
         }
 
-        public void StartGame()
+        public override void StartGame()
         {
+            base.StartGame();
+
+            actualTimeToSpawn = firstTimeToSpawn;
+            currentTimer = actualTimeToSpawn;
+            inGame = true;
+
             Debug.Log("Iniciando juego de duelo...");
-
-            timerToShoot.OnValueChanged += UpdateUITimer;
-
-            if (XRINetworkGameManager.Instance.GetPlayerByID(m_playerLocalInfo.m_PlayerId, out XRINetworkPlayer m_localPlayer))
-            {
-                //Declaración del PlayerLocalInfo y XRINetworkPlayer local
-                //m_scoreGO = m_playerLocalInfo.m_Score;
-
-
-                //Registrar el jugador para el diccionario de todos los jugadores
-                RegisterPlayerServerRpc();
-            }
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        public void RegisterPlayerServerRpc()
-        {
-            if (XRINetworkGameManager.Instance.GetPlayerByID(m_playerLocalInfo.m_PlayerId, out XRINetworkPlayer m_localPlayer))
-            {
-                int scoreIndex = -1;
-                for(int i = 0; i < m_MinigameManager.m_Scores.Length; i++)
-                {
-                    if (m_MinigameManager.m_Scores[i] == m_scoreGO)
-                    {
-                        scoreIndex = i;
-                        break;
-                    }
-                }
-
-                if(scoreIndex < 0)
-                {
-                    Debug.LogError("No se encontró un indice valido");
-                    return;
-                }
-
-                playerCollisions[scoreIndex].SetupPlayerCollision(this);
-
-                RegisterPlayerClientRpc(m_playerLocalInfo.m_PlayerId, scoreIndex);
-            }
-        }
-
-        [ClientRpc]
-        private void RegisterPlayerClientRpc(ulong playerId, int scoreIndex)
-        {
-            if (XRINetworkGameManager.Instance.GetPlayerByID(playerId, out XRINetworkPlayer m_localPlayer))
-            {
-                if (scoreIndex < 0 || scoreIndex >= m_MinigameManager.m_Scores.Length)
-                    return;
-
-                Debug.Log("Registrando al usuario " + m_localPlayer);
-
-                //Set names
-                TextMeshProUGUI[] texts = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<TextMeshProUGUI>();
-
-                foreach (TextMeshProUGUI text in texts)
-                {
-                    if (text.CompareTag("Player Name Text"))
-                    {
-                        Debug.Log("Seteando nombre...");
-                        text.text = m_localPlayer.name;
-                        Debug.Log(text.text);
-                    }
-                }
-
-                
-                //Add player to dictionary
-                List<DuelLives> duelLives = m_MinigameManager.m_Scores[scoreIndex].GetComponentsInChildren<DuelLives>().ToList();
-
-                playerLives.Add(m_localPlayer, duelLives);
-            }
-        }
-
-        public void StartRound()
-        {
-            Debug.Log("Iniciando nueva ronda...");
-
-            //Reinicio de ronda
-            if (IsOwner)
-            {
-                inGame = true;
-                roundEnded = false;
-                timerTime = Random.Range(4f, 9f);
-                timerToShoot.Value = timerTime;
-                //ShowGunsClientRpc(false);
-            }
         }
 
         #endregion
 
         #region Update Functions
 
-        private void UpdateUITimer(float oldValue, float newValue)
-        {
-            float actualTime = Mathf.CeilToInt(newValue);
-            if(actualTime <= 0)
-            {
-                txt_Timer.text = "FUEGO!";
-            }
-            else
-            {
-                txt_Timer.text = actualTime.ToString();
-            }
-        }
-
         private void Update()
         {
             if (!IsServer || !inGame) return;
 
-            //Actualizar timer solo si está en juego
-            timerToShoot.Value -= Time.deltaTime;
+            currentTimer -= Time.deltaTime;
 
-            if (timerToShoot.Value <= 0f)
+            if(currentTimer <= 0)
             {
-                timerToShoot.Value = 0f;
+                GameObject newDiana = m_dianaPool.GetItem();
 
-                ShowGunsClientRpc(true);
-            }
-        }
+                Vector3 pos = new Vector3(0, Random.Range(negativeLimit.position.y, positiveLimit.position.y), Random.Range(negativeLimit.position.z, positiveLimit.position.z));
 
-        #endregion
+                newDiana.transform.SetPositionAndRotation(pos, Quaternion.identity);
 
-        #region Rpc Functions
-
-        [ClientRpc]
-        private void ShowGunsClientRpc(bool show) 
-        {
-            //Aparecer pistolas
-            m_DuelMinigame.ShowInteractables(show);
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        public void LocalPlayerLooseServerRpc()
-        {
-            if (XRINetworkGameManager.Instance.GetPlayerByID(m_playerLocalInfo.m_PlayerId, out XRINetworkPlayer m_localPlayer))
-            {
-                LocalPlayerLooseClientRpc(m_playerLocalInfo.m_PlayerId);
-            }
-        }
-
-        [ClientRpc]
-        private void LocalPlayerLooseClientRpc(ulong playerId)
-        {
-            if (XRINetworkGameManager.Instance.GetPlayerByID(playerId, out XRINetworkPlayer m_localPlayer))
-            {
-                if (roundEnded)
-                    return;
-
-                //Terminar ronda
-                roundEnded = true;
-
-                //Restar una vida al jugador
-                playerLives[m_localPlayer].Last<DuelLives>().LiveLost();
-                playerLives[m_localPlayer].RemoveAt(playerLives[m_localPlayer].Count - 1);
-
-                //Comprobar si ha perdido
-                if(playerLives[m_localPlayer].Count <= 0)
+                if(actualTimeToSpawn > minLimitTimeToSpawn)
                 {
-                    FinishRound(false);
-
-                    foreach (DuelPlayerCollision playerCollision in playerCollisions)
-                    {
-                        playerCollision.RestartSetup();
-                    }
-
-                    foreach (KeyValuePair<XRINetworkPlayer, List<DuelLives>> kvp in playerLives)
-                    {
-                        if(kvp.Key == m_localPlayer)
-                            continue;
-
-                        //Mostrar al ganador y finalizar juego
-                        m_DuelMinigame.FinishGame(kvp.Key.playerName);
-                        return;
-                    }
+                    actualTimeToSpawn -= ratioOfDecreasingTime;
                 }
 
-                FinishRound(true);
+                currentTimer = actualTimeToSpawn;
             }
         }
 
@@ -225,9 +77,26 @@ namespace XRMultiplayer.MiniGames
             //Fin de ronda
             inGame = false;
 
-            if (keepPlaying)
+            actualTimeToSpawn = firstTimeToSpawn;
+            currentTimer = actualTimeToSpawn;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void LocalPlayerHitServerRpc(int id, int points)
+        {
+            Debug.Log($"El jugador con id {id} ha dado a un objetivo que le otorgó {points} puntos!");
+
+            if (id == 0)
             {
-                StartRound();
+                var temp = player1Data.Value;
+                temp.score += points;
+                player1Data.Value = temp;
+            }
+            else if (id == 1)
+            {
+                var temp = player2Data.Value;
+                temp.score += points;
+                player2Data.Value = temp;
             }
         }
     }

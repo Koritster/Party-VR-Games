@@ -5,7 +5,7 @@ using XRMultiplayer.MiniGames;
 
 public class DuelPlayerCollision : MonoBehaviour
 {
-    private bool isLocal = false;
+    /*private bool isLocal = false;
     private DuelNetworked m_DuelNetworked;
 
     public void SetupPlayerCollision(DuelNetworked duelNetworked)
@@ -38,5 +38,5 @@ public class DuelPlayerCollision : MonoBehaviour
             Debug.LogWarning("Has recibido un disparo!");
             m_DuelNetworked.LocalPlayerLooseServerRpc();
         }
-    }
+    }*/
 }

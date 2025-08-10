@@ -20,7 +20,6 @@ namespace XRMultiplayer.MiniGames
         {
             base.StartGame();
             ref_DuelNetworked.StartGame();
-            ref_DuelNetworked.StartRound();
         }
 
         public override void FinishGame(string name, string score = "")

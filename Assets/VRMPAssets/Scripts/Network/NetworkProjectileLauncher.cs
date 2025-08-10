@@ -29,6 +29,8 @@ public class NetworkProjectileLauncher : NetworkBehaviour
     [SerializeField] AudioSource m_AudioSource;
     [SerializeField] AudioClip m_AudioClip;
 
+    [SerializeField] int playerId;
+
     /// <summary>
     /// Networked Color. This value gets set when ownership is gained.
     /// </summary>
@@ -80,10 +82,17 @@ public class NetworkProjectileLauncher : NetworkBehaviour
                 Utils.Log("Projectile component not found on projectile object.", 1);
                 return;
             }
+            if(!newObject.TryGetComponent(out DuelProjectileController projectileController))
+            {
+                Utils.Log("ProjectileController component not found on projectile object.", 1);
+                return;
+            }
 
             projectile.transform.SetPositionAndRotation(m_StartPoint.position, m_StartPoint.rotation);
             projectile.Setup(IsOwner, fireColor, OnProjectileDestroy);
             m_AudioSource.PlayOneShot(m_AudioClip);
+
+            projectileController.playerId = playerId;
 
             if (newObject.TryGetComponent(out Rigidbody rigidBody))
             {
