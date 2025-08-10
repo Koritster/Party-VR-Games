@@ -11,6 +11,7 @@ public class DartsTarget : NetworkBehaviour
 {
     [SerializeField] private int basePoints;
     [SerializeField] private int multiply;
+    [SerializeField] private int idPlayer;
 
     private DartsMinigame dartsManager;
     private DartsNetworked dartsNetworked;
@@ -27,7 +28,7 @@ public class DartsTarget : NetworkBehaviour
     public void OnHitRegister()
     {
         int points = basePoints * multiply;
-        dartsNetworked.LocalPlayerHitServerRpc(dartsNetworked.playerId, points);
+        dartsNetworked.LocalPlayerHitServerRpc(idPlayer, points);
 
         newTxt = dartTxtPool.GetItem();
         

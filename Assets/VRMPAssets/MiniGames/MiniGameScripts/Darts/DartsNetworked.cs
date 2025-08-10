@@ -201,7 +201,7 @@ public class DartsNetworked : MiniGameNetworked
     [ServerRpc(RequireOwnership = false)]
     public void LocalPlayerHitServerRpc(int id, int points)
     {
-        Debug.Log($"El jugador ha dado a un objetivo que le otorgó {points} puntos!");
+        Debug.Log($"El jugador con id {id} ha dado a un objetivo que le otorgó {points} puntos!");
 
         if(id == 0)
         {
