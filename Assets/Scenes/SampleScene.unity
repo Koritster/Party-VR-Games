@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_UseCollectionChecks: 1
   m_DefaultCapacity: 50
   m_MaxCapacity: 1000
-  m_ParentUnderTransform: 1
+  m_ParentUnderTransform: 0
 --- !u!114 &71024032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4610,6 +4610,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 874452183138526564, guid: 3967f87296c892e40b57e37bc8601550,
+        type: 3}
+      propertyPath: m_NetworkConfig.Prefabs.NetworkPrefabsLists.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 874452183138526564, guid: 3967f87296c892e40b57e37bc8601550,
+        type: 3}
+      propertyPath: m_NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c6e842cd7704084fa88682fe4e71ae6,
+        type: 2}
     - target: {fileID: 2613880095383542483, guid: 3967f87296c892e40b57e37bc8601550,
         type: 3}
       propertyPath: m_ProtocolType
@@ -37466,7 +37477,7 @@ PrefabInstance:
     - target: {fileID: 5676668323438788329, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5713267354251877236, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
@@ -37670,7 +37681,7 @@ MonoBehaviour:
   firstTimeToSpawn: 1
   minLimitTimeToSpawn: 0.2
   ratioOfDecreasingTime: 0.02
-  timeLenght: 5
+  timeLenght: 60
   manecilla: {fileID: 4069648956940840239}
   clockFillImage: {fileID: 4069648956940840238}
 --- !u!1001 &2082849985

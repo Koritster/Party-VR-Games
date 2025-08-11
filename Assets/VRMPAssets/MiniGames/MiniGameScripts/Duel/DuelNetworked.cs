@@ -32,6 +32,11 @@ namespace XRMultiplayer.MiniGames
 
         public override void Start()
         {
+            Debug.Log(positiveLimit.position);
+            Debug.Log(positiveLimit.localPosition);
+            Debug.Log(negativeLimit.position);
+            Debug.Log(negativeLimit.localPosition);
+
             base.Start();
 
             m_dianaPool = GetComponentInChildren<DianaPool>();
@@ -106,21 +111,7 @@ namespace XRMultiplayer.MiniGames
 
             if(currentTimer <= 0)
             {
-                GameObject newDiana = m_dianaPool.GetItem();
-
-                if (!newDiana.TryGetComponent(out DuelTarget target))
-                {
-                    Utils.Log("Projectile component not found on projectile object.", 1);
-                    return;
-                }
-
-                Vector3 pos = new Vector3(0, Random.Range(negativeLimit.localPosition.y, positiveLimit.localPosition.y), Random.Range(negativeLimit.localPosition.z, positiveLimit.localPosition.z));
-
-                target.transform.localPosition = pos;
-                Debug.Log(newDiana.transform.localPosition);
-
-                target.Setup(OnProjectileDestroy);
-
+                SpawnDianaServerRpc();
 
                 if (actualTimeToSpawn > minLimitTimeToSpawn)
                 {
@@ -129,6 +120,26 @@ namespace XRMultiplayer.MiniGames
 
                 currentTimer = actualTimeToSpawn;
             }
+        }
+
+        [ServerRpc]
+        private void SpawnDianaServerRpc()
+        {
+            GameObject newDiana = m_dianaPool.GetItem();
+
+            if (!newDiana.TryGetComponent(out DuelTarget target))
+            {
+                Utils.Log("Projectile component not found on projectile object.", 1);
+                return;
+            }
+
+            Vector3 pos = new Vector3(Random.Range(negativeLimit.position.x, positiveLimit.position.x), Random.Range(negativeLimit.position.y, positiveLimit.position.y), positiveLimit.position.z);
+            Debug.Log(pos);
+
+            target.transform.localPosition = pos;
+            Debug.Log(newDiana.transform.localPosition);
+
+            target.Setup(OnProjectileDestroy);
         }
 
         private void UpdateTimer(float oldValue, float newValue)
