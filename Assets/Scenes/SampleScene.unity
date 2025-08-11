@@ -34942,7 +34942,7 @@ PrefabInstance:
     - target: {fileID: 8815755300140433434, guid: 555a1e905c4669f4fb3ddd339da2d239,
         type: 3}
       propertyPath: m_LaunchSpeed
-      value: 10000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8815755300140433434, guid: 555a1e905c4669f4fb3ddd339da2d239,
         type: 3}
@@ -37633,7 +37633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameName: Duel
-  btnIcon: {fileID: 0}
+  btnIcon: {fileID: 21300000, guid: dcb410b2117a17944859a7d881d8e73b, type: 3}
   m_GameType: 0
   m_GameLength: 60
   m_GameInteractables:
