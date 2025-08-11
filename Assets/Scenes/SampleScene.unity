@@ -1423,6 +1423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 71024030}
   - component: {fileID: 71024031}
+  - component: {fileID: 71024032}
   m_Layer: 0
   m_Name: DianaPool
   m_TagString: Untagged
@@ -1465,6 +1466,27 @@ MonoBehaviour:
   m_DefaultCapacity: 50
   m_MaxCapacity: 1000
   m_ParentUnderTransform: 1
+--- !u!114 &71024032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71024029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 828133246
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &71270643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37395,6 +37417,41 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.082
       objectReference: {fileID: 0}
+    - target: {fileID: 4173645804271299905, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173645804271299905, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173645804271299905, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173645804271299905, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173645804271299905, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355785003779235785, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355785003779235785, guid: e7a58ef30a96fb845b50778e16448078,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4404901469458335013, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
       propertyPath: m_Icon
@@ -37409,7 +37466,7 @@ PrefabInstance:
     - target: {fileID: 5676668323438788329, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5713267354251877236, guid: e7a58ef30a96fb845b50778e16448078,
         type: 3}
@@ -37566,8 +37623,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameName: Duel
   btnIcon: {fileID: 0}
-  m_GameType: 1
-  m_GameLength: 2
+  m_GameType: 0
+  m_GameLength: 60
   m_GameInteractables:
   - {fileID: 1961487509}
   - {fileID: 0}
@@ -37613,7 +37670,7 @@ MonoBehaviour:
   firstTimeToSpawn: 1
   minLimitTimeToSpawn: 0.2
   ratioOfDecreasingTime: 0.02
-  timeLenght: 60
+  timeLenght: 5
   manecilla: {fileID: 4069648956940840239}
   clockFillImage: {fileID: 4069648956940840238}
 --- !u!1001 &2082849985

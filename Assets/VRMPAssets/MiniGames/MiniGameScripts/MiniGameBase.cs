@@ -65,7 +65,6 @@ namespace XRMultiplayer.MiniGames
         public virtual void FinishGame(string name, string score = "")
         {
             Debug.Log("El juego ha terminado");
-            RemoveInteractables();
             m_Finished = true;
 
             StartCoroutine(CheckForGameEndingRoutine(name, score));
