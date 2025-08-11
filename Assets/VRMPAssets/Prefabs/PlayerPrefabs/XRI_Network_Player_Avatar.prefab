@@ -516,7 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1874537550
+  GlobalObjectIdHash: 1795334012
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_TorsoParentTransform: {fileID: 2032567801494036586}
   m_HeadVisualsRoot: {fileID: 3182566023063397214}
   m_Neck: {fileID: 8062532055707135168}
-  m_HeadHeightOffset: 0.1
+  m_HeadHeightOffset: 0.3
   m_RotateThreshold: 25
   m_RotateSpeed: 3
 --- !u!114 &8435302620866516779
