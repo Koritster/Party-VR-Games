@@ -453,7 +453,7 @@ Transform:
   m_GameObject: {fileID: 6523368411658813912}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.016, z: -0.098}
+  m_LocalPosition: {x: -0, y: -0.016, z: -0.0623}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -474,6 +474,7 @@ GameObject:
   - component: {fileID: 5922546463336484}
   - component: {fileID: 8815755300140433434}
   - component: {fileID: 4144000192493982300}
+  - component: {fileID: 578335359517710107}
   m_Layer: 0
   m_Name: Launcher Networked Interactable
   m_TagString: Untagged
@@ -664,7 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3467787425
+  GlobalObjectIdHash: 1638053559
   InScenePlacedSourceGlobalObjectIdHash: 2727466294
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -718,10 +719,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_StartPoint: {fileID: 2136402837427918477}
-  m_LaunchSpeed: 10000
-  m_MaxProjectilesAllowed: 1
+  m_LaunchSpeed: 1500
+  m_MaxProjectilesAllowed: 10
   m_AudioSource: {fileID: 3489925730576561035}
   m_AudioClip: {fileID: 8300000, guid: e5e88e22a2e4bc946bcecb9cb1737035, type: 3}
+  playerId: 0
 --- !u!114 &4144000192493982300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,6 +786,18 @@ MonoBehaviour:
   m_AllowCollisionOwnershipExchange: 1
   m_MinExchangeVelocityMagitude: 0.025
   spawnLocked: 1
+--- !u!114 &578335359517710107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7478227192145178455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9ffa8f46ddfba4da49445dba0580fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7563041174336846706
 GameObject:
   m_ObjectHideFlags: 0
