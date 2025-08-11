@@ -5,7 +5,6 @@ using XRMultiplayer.MiniGames;
 
 public class DuelTarget : MonoBehaviour
 {
-    [SerializeField] private DuelNetworked duelNetworked;
     [SerializeField] protected float m_Lifetime = 4.0f;
 
     Action<DuelTarget> m_OnReturnToPool;
@@ -13,17 +12,12 @@ public class DuelTarget : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log("Soy una Diana. Acabo de aparecer");
-
-        if(duelNetworked == null)
-        {
-            duelNetworked = GetComponentInParent<DuelNetworked>();
-        }
+        Debug.Log("Soy una Diana");
     }
 
     public void OnHitRegister(int playerId)
     {
-        duelNetworked.LocalPlayerHitServerRpc(playerId, 1);
+        DuelNetworked.instance.LocalPlayerHitServerRpc(playerId, 1);
         ResetDiana();
     }
 

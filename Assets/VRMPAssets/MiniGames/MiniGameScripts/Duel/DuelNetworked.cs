@@ -6,6 +6,8 @@ namespace XRMultiplayer.MiniGames
 {
     public class DuelNetworked : MiniGameNetworked
     {
+        public static DuelNetworked instance;
+
         [SerializeField] private Transform positiveLimit;
         [SerializeField] private Transform negativeLimit;
         [SerializeField] private float firstTimeToSpawn;
@@ -29,6 +31,16 @@ namespace XRMultiplayer.MiniGames
         private DianaPool m_dianaPool;
 
         #region Start Functions
+
+        public void Awake()
+        {
+            if(instance == null)
+            {
+                instance = this;
+            }
+
+            Debug.Log($"La instancia existe? " + instance != null ? "no" : "si");
+        }
 
         public override void Start()
         {
@@ -127,8 +139,6 @@ namespace XRMultiplayer.MiniGames
         {
             Vector3 pos = new Vector3(Random.Range(negativeLimit.position.x, positiveLimit.position.x), Random.Range(negativeLimit.position.y, positiveLimit.position.y), positiveLimit.position.z);
             
-            Debug.Log(pos);
-
             SpawnDianaClientRpc(pos);
         }
 
@@ -144,7 +154,6 @@ namespace XRMultiplayer.MiniGames
             }
 
             target.transform.localPosition = pos;
-            Debug.Log(newDiana.transform.localPosition);
 
             target.Setup(OnTargetDestroy);
         }
