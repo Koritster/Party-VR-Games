@@ -33303,6 +33303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1887496585}
   - component: {fileID: 1887496586}
+  - component: {fileID: 1887496587}
   m_Layer: 0
   m_Name: Scripter
   m_TagString: Untagged
@@ -33341,6 +33342,18 @@ MonoBehaviour:
   btnPrefab: {fileID: 1920112844983619698, guid: 394753acdde88034f8725bf3e1f1b45c,
     type: 3}
   btnHolder: {fileID: 1432489166}
+--- !u!114 &1887496587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887496583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e124dd16c4c44e0449de7b6036741ad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1900864181
 GameObject:
   m_ObjectHideFlags: 0

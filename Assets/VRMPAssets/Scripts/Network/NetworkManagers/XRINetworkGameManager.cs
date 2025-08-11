@@ -417,6 +417,7 @@ namespace XRMultiplayer
             if (await AbleToConnect())
             {
                 ConnectToLobby(await m_LobbyManager.QuickJoinLobby());
+                DatabaseManager.Instance.CreateUser(XRINetworkPlayer.LocalPlayer.playerName);
             }
         }
 
@@ -430,6 +431,7 @@ namespace XRMultiplayer
             if (await AbleToConnect())
             {
                 ConnectToLobby(await m_LobbyManager.JoinLobby(roomCode: code));
+                DatabaseManager.Instance.CreateUser(XRINetworkPlayer.LocalPlayer.playerName);
             }
         }
 
@@ -458,6 +460,7 @@ namespace XRMultiplayer
             if (await AbleToConnect())
             {
                 ConnectToLobby(await m_LobbyManager.CreateLobby(roomName, isPrivate, playerCount));
+                DatabaseManager.Instance.CreateUser(XRINetworkPlayer.LocalPlayer.playerName);
             }
         }
 

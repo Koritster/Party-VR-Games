@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "590386220777",
+    "firebase_url": "https://party-vr-3b6a0-default-rtdb.firebaseio.com",
+    "project_id": "party-vr-3b6a0",
+    "storage_bucket": "party-vr-3b6a0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590386220777:android:530bb8b1a54552cf652a78",
+        "android_client_info": {
+          "package_name": "com.Astronith.PartyVRGames"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7djwMmxO7Dtos6JEx3e0sXhDTg4Grr0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

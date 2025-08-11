@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +40,7 @@ namespace XRMultiplayer.MiniGames
                 instance = this;
             }
 
-            Debug.Log($"La instancia existe? " + instance != null ? "no" : "si");
+            Debug.Log($"La instancia existe? " + instance == null ? "no" : "si");
         }
 
         public override void Start()
@@ -94,21 +95,31 @@ namespace XRMultiplayer.MiniGames
                 //Terminar el juego
                 int winnerPoints = 0;
                 string winnerName = "ERROR";
+                string looserName = "ERROR";
 
                 if (player1Data.Value.score == player2Data.Value.score)
                 {
                     winnerPoints = player1Data.Value.score;
                     winnerName = "Draw";
+                    looserName = "Draw";
                 }
                 else if (player1Data.Value.score > player2Data.Value.score)
                 {
                     winnerPoints = player1Data.Value.score;
                     winnerName = player1Data.Value.playerName.ToString();
+                    looserName = player2Data.Value.playerName.ToString();
                 }
                 else
                 {
                     winnerPoints = player2Data.Value.score;
                     winnerName = player2Data.Value.playerName.ToString();
+                    looserName = player1Data.Value.playerName.ToString();
+                }
+
+                if(winnerName != "ERROR" || winnerName != "Draw")
+                {
+                    DatabaseManager.Instance.AddWin(winnerName);
+                    DatabaseManager.Instance.AddLoose(looserName);
                 }
 
                 m_MinigameBase.FinishGame(winnerName, winnerPoints.ToString());
