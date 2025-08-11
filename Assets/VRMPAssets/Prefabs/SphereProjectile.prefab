@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 9031775881104408047}
   - component: {fileID: 9031775881104408020}
   - component: {fileID: 1545571008389635459}
+  - component: {fileID: 7179806630533773255}
   m_Layer: 0
   m_Name: SphereProjectile
   m_TagString: Projectile
@@ -294,3 +295,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TrailRenderer: {fileID: 4355027779353820095}
   m_Lifetime: 10
+--- !u!114 &7179806630533773255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031775881104408046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa9004860685b6458399cc2f5aff613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId: 0

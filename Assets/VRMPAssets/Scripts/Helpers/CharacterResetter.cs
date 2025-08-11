@@ -44,10 +44,10 @@ namespace XRMultiplayer
             {
                 ResetPlayer();
             }
-            if (Mathf.Abs(transform.position.x) > m_ResetDistance || Mathf.Abs(transform.position.z) > m_ResetDistance)
+            /*if (Mathf.Abs(transform.position.x) > m_ResetDistance || Mathf.Abs(transform.position.z) > m_ResetDistance)
             {
                 ResetPlayer();
-            }
+            }*/
         }
 
         public void ResetPlayer()

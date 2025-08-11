@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using TMPro;
-using Unity.Collections;
-using Unity.Netcode;
-using Unity.XR.CoreUtils;
+﻿using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Filtering;
-using XRMultiplayer;
-using XRMultiplayer.MiniGames;
+using UnityEngine.UI;
 
 public class DartsNetworked : MiniGameNetworked
 {
     [SerializeField] private float timeLenght;
-    [SerializeField] private GameObject clock;
-    [SerializeField] private Gradient clockColors;
+    [SerializeField] private GameObject manecilla;
+    [SerializeField] private Image clockFillImage;
 
     private NetworkVariable<float> timer = new NetworkVariable<float>(
         0,
@@ -45,11 +36,14 @@ public class DartsNetworked : MiniGameNetworked
 
     private void UpdateTimer(float oldValue, float newValue)
     {
-        //Cambiar el color del reloj
         float t = newValue / timeLenght;
 
-        Color color = clockColors.Evaluate(t);
-        clock.GetComponent<Renderer>().material.color = color;
+        float t2 = 1 - t;
+
+        clockFillImage.fillAmount = t2;
+
+        float angle = Mathf.Lerp(-90f, 270f, t2);
+        manecilla.transform.localRotation = Quaternion.Euler(angle, -90f, -270f);
     }
 
     private void Update()

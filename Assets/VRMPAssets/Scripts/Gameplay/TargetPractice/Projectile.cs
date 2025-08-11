@@ -129,8 +129,5 @@ namespace XRMultiplayer
             m_OnReturnToPool?.Invoke(this);
             gameObject.SetActive(false); // O el método que uses en tu Pooler
         }
-
-        //revisar este
-        
     }
 }
