@@ -1464,7 +1464,7 @@ MonoBehaviour:
     type: 3}
   m_UseCollectionChecks: 1
   m_DefaultCapacity: 50
-  m_MaxCapacity: 1000
+  m_MaxCapacity: 100
   m_ParentUnderTransform: 0
 --- !u!114 &71024032
 MonoBehaviour:
@@ -3256,6 +3256,7 @@ Transform:
   - {fileID: 621324167}
   - {fileID: 1619450434}
   - {fileID: 71024030}
+  - {fileID: 1383645793}
   m_Father: {fileID: 2081796066}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &183785351
@@ -23984,6 +23985,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1374170057}
   m_CullTransparentMesh: 1
+--- !u!1 &1383645792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1383645793}
+  - component: {fileID: 1383645794}
+  m_Layer: 0
+  m_Name: WoodParticlesPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1383645793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383645792}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 181019144}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1383645794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383645792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77610780cb5b0db4db1b71f87142bc1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpawnPrefab: {fileID: 100002, guid: ac1aa04288fad804ba1cd769f4377aaf, type: 3}
+  m_UseCollectionChecks: 1
+  m_DefaultCapacity: 30
+  m_MaxCapacity: 50
+  m_ParentUnderTransform: 0
 --- !u!4 &1389995754 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7250445955226321967, guid: e7a58ef30a96fb845b50778e16448078,

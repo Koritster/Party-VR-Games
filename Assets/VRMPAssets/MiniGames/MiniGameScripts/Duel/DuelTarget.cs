@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using XRMultiplayer;
 using XRMultiplayer.MiniGames;
+using static UnityEditor.PlayerSettings;
 
 public class DuelTarget : MonoBehaviour
 {
@@ -9,15 +11,29 @@ public class DuelTarget : MonoBehaviour
 
     Action<DuelTarget> m_OnReturnToPool;
 
+    private ParticlesPool m_particlesPool;
 
     void OnEnable()
     {
         Debug.Log("Soy una Diana");
+        m_particlesPool = FindFirstObjectByType<ParticlesPool>();
     }
 
     public void OnHitRegister(int playerId)
     {
         DuelNetworked.instance.LocalPlayerHitServerRpc(playerId, 1);
+
+        GameObject newParticle = m_particlesPool.GetItem();
+
+        if (!newParticle.TryGetComponent(out ParticleSystem particle))
+        {
+            Utils.Log("Particle component not found on projectile object.", 1);
+            return;
+        }
+
+        particle.transform.localPosition = transform.position;
+        particle.Play();
+
         ResetDiana();
     }
 
@@ -40,6 +56,6 @@ public class DuelTarget : MonoBehaviour
     {
         StopAllCoroutines();
         m_OnReturnToPool?.Invoke(this);
-        gameObject.SetActive(false); // O el método que uses en tu Pooler
+        gameObject.SetActive(false);
     }
 }
