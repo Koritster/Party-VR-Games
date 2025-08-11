@@ -99,7 +99,7 @@ MonoBehaviour:
   m_TorsoParentTransform: {fileID: 904374736346871288}
   m_HeadVisualsRoot: {fileID: 4364941646565209804}
   m_Neck: {fileID: 9176651118613608786}
-  m_HeadHeightOffset: 0.3
+  m_HeadHeightOffset: 0.1
   m_RotateThreshold: 25
   m_RotateSpeed: 3
 --- !u!1 &9049848691735455406

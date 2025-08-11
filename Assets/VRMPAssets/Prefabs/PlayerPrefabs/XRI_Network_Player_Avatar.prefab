@@ -569,8 +569,8 @@ MonoBehaviour:
     hmdRend: {fileID: 7591937197932774138}
     hostRend: {fileID: 7910445519108651472}
     hands:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 5915267321722912462}
+    - {fileID: 147406205841549104}
     headMaterials:
     - {fileID: 2100000, guid: b66fbf4a113a0374180427db94587afb, type: 2}
     hmdMaterials:
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_TorsoParentTransform: {fileID: 2032567801494036586}
   m_HeadVisualsRoot: {fileID: 3182566023063397214}
   m_Neck: {fileID: 8062532055707135168}
-  m_HeadHeightOffset: 0.3
+  m_HeadHeightOffset: 0.1
   m_RotateThreshold: 25
   m_RotateSpeed: 3
 --- !u!114 &8435302620866516779
@@ -1243,6 +1243,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 923971003697584695}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &5915267321722912462 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6829105144586757369, guid: fd7060ff12d07ca49b9a59dcd37883f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 923971003697584695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1904579371906840978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1316,6 +1322,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc80be4bc1a936a4fad64ab6fc6acd8c, type: 3}
+--- !u!137 &147406205841549104 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1758055255738982050, guid: cc80be4bc1a936a4fad64ab6fc6acd8c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1904579371906840978}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1261370198551121026 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 859947123333690640, guid: cc80be4bc1a936a4fad64ab6fc6acd8c,
