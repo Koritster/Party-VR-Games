@@ -25061,8 +25061,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4657739220377588396, guid: fa0e7bde1c169bd4280f0d7781ed7d7e,
         type: 3}
+      propertyPath: m_Name
+      value: ElDeLasMedidas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657739220377588396, guid: fa0e7bde1c169bd4280f0d7781ed7d7e,
+        type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37695,7 +37700,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 067d2907236aa874bab2eded6bb83ecc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -44.3
+      value: -44.35
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 067d2907236aa874bab2eded6bb83ecc,
         type: 3}
@@ -37705,7 +37710,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 067d2907236aa874bab2eded6bb83ecc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 64
+      value: 64.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 067d2907236aa874bab2eded6bb83ecc,
         type: 3}
