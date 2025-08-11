@@ -34890,7 +34890,7 @@ PrefabInstance:
     - target: {fileID: 8815755300140433434, guid: 555a1e905c4669f4fb3ddd339da2d239,
         type: 3}
       propertyPath: m_LaunchSpeed
-      value: 4000
+      value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 8815755300140433434, guid: 555a1e905c4669f4fb3ddd339da2d239,
         type: 3}
@@ -36416,7 +36416,7 @@ PrefabInstance:
     - target: {fileID: 8815755300140433434, guid: 555a1e905c4669f4fb3ddd339da2d239,
         type: 3}
       propertyPath: m_LaunchSpeed
-      value: 4000
+      value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 8815755300140433434, guid: 555a1e905c4669f4fb3ddd339da2d239,
         type: 3}
