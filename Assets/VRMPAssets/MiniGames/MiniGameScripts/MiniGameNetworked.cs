@@ -42,7 +42,7 @@ public class MiniGameNetworked : NetworkBehaviour, INetworkMinigame
         new PlayerNetworkData("Jugador 1", 0), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     public NetworkVariable<PlayerNetworkData> player2Data = new NetworkVariable<PlayerNetworkData>(
-        new PlayerNetworkData("Jugador 1", 0), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+        new PlayerNetworkData("Jugador 2", 0), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     public virtual void Start()
     {

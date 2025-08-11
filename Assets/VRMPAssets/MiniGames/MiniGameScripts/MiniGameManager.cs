@@ -90,6 +90,11 @@ namespace XRMultiplayer.MiniGames
         IEnumerator m_StartGameRoutine;
         IEnumerator m_PostGameRoutine;
 
+        private void Awake()
+        {
+            localPlayer = FindFirstObjectByType<PlayerLocalInfo>();
+        }
+
         /// <inheritdoc/>
         void Start()
         {
@@ -97,8 +102,6 @@ namespace XRMultiplayer.MiniGames
             {
                 TryGetComponent(out currentMiniGame);
             }
-
-            localPlayer = FindFirstObjectByType<PlayerLocalInfo>();
 
             m_QueuedUpPlayers = new NetworkList<ulong>();
             m_CurrentPlayers = new NetworkList<ulong>();

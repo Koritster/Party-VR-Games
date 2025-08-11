@@ -8,7 +8,7 @@ namespace XRMultiplayer.MiniGames
     {
         MiniGameNetworked m_MinigameNetworked;
 
-        private void Awake()
+        public override void Start()
         {
             m_MinigameNetworked = GetComponent<MiniGameNetworked>();
         }

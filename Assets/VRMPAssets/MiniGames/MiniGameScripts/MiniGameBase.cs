@@ -1,3 +1,4 @@
+using Codice.Client.BaseCommands.Annotate;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -39,7 +40,7 @@ namespace XRMultiplayer.MiniGames
 
 
         protected string winnerName, score;
-
+        
         public virtual void Start()
         {
             TryGetComponent(out m_MiniGameManager);
