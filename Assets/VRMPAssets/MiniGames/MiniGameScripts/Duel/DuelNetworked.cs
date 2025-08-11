@@ -125,6 +125,16 @@ namespace XRMultiplayer.MiniGames
         [ServerRpc]
         private void SpawnDianaServerRpc()
         {
+            Vector3 pos = new Vector3(Random.Range(negativeLimit.position.x, positiveLimit.position.x), Random.Range(negativeLimit.position.y, positiveLimit.position.y), positiveLimit.position.z);
+            
+            Debug.Log(pos);
+
+            SpawnDianaClientRpc(pos);
+        }
+
+        [ClientRpc]
+        private void SpawnDianaClientRpc(Vector3 pos)
+        {
             GameObject newDiana = m_dianaPool.GetItem();
 
             if (!newDiana.TryGetComponent(out DuelTarget target))
@@ -133,13 +143,10 @@ namespace XRMultiplayer.MiniGames
                 return;
             }
 
-            Vector3 pos = new Vector3(Random.Range(negativeLimit.position.x, positiveLimit.position.x), Random.Range(negativeLimit.position.y, positiveLimit.position.y), positiveLimit.position.z);
-            Debug.Log(pos);
-
             target.transform.localPosition = pos;
             Debug.Log(newDiana.transform.localPosition);
 
-            target.Setup(OnProjectileDestroy);
+            target.Setup(OnTargetDestroy);
         }
 
         private void UpdateTimer(float oldValue, float newValue)
@@ -154,7 +161,7 @@ namespace XRMultiplayer.MiniGames
             manecilla.transform.localRotation = Quaternion.Euler(angle, -90f, -270f);
         }
 
-        void OnProjectileDestroy(DuelTarget target)
+        void OnTargetDestroy(DuelTarget target)
         {
             m_dianaPool.ReturnItem(target.gameObject);
         }
