@@ -42,7 +42,8 @@ namespace XRMultiplayer.MiniGames
         
         public virtual void Start()
         {
-            TryGetComponent(out m_MiniGameManager);
+            m_MiniGameManager = GetComponent<MiniGameManager>();
+            Debug.Log(m_MiniGameManager);
             m_InteractionManager = FindFirstObjectByType<XRInteractionManager>();
         }
 
