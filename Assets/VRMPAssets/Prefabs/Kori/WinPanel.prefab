@@ -435,7 +435,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &767011796897554326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,12 +790,12 @@ PrefabInstance:
     - target: {fileID: 1319572573466725714, guid: 7f962cb3c8318254a8a3ebf3de1e762d,
         type: 3}
       propertyPath: m_text
-      value: Restart
+      value: Infinite mode
       objectReference: {fileID: 0}
     - target: {fileID: 1319572573466725714, guid: 7f962cb3c8318254a8a3ebf3de1e762d,
         type: 3}
       propertyPath: m_fontSize
-      value: 20
+      value: 14.7
       objectReference: {fileID: 0}
     - target: {fileID: 1920112844983619698, guid: 7f962cb3c8318254a8a3ebf3de1e762d,
         type: 3}

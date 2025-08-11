@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 13
   multiply: 0
+  idPlayer: 0
 --- !u!1 &246858864354576178
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 10
   multiply: 1
+  idPlayer: 0
 --- !u!1 &732618946868045280
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,12 +195,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732618946868045280}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -1, y: -0, z: -0.0000014007092, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0020000073}
+  m_LocalScale: {x: 0.000020000003, y: 0.000020000005, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8880680786841951844}
+  m_Father: {fileID: 6810152630586769265}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -217,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39220546a5bee4468fb4b15276c763a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnPrefab: {fileID: 65025725310336488, guid: 7950fb266fd80f4469864514786ac783,
+  m_SpawnPrefab: {fileID: 1817352139375985603, guid: 469feb50eb0f5a747ab89d86afc6ff25,
     type: 3}
   m_UseCollectionChecks: 1
   m_DefaultCapacity: 10
@@ -292,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 13
   multiply: 3
+  idPlayer: 0
 --- !u!1 &920135701099823365
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 10
   multiply: 3
+  idPlayer: 0
 --- !u!1 &1021152220975582972
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,6 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &1128787632959622267
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 14
   multiply: 3
+  idPlayer: 0
 --- !u!1 &1211351156774983127
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 11
   multiply: 0
+  idPlayer: 0
 --- !u!1 &1241209140645548137
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 20
   multiply: 3
+  idPlayer: 0
 --- !u!1 &1305277515378027188
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,6 +714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 2
   multiply: 0
+  idPlayer: 0
 --- !u!1 &1378212468857285365
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,6 +784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 7
   multiply: 0
+  idPlayer: 0
 --- !u!1 &1380986254069755305
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,6 +854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 11
   multiply: 3
+  idPlayer: 0
 --- !u!1 &1426769420023255369
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 5
   multiply: 3
+  idPlayer: 0
 --- !u!1 &1446721527147965401
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,6 +994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 10
   multiply: 1
+  idPlayer: 0
 --- !u!1 &1507963702754149956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,6 +1064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 19
   multiply: 1
+  idPlayer: 0
 --- !u!1 &1742894664892380506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,6 +1134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &1808668978101348177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,6 +1204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 6
   multiply: 3
+  idPlayer: 0
 --- !u!1 &1888648451979807685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,6 +1274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &1912151769377358215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,6 +1344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &1912941034304362354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,6 +1414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 5
   multiply: 2
+  idPlayer: 0
 --- !u!1 &1997875621714410055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,6 +1484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &2034409323570558741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 20
   multiply: 2
+  idPlayer: 0
 --- !u!1 &2045686276949541236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,6 +1624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 2
   multiply: 2
+  idPlayer: 0
 --- !u!1 &2067110767056580138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,6 +1694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 16
   multiply: 0
+  idPlayer: 0
 --- !u!1 &2077720175210689460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 11
   multiply: 1
+  idPlayer: 0
 --- !u!1 &2211476254624547076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,6 +1834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 8
   multiply: 3
+  idPlayer: 0
 --- !u!1 &2371109208163966073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,6 +1904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 10
   multiply: 0
+  idPlayer: 0
 --- !u!1 &2372200006316880722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1947,7 +1973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 53302735
+  GlobalObjectIdHash: 1561130064
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -1970,6 +1996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &2530756125191324078
 GameObject:
   m_ObjectHideFlags: 0
@@ -2039,6 +2066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 9
   multiply: 0
+  idPlayer: 0
 --- !u!1 &2559083591376788719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,6 +2136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 14
   multiply: 0
+  idPlayer: 0
 --- !u!1 &2603428998732364449
 GameObject:
   m_ObjectHideFlags: 0
@@ -2177,6 +2206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &2646197583946509933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2246,6 +2276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 14
   multiply: 2
+  idPlayer: 0
 --- !u!1 &2818916581463144578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,6 +2346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 18
   multiply: 0
+  idPlayer: 0
 --- !u!1 &2825218117901259893
 GameObject:
   m_ObjectHideFlags: 0
@@ -2362,6 +2394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 3
   multiply: 3
+  idPlayer: 0
 --- !u!64 &1674423508658704301
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2453,6 +2486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 4
   multiply: 3
+  idPlayer: 0
 --- !u!1 &2902288277840549407
 GameObject:
   m_ObjectHideFlags: 0
@@ -2522,6 +2556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 14
   multiply: 1
+  idPlayer: 0
 --- !u!1 &2985665602626509489
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,6 +2626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 14
   multiply: 1
+  idPlayer: 0
 --- !u!1 &3045073307909212342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,6 +2696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 7
   multiply: 2
+  idPlayer: 0
 --- !u!1 &3137589931231568334
 GameObject:
   m_ObjectHideFlags: 0
@@ -2729,6 +2766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 5
   multiply: 0
+  idPlayer: 0
 --- !u!1 &3149810830086011864
 GameObject:
   m_ObjectHideFlags: 0
@@ -2798,6 +2836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 3
   multiply: 1
+  idPlayer: 0
 --- !u!1 &3217424283591335602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2867,6 +2906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 3
   multiply: 2
+  idPlayer: 0
 --- !u!1 &3230239787671173973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2936,6 +2976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 17
   multiply: 0
+  idPlayer: 0
 --- !u!1 &3276193834052170471
 GameObject:
   m_ObjectHideFlags: 0
@@ -3005,6 +3046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 12
   multiply: 0
+  idPlayer: 0
 --- !u!1 &3318212826336837201
 GameObject:
   m_ObjectHideFlags: 0
@@ -3074,6 +3116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 3
   multiply: 0
+  idPlayer: 0
 --- !u!1 &3437757730056892319
 GameObject:
   m_ObjectHideFlags: 0
@@ -3143,6 +3186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 9
   multiply: 1
+  idPlayer: 0
 --- !u!1 &3443493435256383611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3212,6 +3256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 7
   multiply: 3
+  idPlayer: 0
 --- !u!1 &3457867295539371558
 GameObject:
   m_ObjectHideFlags: 0
@@ -3281,6 +3326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 12
   multiply: 1
+  idPlayer: 0
 --- !u!1 &3505966861042434887
 GameObject:
   m_ObjectHideFlags: 0
@@ -3350,6 +3396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 19
   multiply: 3
+  idPlayer: 0
 --- !u!1 &3507500380601199673
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,6 +3466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 16
   multiply: 2
+  idPlayer: 0
 --- !u!1 &3672753042746898714
 GameObject:
   m_ObjectHideFlags: 0
@@ -3488,6 +3536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 15
   multiply: 3
+  idPlayer: 0
 --- !u!1 &3710940076790814686
 GameObject:
   m_ObjectHideFlags: 0
@@ -3557,6 +3606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &3925705613116732873
 GameObject:
   m_ObjectHideFlags: 0
@@ -3626,6 +3676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &3932895718034749246
 GameObject:
   m_ObjectHideFlags: 0
@@ -3695,6 +3746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &3991544460030347914
 GameObject:
   m_ObjectHideFlags: 0
@@ -3764,6 +3816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 4
   multiply: 2
+  idPlayer: 0
 --- !u!1 &4014106214611720140
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,6 +3886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &4119406333318223430
 GameObject:
   m_ObjectHideFlags: 0
@@ -3902,6 +3956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 16
   multiply: 1
+  idPlayer: 0
 --- !u!1 &4150931135064578321
 GameObject:
   m_ObjectHideFlags: 0
@@ -3971,6 +4026,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 8
   multiply: 2
+  idPlayer: 0
 --- !u!1 &4179767447440297255
 GameObject:
   m_ObjectHideFlags: 0
@@ -4040,6 +4096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 9
   multiply: 2
+  idPlayer: 0
 --- !u!1 &4265004854640353342
 GameObject:
   m_ObjectHideFlags: 0
@@ -4109,6 +4166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &4271485284421787958
 GameObject:
   m_ObjectHideFlags: 0
@@ -4178,6 +4236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 1
   multiply: 0
+  idPlayer: 0
 --- !u!1 &4277237848540409581
 GameObject:
   m_ObjectHideFlags: 0
@@ -4247,6 +4306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 19
   multiply: 2
+  idPlayer: 0
 --- !u!1 &4330754351194811954
 GameObject:
   m_ObjectHideFlags: 0
@@ -4316,6 +4376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 18
   multiply: 3
+  idPlayer: 0
 --- !u!1 &4481562300554052963
 GameObject:
   m_ObjectHideFlags: 0
@@ -4385,6 +4446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 5
   multiply: 1
+  idPlayer: 0
 --- !u!1 &4504533140384089837
 GameObject:
   m_ObjectHideFlags: 0
@@ -4454,6 +4516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 20
   multiply: 1
+  idPlayer: 0
 --- !u!1 &4546767640868279022
 GameObject:
   m_ObjectHideFlags: 0
@@ -4523,6 +4586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 17
   multiply: 1
+  idPlayer: 0
 --- !u!1 &4620798974629740723
 GameObject:
   m_ObjectHideFlags: 0
@@ -4592,6 +4656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &4743567651313362910
 GameObject:
   m_ObjectHideFlags: 0
@@ -4661,6 +4726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 15
   multiply: 2
+  idPlayer: 0
 --- !u!1 &4762890643930292678
 GameObject:
   m_ObjectHideFlags: 0
@@ -4730,6 +4796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 6
   multiply: 2
+  idPlayer: 0
 --- !u!1 &4834023644576471185
 GameObject:
   m_ObjectHideFlags: 0
@@ -4799,6 +4866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 2
   multiply: 3
+  idPlayer: 0
 --- !u!1 &4850075427775600089
 GameObject:
   m_ObjectHideFlags: 0
@@ -4868,6 +4936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 13
   multiply: 2
+  idPlayer: 0
 --- !u!1 &5004100654152698034
 GameObject:
   m_ObjectHideFlags: 0
@@ -4937,6 +5006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 18
   multiply: 2
+  idPlayer: 0
 --- !u!1 &5030162086272750878
 GameObject:
   m_ObjectHideFlags: 0
@@ -5006,6 +5076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 4
   multiply: 1
+  idPlayer: 0
 --- !u!1 &5321026637729866718
 GameObject:
   m_ObjectHideFlags: 0
@@ -5075,6 +5146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 6
   multiply: 0
+  idPlayer: 0
 --- !u!1 &5352516661145883856
 GameObject:
   m_ObjectHideFlags: 0
@@ -5144,6 +5216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 1
   multiply: 2
+  idPlayer: 0
 --- !u!1 &5370155619531204767
 GameObject:
   m_ObjectHideFlags: 0
@@ -5213,6 +5286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 19
   multiply: 0
+  idPlayer: 0
 --- !u!1 &5398899755334221509
 GameObject:
   m_ObjectHideFlags: 0
@@ -5282,6 +5356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 18
   multiply: 1
+  idPlayer: 0
 --- !u!1 &5720461278049621107
 GameObject:
   m_ObjectHideFlags: 0
@@ -5351,6 +5426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 13
   multiply: 1
+  idPlayer: 0
 --- !u!1 &5880788522764670372
 GameObject:
   m_ObjectHideFlags: 0
@@ -5420,6 +5496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 11
   multiply: 1
+  idPlayer: 0
 --- !u!1 &5902308101369739034
 GameObject:
   m_ObjectHideFlags: 0
@@ -5489,6 +5566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 13
   multiply: 1
+  idPlayer: 0
 --- !u!1 &5953185411955881459
 GameObject:
   m_ObjectHideFlags: 0
@@ -5558,6 +5636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &5963436264072736245
 GameObject:
   m_ObjectHideFlags: 0
@@ -5627,6 +5706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 7
   multiply: 1
+  idPlayer: 0
 --- !u!1 &5965655999646093012
 GameObject:
   m_ObjectHideFlags: 0
@@ -5696,6 +5776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 12
   multiply: 2
+  idPlayer: 0
 --- !u!1 &6042551919594438136
 GameObject:
   m_ObjectHideFlags: 0
@@ -5765,6 +5846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &6139985417678541998
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,6 +5916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 20
   multiply: 0
+  idPlayer: 0
 --- !u!1 &6187939739260612040
 GameObject:
   m_ObjectHideFlags: 0
@@ -5903,6 +5986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 19
   multiply: 1
+  idPlayer: 0
 --- !u!1 &6373854654875295942
 GameObject:
   m_ObjectHideFlags: 0
@@ -5972,6 +6056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &6378329097346124983
 GameObject:
   m_ObjectHideFlags: 0
@@ -6041,6 +6126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 1
   multiply: 3
+  idPlayer: 0
 --- !u!1 &6428368332291601081
 GameObject:
   m_ObjectHideFlags: 0
@@ -6110,6 +6196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 16
   multiply: 3
+  idPlayer: 0
 --- !u!1 &6511293659352153058
 GameObject:
   m_ObjectHideFlags: 0
@@ -6179,6 +6266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 4
   multiply: 0
+  idPlayer: 0
 --- !u!1 &6572542631998084541
 GameObject:
   m_ObjectHideFlags: 0
@@ -6248,108 +6336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 2
   multiply: 1
---- !u!1 &6686749799822317918
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8880680786841951844}
-  - component: {fileID: 1402264421650365206}
-  - component: {fileID: 5922799488769547293}
-  - component: {fileID: 1040700734155063006}
-  m_Layer: 0
-  m_Name: Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &8880680786841951844
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6686749799822317918}
-  m_LocalRotation: {x: -1, y: -0, z: -0.0000014007092, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0020000073}
-  m_LocalScale: {x: 0.000020000003, y: 0.000020000005, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8593241321023760715}
-  m_Father: {fileID: 6810152630586769265}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 180}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 1000}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!223 &1402264421650365206
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6686749799822317918}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &5922799488769547293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6686749799822317918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
---- !u!114 &1040700734155063006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6686749799822317918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  idPlayer: 0
 --- !u!1 &6865893969270777321
 GameObject:
   m_ObjectHideFlags: 0
@@ -6419,6 +6406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 8
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7070548040677980157
 GameObject:
   m_ObjectHideFlags: 0
@@ -6488,6 +6476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 2
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7173577722488605427
 GameObject:
   m_ObjectHideFlags: 0
@@ -6557,6 +6546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 16
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7282066945314964326
 GameObject:
   m_ObjectHideFlags: 0
@@ -6626,6 +6616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 3
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7290856750661396976
 GameObject:
   m_ObjectHideFlags: 0
@@ -6847,6 +6838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 5
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7472520042501826149
 GameObject:
   m_ObjectHideFlags: 0
@@ -6916,6 +6908,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 8
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7600181887792718237
 GameObject:
   m_ObjectHideFlags: 0
@@ -6985,6 +6978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 17
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7669349513052943481
 GameObject:
   m_ObjectHideFlags: 0
@@ -7054,6 +7048,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7676995655795704341
 GameObject:
   m_ObjectHideFlags: 0
@@ -7123,6 +7118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7804486494484389262
 GameObject:
   m_ObjectHideFlags: 0
@@ -7192,6 +7188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 12
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7816144070624457032
 GameObject:
   m_ObjectHideFlags: 0
@@ -7261,6 +7258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 20
   multiply: 1
+  idPlayer: 0
 --- !u!1 &7873999751321396598
 GameObject:
   m_ObjectHideFlags: 0
@@ -7330,6 +7328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 11
   multiply: 2
+  idPlayer: 0
 --- !u!1 &7959712172740164556
 GameObject:
   m_ObjectHideFlags: 0
@@ -7399,6 +7398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 6
   multiply: 1
+  idPlayer: 0
 --- !u!1 &8377022856341933687
 GameObject:
   m_ObjectHideFlags: 0
@@ -7468,6 +7468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 15
   multiply: 0
+  idPlayer: 0
 --- !u!1 &8458773748831454146
 GameObject:
   m_ObjectHideFlags: 0
@@ -7537,6 +7538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 1
   multiply: 1
+  idPlayer: 0
 --- !u!1 &8494091618737487404
 GameObject:
   m_ObjectHideFlags: 0
@@ -7606,6 +7608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 17
   multiply: 2
+  idPlayer: 0
 --- !u!1 &8503315458826235011
 GameObject:
   m_ObjectHideFlags: 0
@@ -7675,6 +7678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 4
   multiply: 1
+  idPlayer: 0
 --- !u!1 &8527904141773786509
 GameObject:
   m_ObjectHideFlags: 0
@@ -7744,6 +7748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 1
   multiply: 1
+  idPlayer: 0
 --- !u!1 &8590161072882932208
 GameObject:
   m_ObjectHideFlags: 0
@@ -7813,6 +7818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &8610936702109688422
 GameObject:
   m_ObjectHideFlags: 0
@@ -7882,6 +7888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 15
   multiply: 1
+  idPlayer: 0
 --- !u!1 &8623908991577344403
 GameObject:
   m_ObjectHideFlags: 0
@@ -7951,6 +7958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 25
   multiply: 1
+  idPlayer: 0
 --- !u!1 &8642011962777437502
 GameObject:
   m_ObjectHideFlags: 0
@@ -8020,6 +8028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 17
   multiply: 3
+  idPlayer: 0
 --- !u!1 &8663520342663091799
 GameObject:
   m_ObjectHideFlags: 0
@@ -8089,6 +8098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 8
   multiply: 0
+  idPlayer: 0
 --- !u!1 &8676267269897983512
 GameObject:
   m_ObjectHideFlags: 0
@@ -8158,6 +8168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 10
   multiply: 2
+  idPlayer: 0
 --- !u!1 &8823941130307028642
 GameObject:
   m_ObjectHideFlags: 0
@@ -8227,6 +8238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 7
   multiply: 1
+  idPlayer: 0
 --- !u!1 &8852720676819029630
 GameObject:
   m_ObjectHideFlags: 0
@@ -8296,6 +8308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 6
   multiply: 1
+  idPlayer: 0
 --- !u!1 &8958592096904619843
 GameObject:
   m_ObjectHideFlags: 0
@@ -8365,6 +8378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 18
   multiply: 1
+  idPlayer: 0
 --- !u!1 &8982679960866846969
 GameObject:
   m_ObjectHideFlags: 0
@@ -8434,6 +8448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 15
   multiply: 1
+  idPlayer: 0
 --- !u!1 &9076896225985433470
 GameObject:
   m_ObjectHideFlags: 0
@@ -8503,6 +8518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 50
   multiply: 1
+  idPlayer: 0
 --- !u!1 &9088202561177783097
 GameObject:
   m_ObjectHideFlags: 0
@@ -8572,6 +8588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 12
   multiply: 3
+  idPlayer: 0
 --- !u!1 &9169515374905369825
 GameObject:
   m_ObjectHideFlags: 0
@@ -8641,6 +8658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 9
   multiply: 1
+  idPlayer: 0
 --- !u!1 &9198584485452337089
 GameObject:
   m_ObjectHideFlags: 0
@@ -8710,6 +8728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePoints: 9
   multiply: 3
+  idPlayer: 0
 --- !u!1001 &6415444469401622682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8786,7 +8805,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 376e0c2716d725e499d65d3a15635f1e,
         type: 3}
       propertyPath: m_Name
-      value: Diana
+      value: Diana_W_Hitbox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8802,7 +8821,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 376e0c2716d725e499d65d3a15635f1e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8880680786841951844}
+      addedObject: {fileID: 8593241321023760715}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 376e0c2716d725e499d65d3a15635f1e, type: 3}
 --- !u!4 &6810152630586769265 stripped

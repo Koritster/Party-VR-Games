@@ -658,7 +658,10 @@ namespace XRMultiplayer.MiniGames
         private void ResetGameClientRpc()
         {
             Debug.Log("Reiniciando minijuego...");
-            networkedGameState.Value = GameState.PreGame;
+            if (IsServer)
+            {
+                networkedGameState.Value = GameState.PreGame;
+            }
             SetPreGameState();
             AddAllPlayers();
         }

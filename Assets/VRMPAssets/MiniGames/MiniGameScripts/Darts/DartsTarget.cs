@@ -29,18 +29,34 @@ public class DartsTarget : NetworkBehaviour
     {
         int points = basePoints * multiply;
         dartsNetworked.LocalPlayerHitServerRpc(idPlayer, points);
-
-        newTxt = dartTxtPool.GetItem();
         
-        if(!newTxt.transform.GetChild(0).TryGetComponent(out TextMeshProUGUI text))
+        SpawnDianaServerRpc(points);
+    }
+
+    [ServerRpc]
+    private void SpawnDianaServerRpc(int pts)
+    {
+        Vector3 pos = transform.position;
+
+        SpawnDianaClientRpc(pos, pts);
+    }
+
+    [ClientRpc]
+    private void SpawnDianaClientRpc(Vector3 pos, int pts)
+    {
+        newTxt = dartTxtPool.GetItem();
+
+        TextMeshProUGUI text = newTxt.GetComponentInChildren<TextMeshProUGUI>();
+
+        if (text == null)
         {
             Utils.Log("No se encontró el texto en el objeto.", 1);
             return;
         }
 
-        text.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+        text.transform.SetPositionAndRotation(pos, Quaternion.identity);
         text.transform.localScale = Vector3.one;
-        text.text = $"+{points}";
+        text.text = $"+{pts}";
 
         Invoke(nameof(ReturnPoolTxt), 2f);
 

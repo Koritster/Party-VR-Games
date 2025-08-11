@@ -10,7 +10,6 @@ public class DuelProjectileController : MonoBehaviour
     {
         DuelTarget target = other.GetComponent<DuelTarget>();
 
-        Debug.Log(other.name);
         Debug.Log(target);
 
         if(target != null)
